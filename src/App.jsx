@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <h1>This is the second commit of Anushka..</h1>
+      
     </>
   )
 }
