@@ -14,7 +14,7 @@ import {
 function CustomerProfilePage() {
   return (
     <Container maxWidth="xl">
-      <Box sx={{ bgcolor: "#003d2b", height: "98vh", display: "flex" }}>
+      <Box sx={{ bgcolor: "#003d2b", height: "50rem", display: "flex" }}>
         <Grid container>
           <Grid item md={4}>
             <Avatar
@@ -50,8 +50,8 @@ function CustomerProfilePage() {
           <Grid item md={8}>
             <Box
               sx={{
-                margin: "10% 5% 10% 5%",
-                height: "36rem",
+                margin: "16%",
+                height: "29rem",
                 border: "solid",
                 borderColor: "#b9f7c6",
                 borderWidth: "4px",
@@ -65,7 +65,7 @@ function CustomerProfilePage() {
                 columnSpacing={3}
                 marginTop={2}
                 marginBottom={3}
-                marginLeft={3}
+                marginLeft={1}
                 marginRight={3}
                 border={"solid"}
                 borderColor={"#003d2b"}
@@ -73,7 +73,7 @@ function CustomerProfilePage() {
                 height={"95%"}
                 width={"95%"}
               >
-                <Grid item md="4">
+                <Grid item md="4" justifyContent={"space-evenly"}>
                   <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
                     <CardContent>
                       <Avatar
