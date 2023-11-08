@@ -14,7 +14,7 @@ import {
 function CustomerProfilePage() {
   return (
     <Container maxWidth="xl">
-      <Box sx={{ bgcolor: "#003d2b", height: "50rem", display: "flex" }}>
+      <Box sx={{ bgcolor: "#003d2b", height: "100%", display: "flex" }}>
         <Grid container>
           <Grid item md={4}>
             <Avatar
@@ -51,7 +51,7 @@ function CustomerProfilePage() {
             <Box
               sx={{
                 margin: "16%",
-                height: "29rem",
+                height: "27rem",
                 border: "solid",
                 borderColor: "#b9f7c6",
                 borderWidth: "4px",
@@ -73,15 +73,22 @@ function CustomerProfilePage() {
                 height={"95%"}
                 width={"95%"}
               >
-                <Grid item md="4" justifyContent={"space-evenly"}>
-                  <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
+                <Grid item md="4" boxShadow={1}>
+                  <Card
+                    sx={{
+                      bgcolor: "#b9f7c6",
+                      width: "auto",
+                      marginRight: "13%",
+                      marginTop: "5%",
+                    }}
+                  >
                     <CardContent>
                       <Avatar
                         sx={{
                           bgcolor: "#003d2b",
-                          width: "50px",
-                          height: "50px",
-                          marginLeft: "39%",
+                          width: "51px",
+                          height: "51px",
+                          marginLeft: "30%",
                           marginTop: "10%",
                         }}
                       >
@@ -101,15 +108,22 @@ function CustomerProfilePage() {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item md="4">
-                  <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
+                <Grid item md="4" boxShadow={1}>
+                  <Card
+                    sx={{
+                      bgcolor: "#b9f7c6",
+                      width: "auto",
+                      marginRight: "13%",
+                      marginTop: "5%",
+                    }}
+                  >
                     <CardContent>
                       <Avatar
                         sx={{
                           bgcolor: "#003d2b",
-                          width: "50px",
-                          height: "50px",
-                          marginLeft: "39%",
+                          width: "51px",
+                          height: "51px",
+                          marginLeft: "30%",
                           marginTop: "10%",
                         }}
                       >
@@ -129,15 +143,22 @@ function CustomerProfilePage() {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item md="4">
-                  <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
+                <Grid item md="4" boxShadow={1}>
+                  <Card
+                    sx={{
+                      bgcolor: "#b9f7c6",
+                      width: "auto",
+                      marginRight: "13%",
+                      marginTop: "5%",
+                    }}
+                  >
                     <CardContent>
                       <Avatar
                         sx={{
                           bgcolor: "#003d2b",
-                          width: "50px",
-                          height: "50px",
-                          marginLeft: "39%",
+                          width: "51px",
+                          height: "51px",
+                          marginLeft: "30%",
                           marginTop: "10%",
                         }}
                       >
@@ -157,15 +178,22 @@ function CustomerProfilePage() {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item md="4">
-                  <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
+                <Grid item md="4" boxShadow={1}>
+                  <Card
+                    sx={{
+                      bgcolor: "#b9f7c6",
+                      width: "auto",
+                      marginRight: "13%",
+                      marginTop: "5%",
+                    }}
+                  >
                     <CardContent>
                       <Avatar
                         sx={{
                           bgcolor: "#003d2b",
-                          width: "50px",
-                          height: "50px",
-                          marginLeft: "39%",
+                          width: "51px",
+                          height: "51px",
+                          marginLeft: "30%",
                           marginTop: "10%",
                         }}
                       >
@@ -185,15 +213,22 @@ function CustomerProfilePage() {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item md="4">
-                  <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
+                <Grid item md="4" boxShadow={1}>
+                  <Card
+                    sx={{
+                      bgcolor: "#b9f7c6",
+                      width: "auto",
+                      marginRight: "13%",
+                      marginTop: "5%",
+                    }}
+                  >
                     <CardContent>
                       <Avatar
                         sx={{
                           bgcolor: "#003d2b",
-                          width: "50px",
-                          height: "50px",
-                          marginLeft: "39%",
+                          width: "51px",
+                          height: "51px",
+                          marginLeft: "30%",
                           marginTop: "10%",
                         }}
                       >
@@ -213,15 +248,22 @@ function CustomerProfilePage() {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item md="4">
-                  <Card sx={{ bgcolor: "#b9f7c6", width: "auto" }}>
+                <Grid item md="4" boxShadow={1}>
+                  <Card
+                    sx={{
+                      bgcolor: "#b9f7c6",
+                      width: "auto",
+                      marginRight: "13%",
+                      marginTop: "5%",
+                    }}
+                  >
                     <CardContent>
                       <Avatar
                         sx={{
                           bgcolor: "#003d2b",
-                          width: "50px",
-                          height: "50px",
-                          marginLeft: "39%",
+                          width: "51px",
+                          height: "51px",
+                          marginLeft: "30%",
                           marginTop: "10%",
                         }}
                       >
