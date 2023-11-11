@@ -5,15 +5,15 @@ import { useState } from "react";
 //import viteLogo from "/vite.svg";
 import "./App.css";
 //import RiderMap from "./Components/RiderMap";
-import Header from "./Components/Header"
-import Profile from "./Pages/Profile"
+import Rider_Header from "./Components/Rider_Header"
+import Rider_Profile from "./Pages/Rider_Profile"
 
 
 
 function App() {
   return (
     <>
-
+        
     </>
 
   );

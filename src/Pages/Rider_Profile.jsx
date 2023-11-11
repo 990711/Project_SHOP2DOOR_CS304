@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Rider_Account from '../Components/Rider_Account';
-import Functions from '../Components/Functions';
+import Rider_Functions from '../Components/Rider_Functions';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
@@ -59,7 +59,7 @@ export default function Profile() {
         <Item>
           <div style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height:'60vh',
           width:'120vh', border: '2px solid #b9f7c6',marginTop:80}}>
-          <Functions/>
+          <Rider_Functions/>
           </div>
           
         </Item>

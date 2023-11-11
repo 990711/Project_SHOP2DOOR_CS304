@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import HistoryTwoToneIcon from '@mui/icons-material/HistoryTwoTone';
 import ListTwoToneIcon from '@mui/icons-material/ListTwoTone';
 import PaymentsIcon from '@mui/icons-material/Payments';
-import Orders from './Orders';
-import History from './History';
-import Payments from './Payments';
+import Rider_Orders from './Rider_Orders';
+import Rider_History from './Rider_History';
+import Rider_Payments from './Rider_Payments';
 import KeyboardBackspaceTwoToneIcon from '@mui/icons-material/KeyboardBackspaceTwoTone';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -57,7 +57,7 @@ export default function Profile() {
     <div>
       {showOrders && (
         <div>
-          <Orders/>
+          <Rider_Orders/>
           <Button variant="text" startIcon={<KeyboardBackspaceTwoToneIcon />} sx={{ color: '#b9f7c6' }} onClick={goBack}>
             Back
           </Button>
@@ -67,7 +67,7 @@ export default function Profile() {
 
       {showHistory && (
         <div>
-          <History/>
+          <Rider_History/>
         
           <Button variant="text" startIcon={<KeyboardBackspaceTwoToneIcon />} sx={{ color: '#b9f7c6' }} onClick={goBack}>
             Back
@@ -77,7 +77,7 @@ export default function Profile() {
 
       {showPayments && (
         <div>
-        <Payments/>
+        <Rider_Payments/>
         <Button variant="text" startIcon={<KeyboardBackspaceTwoToneIcon />} sx={{ color: '#b9f7c6' }} onClick={goBack}>
             Back
           </Button>
