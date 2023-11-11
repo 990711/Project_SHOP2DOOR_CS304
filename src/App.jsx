@@ -3,8 +3,8 @@ import { useState } from "react";
 //import viteLogo from "/vite.svg";
 import "./App.css";
 //import RiderMap from "./Components/RiderMap";
-import Header from "./Components/Header"
-import Profile from "./Pages/Profile"
+import Rider_Header from "./Components/Rider_Header"
+import Rider_Profile from "./Pages/Rider_Profile"
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,8 +12,8 @@ function App() {
   return (
     <>
       <div className="App" >
-      <Header/>
-      <Profile/>
+      <Rider_Header/>
+      <Rider_Profile/>
       
     </div>
     </>
