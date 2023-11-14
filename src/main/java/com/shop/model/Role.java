@@ -2,8 +2,8 @@ package com.shop.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+//import jakarta.persistence.GeneratedValue;
+//import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 public class Role {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int rider_id;
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int role_id;
 	
 	@Column(name="role_name")
 	private String role_name;
@@ -28,12 +28,14 @@ public class Role {
 		this.role_name = name;
 	}
 
-	public int getRider_id() {
-		return rider_id;
+	
+
+	public int getRole_id() {
+		return role_id;
 	}
 
-	public void setRider_id(int rider_id) {
-		this.rider_id = rider_id;
+	public void setRole_id(int role_id) {
+		this.role_id = role_id;
 	}
 
 	public String getRole_name() {
