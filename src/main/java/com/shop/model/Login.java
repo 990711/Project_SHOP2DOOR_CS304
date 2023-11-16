@@ -1,11 +1,13 @@
 package com.shop.model;
 
-import jakarta.persistence.CascadeType;
+//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+//import jakarta.persistence.JoinColumn;
+//import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,6 +16,7 @@ import jakarta.persistence.Table;
 public class Login {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int user_id;
 	
 	@Column(name="username")
@@ -22,20 +25,6 @@ public class Login {
 	@Column(name="password")
 	private String password;
 	
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="fk_role_id")
-	private Role role;
-	
-	
-	
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 	public Login() {
 		
