@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Account from '../Components/Account';
-import Functions from '../Components/Functions';
+import Rider_Account from '../Components/Rider_Account';
+import Rider_Functions from '../Components/Rider_Functions';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
@@ -50,7 +50,7 @@ export default function Profile() {
     <Grid item xs={6} md={4}>
         <Item >
           <div style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height:'80vh'}}>
-          <Account/>
+          <Rider_Account/>
           </div>
          
         </Item>
@@ -59,7 +59,7 @@ export default function Profile() {
         <Item>
           <div style={{display: 'flex',alignItems: 'center',justifyContent: 'center',height:'60vh',
           width:'120vh', border: '2px solid #b9f7c6',marginTop:80}}>
-          <Functions/>
+          <Rider_Functions/>
           </div>
           
         </Item>
