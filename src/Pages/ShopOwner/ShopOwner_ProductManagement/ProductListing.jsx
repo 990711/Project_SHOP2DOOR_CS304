@@ -1,4 +1,9 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
+
+//import ShopOwner_ProductService from './src/Services/ShopOwner/ShopOwner_ProductService';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,25 +12,31 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const createData = (name, filePath, description, price, quantity, discountPrice, discountPercentage) => ({
-  name,
-  filePath,
-  description,
-  price,
-  quantity,
-  discountPrice,
-  discountPercentage,
-});
+const ProductListing = () => {
 
-const rows = [
-  createData('Product 1', '/images/product1.jpg', 'Description 1', 25.0, 10, 20.0, 15.0),
-  createData('Product 2', '/images/product2.jpg', 'Description 2', 30.0, 15, 25.0, 10.0),
-  createData('Product 3', '/images/product3.jpg', 'Description 3', 20.0, 8, 18.0, 12.0),
-  // Add more rows as needed
-];
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+ 
+  useEffect(() => {
+    ShopOwner_ProductService.getProducts().then((res) => {
+       setProducts(res.data);
+     });
+  }, []);
+  
+  const deleteProduct = (id) => {
+    ShopOwner_ProductService.deleteProduct(id).then((res) => {
+       setProducts(products.filter((product) => product.id !== id));
+     });
+  };
+ 
+  /*
+  const CreateProduct = () => {
+     navigate('/main-layout/create-product');
+  };
+  */
 
-const ProductListing = () => (
-  <TableContainer component={Paper}>
+  return(
+    <TableContainer component={Paper}>
     <Table aria-label="simple table">
       <TableHead>
         <TableRow>
@@ -39,20 +50,24 @@ const ProductListing = () => (
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row) => (
-          <TableRow key={row.name}>
-            <TableCell>{row.name}</TableCell>
-            <TableCell>{row.filePath}</TableCell>
-            <TableCell>{row.description}</TableCell>
-            <TableCell>{row.price}</TableCell>
-            <TableCell>{row.quantity}</TableCell>
-            <TableCell>{row.discountPrice}</TableCell>
-            <TableCell>{row.discountPercentage}</TableCell>
+        {products.map((product) => (
+          <TableRow key={product.id}>
+            <TableCell>{product.name}</TableCell>
+            <TableCell>{product.filePath}</TableCell>
+            <TableCell>{product.description}</TableCell>
+            <TableCell>{product.price}</TableCell>
+            <TableCell>{product.quantity}</TableCell>
+            <TableCell>{product.discountPrice}</TableCell>
+            <TableCell>{product.discountPercentage}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
   </TableContainer>
-);
+  );
+
+
+  
+}
 
 export default ProductListing;
