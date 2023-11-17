@@ -3,6 +3,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import axios from './api/axios';
 //import Login from './Login';
+import { useNavigate } from "react-router-dom";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -10,6 +11,8 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const [role, setRole] = useState("Customer"); // Default role is set to "Customer"
 
@@ -74,7 +77,28 @@ const Register = () => {
             setUser('');
             setPwd('');
             setMatchPwd('');
+
+            
+            switch (role) {
+                case "Customer":
+                    history.push("/customerRegister");
+                    break;
+                case "Shop Owner":
+                    history.push("/shopOwnerRegister");
+                    break;
+                case "Supplier":
+                    history.push("/supplierRegister");
+                    break;
+                case "Delivery Rider":
+                    history.push("/deliveryRiderRegister");
+                    break;
+                default:
+                    break;
+            }
+            
+
         } catch (err) {
+            
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
@@ -82,6 +106,7 @@ const Register = () => {
             } else {
                 setErrMsg('Registration Failed')
             }
+            
             errRef.current.focus();
         }
     }
