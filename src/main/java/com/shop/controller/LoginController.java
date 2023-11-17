@@ -7,12 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shop.exception.ResourceNotFound;
 import com.shop.model.Login;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.LoginService;
@@ -32,17 +35,26 @@ public class LoginController {
 
 	// Get Riders
 	@GetMapping("/LoginDetails")
-	public List<Login> getAllRiders() {
+	public List<Login> getUsers() {
 		return loginRepo.findAll();
 	}
 
 	// Add Rider
 	@PostMapping("/LoginDetails")
-	public ResponseEntity<Login> addRider(@Valid @RequestBody Login user) {
+	public ResponseEntity<Login> addUser(@Valid @RequestBody Login user) {
 
 		Login savedLogin = service.createLogin(user);
 		return new ResponseEntity<Login>(savedLogin, HttpStatus.CREATED);
 	}
 	
+	
+	@DeleteMapping("/LoginDetails/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable int id){
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("Rider does not exist with id "+id));
+		login.setDeleted(true);
+		loginRepo.save(login);
+		String msg = "User successfully deleted!";
+		return ResponseEntity.ok(msg);
+	}
 
 }
