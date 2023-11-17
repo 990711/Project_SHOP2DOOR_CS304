@@ -30,12 +30,12 @@ public class Login {
 	@Size(min = 8, message = "password must be greater than 8 charactors!")
 	@Column(name = "password")
 	private String password;
-<<<<<<< HEAD
-=======
+
+
 
 	@NotBlank(message = "must be select!")
 	private String Role;
->>>>>>> 1e9623fb4c8bcc167387d2b99387d8c89161ca19
+
 
 	public Login() {
 
