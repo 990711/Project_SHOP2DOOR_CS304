@@ -43,5 +43,6 @@ public class LoginController {
 		Login savedLogin = service.createLogin(user);
 		return new ResponseEntity<Login>(savedLogin, HttpStatus.CREATED);
 	}
+	
 
 }

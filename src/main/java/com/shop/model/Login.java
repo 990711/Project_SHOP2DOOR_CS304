@@ -35,6 +35,17 @@ public class Login {
 
 	@NotBlank(message = "must be select!")
 	private String Role;
+	
+	@Column(name = "active")
+	private boolean active = true;
+	
+	@Column(name = "blocked")
+	private boolean blocked = false;
+	
+	@Column(name = "deleted")
+	private boolean deleted = false;
+	
+	
 
 
 	public Login() {
@@ -72,5 +83,31 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 
 }
