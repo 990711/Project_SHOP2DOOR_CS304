@@ -9,25 +9,40 @@ import jakarta.persistence.Id;
 //import jakarta.persistence.JoinColumn;
 //import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="Login")
+@Table(name = "Login")
 
 public class Login {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
-	
-	@Column(name="username")
+
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "username")
 	private String username;
-	
-	@Column(name="password")
+
+	@NotBlank(message = "this column must be filled!")
+	@Size(min = 8, message = "password must be greater than 8 charactors!")
+	@Column(name = "password")
 	private String password;
-	
+
+	@NotBlank(message = "must be select!")
+	private String Role;
 
 	public Login() {
-		
+
+	}
+
+	public String getRole() {
+		return Role;
+	}
+
+	public void setRole(String role) {
+		Role = role;
 	}
 
 	public int getUser_id() {
@@ -53,8 +68,5 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
-	
+
 }
