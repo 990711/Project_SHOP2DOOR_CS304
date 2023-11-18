@@ -12,7 +12,7 @@ public class ShopOwnerService {
 	@Autowired
 	private ShopOwnerRepo repo;
 
-	public ShopOwner createCustomer(ShopOwner newShopOwner) {
+	public ShopOwner createShopOwner(ShopOwner newShopOwner) {
 		return repo.save(newShopOwner);
 	}
 	
