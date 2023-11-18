@@ -212,6 +212,7 @@ const Register = () => {
                             id="role"
                             onChange={handleRoleChange}
                             value={role}
+                            required
                             
                         >
                             <option value="Customer">Customer</option>

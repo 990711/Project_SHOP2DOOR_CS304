@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8080/api/v1/users";
+const USER_LOGIN_API_BASE_URL = "http://localhost:8080/api/v1/userlogin";
 
 class loginService{
     getUsers(){
@@ -13,16 +14,10 @@ class loginService{
         return axios.post(USER_API_BASE_URL, user);
     }
     
-
-    /*
-    createUser(user) {
-        return axios.post(USER_API_BASE_URL, user, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+    createUserLogin(user){
+        return axios.post(USER_LOGIN_API_BASE_URL, user);
     }
-    */
+
 
     getUserById(userId){
         return axios.get(USER_API_BASE_URL +'/' + userId);

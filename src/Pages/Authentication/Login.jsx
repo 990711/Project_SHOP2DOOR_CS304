@@ -1,10 +1,9 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "../context/AuthProvider";
-//import Register from './Register';
+import loginService from "../../Services/loginService";
 
 
 //import axios from './api/axios';
-const LOGIN_URL = '/auth';
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -28,26 +27,24 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            // Make an API call to create a user using loginService
+            const response = await loginService.createUserLogin({
+                username: user,
+                password: pwd,
+            });
+
+            console.log(response?.data);
+            console.log(response?.accessToken);
+            console.log(JSON.stringify(response));
+
+            
             setUser('');
             setPwd('');
             setSuccess(true);
+
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
