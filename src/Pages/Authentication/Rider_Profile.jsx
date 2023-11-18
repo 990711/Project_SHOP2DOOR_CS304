@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Rider_Account from '../Components/Rider_Account';
-import Rider_Functions from '../Components/Rider_Functions';
+import Rider_Account from '../../Components/Rider_Account';
+import Rider_Functions from '../../Components/Rider_Functions';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 

@@ -2,13 +2,13 @@ import "./App.css";
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import ProductListing from './Pages/ShopOwner/ShopOwner_ProductManagement/ProductListing';
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
-import Register from './Pages/Register';
-import Login from './Pages/Login';
+import Register from './Pages/Authentication/Register';
+import Login from './Pages/Authentication/Login';
 
-import Customer_Register from './Pages/Customer_Register';
-import ShopOwner_Register from './Pages/ShopOwner_Register';
-import Supplier_Register from './Pages/Supplier_Register';
-import DeliveryRider_Register from './Pages/DeliveryRider_Register';
+import Customer_Register from './Pages/Authentication/Customer_Register';
+import ShopOwner_Register from './Pages/Authentication/ShopOwner_Register';
+import Supplier_Register from './Pages/Authentication/Supplier_Register';
+import DeliveryRider_Register from './Pages/Authentication/DeliveryRider_Register';
 
 
 function App() {

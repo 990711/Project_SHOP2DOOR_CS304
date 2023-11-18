@@ -1,14 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import axios from './api/axios';
 //import Login from './Login';
 import { useNavigate } from "react-router-dom";
+import loginService from "../../Services/loginService";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register';
 
 const Register = () => {
 
@@ -61,40 +60,44 @@ const Register = () => {
             return;
         }
         try {
-            const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+            // Make an API call to create a user using loginService
+            const response = await loginService.createUser({
+                username: user,
+                password: pwd,
+                role: role,
+            });
+    
+            // Log the response data and access token
             console.log(response?.data);
             console.log(response?.accessToken);
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response));
+            
+    
+            // Set success state and clear input fields
             setSuccess(true);
-            //clear state and controlled inputs
-            //need value attrib on inputs for this
             setUser('');
             setPwd('');
             setMatchPwd('');
-
-            
+    
+            /*
+            // Redirect based on user role
             switch (role) {
                 case "Customer":
-                    history.push("/customerRegister");
+                    navigate("/customerRegister");
                     break;
                 case "Shop Owner":
-                    history.push("/shopOwnerRegister");
+                    navigate("/shopOwnerRegister");
                     break;
                 case "Supplier":
-                    history.push("/supplierRegister");
+                    navigate("/supplierRegister");
                     break;
                 case "Delivery Rider":
-                    history.push("/deliveryRiderRegister");
+                    navigate("/deliveryRiderRegister");
                     break;
                 default:
                     break;
             }
+            */
             
 
         } catch (err) {
@@ -122,7 +125,7 @@ const Register = () => {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="#">Sign In</a>
+                        <a href="/login">Sign In</a>
                     </p>
                 </section>
             ) : (
@@ -211,10 +214,10 @@ const Register = () => {
                             value={role}
                             
                         >
-                            <option value="user">Customer</option>
-                            <option value="admin">Shop Owner</option>
-                            <option value="user">Supplier</option>
-                            <option value="user">Delivery Rider</option>
+                            <option value="Customer">Customer</option>
+                            <option value="Shop Owner">Shop Owner</option>
+                            <option value="Supplier">Supplier</option>
+                            <option value="Delivery Rider">Delivery Rider</option>
                             
                         </select>
 
