@@ -9,28 +9,26 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Shop Owner")
-public class ShopOwner {
+@Table(name = "Customer")
+public class FoodSupplier {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
 	
 	@NotBlank(message = "this column must be filled!")
-	@Column(name = "shop name")
-	private String shop_name;
+	@Column(name = "name")
+	private String name;
 	
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "contact")
 	private String contact;
 	
-	@Column(name = "branch")
-	private String branch;
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "address")
+	private String address;
 	
 	@NotBlank(message = "this column must be filled!")
-	@Column(name = "location")
-	private String location;
-	
 	@Column(name = "e-mail")
 	private String email;
 
@@ -42,12 +40,12 @@ public class ShopOwner {
 		this.user_id = user_id;
 	}
 
-	public String getShop_name() {
-		return shop_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setShop_name(String shop_name) {
-		this.shop_name = shop_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getContact() {
@@ -58,20 +56,12 @@ public class ShopOwner {
 		this.contact = contact;
 	}
 
-	public String getBranch() {
-		return branch;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setBranch(String branch) {
-		this.branch = branch;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getEmail() {
