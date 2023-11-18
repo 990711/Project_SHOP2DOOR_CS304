@@ -1,21 +1,16 @@
 package com.shop.model;
 
-//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.ManyToOne;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Login")
-
 public class Login {
 
 	@Id
@@ -45,7 +40,6 @@ public class Login {
 	@Column(name = "deleted")
 	private boolean deleted = false;
 	
-	
 
 
 	public Login() {
@@ -59,7 +53,7 @@ public class Login {
 	public void setRole(String role) {
 		Role = role;
 	}
-
+	
 	public int getUser_id() {
 		return user_id;
 	}
