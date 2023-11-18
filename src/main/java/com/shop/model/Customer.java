@@ -2,16 +2,19 @@ package com.shop.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "Login")
+@Table(name = "Customer")
 public class Customer {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
 	
 	@NotBlank(message = "this column must be filled!")
@@ -29,14 +32,6 @@ public class Customer {
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "address")
 	private String address;
-
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
 
 	public String getName() {
 		return name;

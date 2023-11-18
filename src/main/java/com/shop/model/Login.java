@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,7 +14,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "Login")
 public class Login {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
@@ -40,8 +42,6 @@ public class Login {
 	@Column(name = "deleted")
 	private boolean deleted = false;
 	
-
-
 	public Login() {
 
 	}
@@ -52,14 +52,6 @@ public class Login {
 
 	public void setRole(String role) {
 		Role = role;
-	}
-	
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
 	}
 
 	public String getUsername() {
@@ -101,6 +93,8 @@ public class Login {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+	
+	
 	
 	
 
