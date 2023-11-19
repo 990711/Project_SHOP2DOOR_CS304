@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "FoodSupplier")
-public class FoodSupplier {
+public class FoodSupplier extends Login{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,23 @@ public class FoodSupplier {
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "e-mail")
 	private String email;
+	
+	
+
+	public FoodSupplier() {
+		
+	}
+
+	public FoodSupplier(@NotBlank(message = "this column must be filled!") String name,
+			@NotBlank(message = "this column must be filled!") String contact,
+			@NotBlank(message = "this column must be filled!") String address,
+			@NotBlank(message = "this column must be filled!") String email) {
+		super();
+		this.name = name;
+		this.contact = contact;
+		this.address = address;
+		this.email = email;
+	}
 
 	public int getUser_id() {
 		return user_id;

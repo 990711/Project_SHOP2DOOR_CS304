@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "DeliveryRider")
-public class DeliveryRider {
+public class DeliveryRider extends Login{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,28 @@ public class DeliveryRider {
 	@Column(name = "contact")
 	private String contact;
 	
+	
+	
+	public DeliveryRider() {
+		
+	}
+
+	public DeliveryRider(@NotBlank(message = "this column must be filled!") String name,
+			@NotBlank(message = "this column must be filled!") @Size(max = 10, message = "Phone no must be 10 characters") String contact,
+			String email, @NotBlank(message = "this column must be filled!") String area_of_pref,
+			@NotBlank(message = "this column must be filled!") String license,
+			@NotBlank(message = "this column must be filled!") String vehicle_type,
+			@NotBlank(message = "this column must be filled!") String vehicle_no) {
+		super();
+		this.name = name;
+		this.contact = contact;
+		this.email = email;
+		this.area_of_pref = area_of_pref;
+		this.license = license;
+		this.vehicle_type = vehicle_type;
+		this.vehicle_no = vehicle_no;
+	}
+
 	public int getUser_id() {
 		return user_id;
 	}
