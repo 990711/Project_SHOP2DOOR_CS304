@@ -14,6 +14,8 @@ const Home = () => {
     }
 
     return (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+
         <section>
             <h1>Home</h1>
             <br />
@@ -34,6 +36,7 @@ const Home = () => {
                 <button onClick={logout}>Sign Out</button>
             </div>
         </section>
+        </div>
     )
 }
 

@@ -79,7 +79,7 @@ const Register = () => {
             setPwd('');
             setMatchPwd('');
     
-            /*
+            
             // Redirect based on user role
             switch (role) {
                 case "Customer":
@@ -94,10 +94,13 @@ const Register = () => {
                 case "Delivery Rider":
                     navigate("/deliveryRiderRegister");
                     break;
+                case "Restaurant Owner":
+                    navigate("/restaurantRegister");
+                    break;
                 default:
                     break;
             }
-            */
+            
             
 
         } catch (err) {
@@ -219,6 +222,7 @@ const Register = () => {
                             <option value="Shop Owner">Shop Owner</option>
                             <option value="Supplier">Supplier</option>
                             <option value="Delivery Rider">Delivery Rider</option>
+                            <option value="Restaurant Owner">Restaurant Owner</option>
                             
                         </select>
 

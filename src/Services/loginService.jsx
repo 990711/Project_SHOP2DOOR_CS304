@@ -24,6 +24,11 @@ class loginService{
 
     }
 
+    getUserByUserName(username){
+        return axios.get(USER_API_BASE_URL +'/' + username);
+
+    }
+
     updateUser(user){
         return axios.put(USER_API_BASE_URL +'/' + user.id, user);
 
