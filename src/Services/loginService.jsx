@@ -9,10 +9,17 @@ class loginService{
 
     }
 
+    getUserRole(){
+        return axios.get(USER_API_BASE_URL);
+
+    }
+
     
     createUser(user){
         return axios.post(USER_API_BASE_URL, user);
     }
+
+    
     
     createUserLogin(user){
         return axios.post(USER_LOGIN_API_BASE_URL, user);
@@ -23,6 +30,7 @@ class loginService{
         return axios.get(USER_API_BASE_URL +'/' + userId);
 
     }
+    
 
     getUserByUserName(username){
         return axios.get(USER_API_BASE_URL +'/' + username);

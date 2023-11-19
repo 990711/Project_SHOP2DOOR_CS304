@@ -1,11 +1,10 @@
 import { useNavigate, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import React, { useEffect, useState } from 'react';
-import loginService from "../../services/loginService";
-
+import loginService from "../../Services/loginService";
 import { ROLES } from './constants';
 
-const RequireAuth = ({ allowedRoles , children}) => {
+const RequireAuth = ({ allowedRole , children}) => {
     const { auth, setAuth } = useAuth();
     const navigate = useNavigate();
 
@@ -13,21 +12,23 @@ const RequireAuth = ({ allowedRoles , children}) => {
 
     useEffect(() => {
         // Fetch user roles from the database or wherever you store them
-        const fetchRoles = async () => {
-          try {
-            const response = await loginService.getUserRoles(); // Adjust this function based on your authentication service
-            const roles = response?.data?.roles || [];
-            setAuth({ ...auth, roles });
-          } catch (error) {
-            // Handle error (e.g., token expired, network error)
-            console.error('Error fetching user roles:', error);
-          } finally {
-            setLoading(false);
-          }
-        };
+    const fetchRole = async () => {
+      try {
+        const response = await loginService.getUserRole();
+        const newRole = response?.data?.role || [];
+
+        setAuth(prevAuth => ({ ...prevAuth, role: newRole }));
+      } catch (error) {
+        // Handle error (e.g., token expired, network error)
+        console.error('Error fetching user roles:', error);
+      } finally {
+        setLoading(false);
+      }
+      };
+
     
-        if (!auth || !auth.roles) {
-          fetchRoles();
+        if (!auth || !auth.role) {
+          fetchRole();
         } else {
           setLoading(false);
         }
@@ -39,7 +40,7 @@ const RequireAuth = ({ allowedRoles , children}) => {
       }
     
       // Check if the user is authenticated and has the required roles
-      const isAuthorized = auth && auth.roles.some(role => allowedRoles.includes(role));
+      const isAuthorized = auth && auth.role.some(role => allowedRole.includes(role));
     
       if (!isAuthorized) {
         // Redirect to the login page if not authenticated or authorized
