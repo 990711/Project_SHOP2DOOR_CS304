@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,5 +57,42 @@ public class LoginController {
 		String msg = "User successfully deleted!";
 		return ResponseEntity.ok(msg);
 	}
+	
+	@PostMapping("/Login")
+    public ResponseEntity<String> handleLogin(@RequestBody Login login) {
+        // Extract username and password from the request
+        String username = login.getUsername();
+        String password = login.getPassword();
+        String role = login.getRole();
+
+        // Check if the user exists
+        
+        Optional<Login> existingUser = loginRepo.findByUsername(username);
+        
+        if (existingUser.isPresent()) {
+        	if(existingUser.get().getPassword().equals(password))
+        	{
+        		if(existingUser.get().getRole().equals(role))
+        		{
+        			return ResponseEntity.ok("Login successful!");
+        		}
+        		else {
+                    // Authentication failed
+                    // Return a ResponseEntity indicating failure
+                    return ResponseEntity.status(401).body("Role mismatch");
+                }
+        	}else {
+                // Authentication failed
+                // Return a ResponseEntity indicating failure
+                return ResponseEntity.status(401).body("Password mismatch");
+            }
+        }
+        else {
+            // Authentication failed
+            // Return a ResponseEntity indicating failure
+            return ResponseEntity.status(401).body("User not found");
+        }
+	
+    }
 
 }
