@@ -1,23 +1,27 @@
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import Login from './Login';
 import { useNavigate } from "react-router-dom";
-import loginService from "../../Services/loginService";
+import loginService from "../../../Services/loginService";
+
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
 
-const ShopOwner_Register = () => {
+const Customer_Register = () => {
+
     const phoneRef = useRef();
     const errRef = useRef();
 
-    const [shopName, setShopName] = useState('');
-    const [contact, setContact] = useState('');
-    const [branch, setBranch] = useState('');
-    const [location, setLocation] = useState('');
+    const [name, setName] = useState('');
+
     const [email, setEmail] = useState('');
 
+    const [phone, setPhone] = useState('');
     const [validPhone, setValidPhone] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
+
+    const [address, setAddress] = useState('');
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
@@ -27,56 +31,64 @@ const ShopOwner_Register = () => {
     }, [])
 
     useEffect(() => {
-        setValidPhone(PHONE_REGEX.test(contact));
-    }, [contact])
+        setValidPhone(PHONE_REGEX.test(phone));
+    }, [phone])
+
 
     useEffect(() => {
         setErrMsg('');
-    }, [shopName, contact, branch, location, email])
+    }, [name, email, phone, address])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
-        const validContact = PHONE_REGEX.test(contact);
-        if (!validContact) {
+        const v1 = PHONE_REGEX.test(phone);
+        if (!v1) {
             setErrMsg("Invalid Entry");
             return;
         }
         try {
-            // Make an API call to create a shop owner using loginService
-            const response = await loginService.createShopOwner({
-                shopName,
-                contact,
-                branch,
-                location,
-                email,
+            // Make an API call to create a user using loginService
+            const response = await loginService.createCustomer({
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
             });
-
+    
             // Log the response data and access token
             console.log(response?.data);
             console.log(response?.accessToken);
             console.log(JSON.stringify(response));
-
+            
+    
             // Set success state and clear input fields
             setSuccess(true);
-            setShopName('');
-            setContact('');
-            setBranch('');
-            setLocation('');
+            setName('');
             setEmail('');
+            setPhone('');
+            setAddress('');
+    
+            
+          
+            
+            
 
         } catch (err) {
+            
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Contact number Taken');
+                setErrMsg('Phone number Taken');
             } else {
-                setErrMsg('Registration Failed');
+                setErrMsg('Registration Failed')
             }
-
+            
             errRef.current.focus();
         }
     }
+
+    
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
@@ -90,67 +102,77 @@ const ShopOwner_Register = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Shop Owner Register</h1>
+                    <h1>Customer Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="shopName">Shop Name:</label>
+                        <label htmlFor="name">
+                            Name:
+                        </label>
                         <input
                             type="text"
-                            id="shopName"
+                            id="name"
                             autoComplete="off"
-                            onChange={(e) => setShopName(e.target.value)}
-                            value={shopName}
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}aria-describedby="namenote"
                             required
+                            
+                        />
+                        
+
+                        <label htmlFor="email">
+                            Email:
+                            
+                        </label>
+                        <input
+                            type="text"
+                            id="email"
+                           // ref={emailRef}
+                            autoComplete="off"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}required
                         />
 
-                        <label htmlFor="contact">Contact:</label>
+                   
+
+
+                        <label htmlFor="phone">
+                            Phone:
+                            <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
+                        </label>
                         <input
                             type="text"
-                            id="contact"
-                            onChange={(e) => setContact(e.target.value)}
-                            value={contact}
+                            id="phone"
+                            onChange={(e) => setPhone(e.target.value)}
+                            value={phone}
+                            
                             ref={phoneRef}
                             required
-                            aria-invalid={!validPhone}
-                            aria-describedby="contactnote"
+                            aria-invalid={validPhone ? "false" : "true"}
+                            aria-describedby="phonenote"
                             onFocus={() => setPhoneFocus(true)}
                             onBlur={() => setPhoneFocus(false)}
                         />
-                        <p id="contactnote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
+                        <p id="phonenote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Start with 0.<br />
                             Must include 10 numbers.<br />
                         </p>
 
-                        <label htmlFor="branch">Branch:</label>
+
+                        <label htmlFor="address">
+                            Address:
+                        </label>
                         <input
                             type="text"
-                            id="branch"
-                            autoComplete="off"
-                            onChange={(e) => setBranch(e.target.value)}
-                            value={branch}
+                            id="address"
+                            onChange={(e) => setAddress(e.target.value)}
+                            value={address}
                             required
                         />
+                        
 
-                        <label htmlFor="location">Location:</label>
-                        <input
-                            type="text"
-                            id="location"
-                            autoComplete="off"
-                            onChange={(e) => setLocation(e.target.value)}
-                            value={location}
-                            required
-                        />
-
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="text"
-                            id="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            required
-                        />
-
-                        <button disabled={!validPhone ? true : false}>Sign Up</button>
+                        
+                        <button disabled={!validPhone? true : false}>Sign Up</button>
                     </form>
                     <p>
                         Already registered?<br />
@@ -164,4 +186,6 @@ const ShopOwner_Register = () => {
     )
 }
 
-export default ShopOwner_Register;
+export default Customer_Register
+
+

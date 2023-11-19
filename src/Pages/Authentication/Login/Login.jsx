@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from "../context/AuthProvider";
-import loginService from "../../Services/loginService";
-import useAuth from '../hooks/useAuth';
+import AuthContext from "../../context/AuthProvider";
+import loginService from "../../../Services/loginService";
+import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 

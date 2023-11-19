@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import loginService from "../../Services/loginService";
+import loginService from "../../../Services/loginService";
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
 

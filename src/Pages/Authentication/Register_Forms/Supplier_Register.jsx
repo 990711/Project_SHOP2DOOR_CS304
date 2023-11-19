@@ -3,7 +3,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import Login from './Login';
 import { useNavigate } from "react-router-dom";
-import loginService from "../../Services/loginService";
+import loginService from "../../../Services/loginService";
 
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
@@ -49,7 +49,7 @@ const Supplier_Register = () => {
         }
         try {
             // Make an API call to create a user using loginService
-            const response = await loginService.createUser({
+            const response = await loginService.createSupplier({
                 name: name,
                 email: email,
                 phone: phone,

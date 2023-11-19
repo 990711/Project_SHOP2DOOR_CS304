@@ -2,13 +2,13 @@ import "./App.css";
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import ProductListing from './Pages/ShopOwner/ShopOwner_ProductManagement/ProductListing';
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
-import Register from './Pages/Authentication/Register';
-import Login from './Pages/Authentication/Login';
+import Register from './Pages/Authentication/Register_Forms/Register';
+import Login from './Pages/Authentication/Login/Login';
 
-import Customer_Register from './Pages/Authentication/Customer_Register';
-import ShopOwner_Register from './Pages/Authentication/ShopOwner_Register';
-import Supplier_Register from './Pages/Authentication/Supplier_Register';
-import DeliveryRider_Register from './Pages/Authentication/DeliveryRider_Register';
+import Customer_Register from './Pages/Authentication/Register_Forms/Customer_Register';
+import ShopOwner_Register from './Pages/Authentication/Register_Forms/ShopOwner_Register';
+import Supplier_Register from './Pages/Authentication/Register_Forms/Supplier_Register';
+import DeliveryRider_Register from './Pages/Authentication/Register_Forms/DeliveryRider_Register';
 import Home from './Pages/Authentication/Home';
 import Customer from './Pages/Authentication/Customer';
 import DeliveryRider from './Pages/Authentication/DeliveryRider';
@@ -16,7 +16,7 @@ import Layout from './Pages/Authentication/Layout';
 import Lounge from './Pages/Authentication/Lounge';
 import ShopOwner from './Pages/Authentication/ShopOwner';
 import Supplier from './Pages/Authentication/Supplier';
-import Restaurant_Register from './Pages/Authentication/Restaurant_Register';
+import Restaurant_Register from './Pages/Authentication/Register_Forms/Restaurant_Register';
 
 import LinkPage from './Pages/Authentication/LinkPage';
 import Missing from './Pages/Authentication/Missing';
