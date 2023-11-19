@@ -11,11 +11,11 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Customer")
-public class Customer {
+public class Customer extends Login{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int user_id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int user_id;
 	
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "name")
@@ -32,6 +32,24 @@ public class Customer {
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "address")
 	private String address;
+	
+	public Customer() {
+		
+	}
+	
+	
+
+	public Customer(@NotBlank(message = "this column must be filled!") String name, String email,
+			@NotBlank(message = "this column must be filled!") @Size(max = 10, message = "Phone no must be 10 characters") String phone,
+			@NotBlank(message = "this column must be filled!") String address) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+	}
+
+
 
 	public String getName() {
 		return name;

@@ -5,14 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Login")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Login {
 	
 	@Id
@@ -45,6 +46,22 @@ public class Login {
 	public Login() {
 
 	}
+	
+	
+
+	public Login(@NotBlank(message = "this column must be filled!") String username,
+			@NotBlank(message = "this column must be filled!") @Size(min = 8, message = "password must be greater than 8 charactors!") String password,
+			@NotBlank(message = "must be select!") String role, boolean active, boolean blocked, boolean deleted) {
+		super();
+		this.username = username;
+		this.password = password;
+		Role = role;
+		this.active = active;
+		this.blocked = blocked;
+		this.deleted = deleted;
+	}
+
+
 
 	public String getRole() {
 		return Role;
