@@ -50,14 +50,19 @@ const Login = () => {
             console.log(useAuth);
             console.log(typeof setAuth);
 
+            const userData = { user, pwd, role };
 
-            setAuth({ user, pwd, role });
+            // Invoke setAuth with the new user data
+            //setAuth(userData); // The error seems to be here
+
+
+            //setAuth({ user, pwd, role });
 
             // Example user data
-      const userData = { user: 'bhashini', pwd: '!@#123QWEqwe', role: 'Customer' };
+     // const userData = { user: 'bhashini', pwd: '!@#123QWEqwe', role: 'Customer' };
 
       // Invoke setAuth with the new user data
-      //setAuth(userData);
+     // setAuth(userData);
 
             setUser('');
             setPwd('');

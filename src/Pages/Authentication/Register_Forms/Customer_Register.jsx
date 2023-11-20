@@ -7,15 +7,20 @@ import loginService from "../../../Services/loginService";
 
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Customer_Register = () => {
 
     const phoneRef = useRef();
+    const emailRef = useRef();
+
     const errRef = useRef();
 
     const [name, setName] = useState('');
 
     const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
 
     const [phone, setPhone] = useState('');
     const [validPhone, setValidPhone] = useState(false);
@@ -26,6 +31,9 @@ const Customer_Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+
+
+
     useEffect(() => {
         phoneRef.current.focus();
     }, [])
@@ -33,6 +41,14 @@ const Customer_Register = () => {
     useEffect(() => {
         setValidPhone(PHONE_REGEX.test(phone));
     }, [phone])
+
+    useEffect(() => {
+        emailRef.current.focus();
+    }, [])
+
+    useEffect(() => {
+        setValidEmail(EMAIL_REGEX.test(email));
+    }, [email])
 
 
     useEffect(() => {
@@ -43,7 +59,8 @@ const Customer_Register = () => {
         e.preventDefault();
         // if button enabled with JS hack
         const v1 = PHONE_REGEX.test(phone);
-        if (!v1) {
+        const v2 = EMAIL_REGEX.test(email);
+        if (!v1 || !v2) {
             setErrMsg("Invalid Entry");
             return;
         }
@@ -121,15 +138,34 @@ const Customer_Register = () => {
                         <label htmlFor="email">
                             Email:
                             
+                            <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
+                            
+                            
                         </label>
+                      
                         <input
                             type="text"
                             id="email"
-                           // ref={emailRef}
+                            ref={emailRef}
                             autoComplete="off"
                             onChange={(e) => setEmail(e.target.value)}
-                            value={email}required
+                            value={email}
+                            
+                            required
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="emailnote"
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                            
                         />
+                        <p id="emailnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Enter valid email.
+                        </p>
+                           
+                        
+                       
 
                    
 

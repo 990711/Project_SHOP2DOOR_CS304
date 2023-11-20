@@ -5,15 +5,20 @@ import { useNavigate } from "react-router-dom";
 import loginService from "../../../Services/loginService";
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Restaurant_Register = () => {
     const phoneRef = useRef();
     const errRef = useRef();
+    const emailRef = useRef();
 
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
-    const [contact, setContact] = useState('');
+    const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
+
 
     const [validPhone, setValidPhone] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
@@ -26,28 +31,38 @@ const Restaurant_Register = () => {
     }, [])
 
     useEffect(() => {
-        setValidPhone(PHONE_REGEX.test(contact));
-    }, [contact])
+        setValidPhone(PHONE_REGEX.test(phone));
+    }, [phone])
+
+    useEffect(() => {
+        emailRef.current.focus();
+    }, [])
+
+    useEffect(() => {
+        setValidEmail(EMAIL_REGEX.test(email));
+    }, [email])
 
     useEffect(() => {
         setErrMsg('');
-    }, [name, location, contact, email])
+    }, [name, location, phone, email])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
-        const validContact = PHONE_REGEX.test(contact);
-        if (!validContact) {
+        const v1 = PHONE_REGEX.test(phone);
+        const v2 = EMAIL_REGEX.test(email);
+        if (!v1 || !v2) {
             setErrMsg("Invalid Entry");
             return;
         }
         try {
             // Make an API call to create a restaurant using loginService
             const response = await loginService.createRestaurant({
-                name,
-                location,
-                contact,
-                email,
+                
+                name: name,
+                email: email,
+                phone: phone,
+                location: location,
             });
 
             // Log the response data and access token
@@ -59,7 +74,7 @@ const Restaurant_Register = () => {
             setSuccess(true);
             setName('');
             setLocation('');
-            setContact('');
+            setPhone('');
             setEmail('');
 
         } catch (err) {
@@ -109,33 +124,58 @@ const Restaurant_Register = () => {
                             required
                         />
 
-                        <label htmlFor="contact">Contact:</label>
+                        <label htmlFor="phone">
+                            Phone:
+                            <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
+                        </label>
                         <input
                             type="text"
-                            id="contact"
-                            onChange={(e) => setContact(e.target.value)}
-                            value={contact}
+                            id="phone"
+                            onChange={(e) => setPhone(e.target.value)}
+                            value={phone}
+                            
                             ref={phoneRef}
                             required
-                            aria-invalid={!validPhone}
-                            aria-describedby="contactnote"
+                            aria-invalid={validPhone ? "false" : "true"}
+                            aria-describedby="phonenote"
                             onFocus={() => setPhoneFocus(true)}
                             onBlur={() => setPhoneFocus(false)}
                         />
-                        <p id="contactnote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
+                        <p id="phonenote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Start with 0.<br />
                             Must include 10 numbers.<br />
                         </p>
 
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="email">
+                            Email:
+                            
+                            <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
+                            
+                            
+                        </label>
+                      
                         <input
                             type="text"
                             id="email"
+                            ref={emailRef}
+                            autoComplete="off"
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
+                            
                             required
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="emailnote"
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                            
                         />
+                        <p id="emailnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Enter valid email.
+                        </p>
 
                         <button disabled={!validPhone ? true : false}>Sign Up</button>
                     </form>
