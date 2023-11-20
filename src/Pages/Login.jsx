@@ -1,10 +1,13 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./context/AuthProvider";
 //import Register from './Register';
+import bgImg from '../assets/Grocery Delivery Final.png';
+
 
 
 //import axios from './api/axios';
 const LOGIN_URL = '/auth';
+
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -58,8 +61,9 @@ const Login = () => {
     }
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-            {success ? (
+           <div className="register">
+           <div className="col-1">
+           {success ? (
                 <section>
                     <h1>You are logged in!</h1>
                     <br />
@@ -70,16 +74,18 @@ const Login = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Sign In</h1>
+                    <h1 className="center">Sign In</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="username" color = 'black'>Username:</label>
                         <input
                             type="text"
                             id="username"
+                            placeholder='username'
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setUser(e.target.value)}
                             value={user}
+                             
                             required
                         />
 
@@ -87,21 +93,26 @@ const Login = () => {
                         <input
                             type="password"
                             id="password"
+                            placeholder='password'
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
                             required
                         />
-                        <button>Sign In</button>
+                        <button className = 'sign_in_btn'>Sign In</button>
                     </form>
                     <p>
-                        Need an Account?<br />
-                        <span className="line">
-                            {/*put router link here*/}
-                            <a href="/register">Sign Up</a>
-                        </span>
-                    </p>
+                <span className="signup-text">Need an Account?</span><br />
+                <span className="line">
+        {/*put router link here*/}
+                 <a href="/register" className="signup-link">Sign Up</a>
+                </span>
+</p>
                 </section>
             )}
+           </div>
+           <div className="col-2">
+                <img src={bgImg} alt="" />
+            </div>
         </div>
     )
 }
