@@ -94,5 +94,28 @@ public class LoginController {
         }
 	
     }
+	
+	
+	// Create user rest api
+    @PostMapping("/checkUsername")
+    public ResponseEntity<Login> createuser(@RequestBody Login login) {
+        // Check for duplicate usernames
+    	Optional<Login> existingUser = loginRepo.findByUsername(login.getUsername());
+
+    	if (existingUser.isPresent()) {
+    	    // Username is taken, return 409 Conflict
+    	    return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    	}
+    	else {
+    	    // Save the new user
+    	    Login savedUser = loginRepo.save(login);
+
+    	    // Return 201 Created with the saved user
+    	    return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    	}
+        
+    }
+    
+    
 
 }
