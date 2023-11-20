@@ -1,20 +1,9 @@
-import React from "react";
-import CustomerProfilePage from "./pages/CustomerProfilePage";
 import "./App.css";
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import ProductListing from './Pages/ShopOwner/ShopOwner_ProductManagement/ProductListing';
-<<<<<<< HEAD
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
-=======
-import { useState } from "react";
-//import reactLogo from "./assets/react.svg";
-//import viteLogo from "/vite.svg";
-//import RiderMap from "./Components/RiderMap";
-import Rider_Header from "./Components/Rider_Header"
-import Rider_Profile from "./Pages/Rider_Profile"
->>>>>>> 892b49535e4db6b5c9c60ad6ddee3f67e80fdda2
 
 import Customer_Register from './Pages/Customer_Register';
 import ShopOwner_Register from './Pages/ShopOwner_Register';

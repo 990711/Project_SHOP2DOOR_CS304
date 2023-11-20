@@ -77,6 +77,7 @@ const Login = () => {
                     <h1 className="center">Sign In</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username" color = 'black'>Username:</label>
+                        <br />
                         <input
                             type="text"
                             id="username"
@@ -88,8 +89,10 @@ const Login = () => {
                              
                             required
                         />
-
+<br />
+<br />
                         <label htmlFor="password">Password:</label>
+                        <br />
                         <input
                             type="password"
                             id="password"
@@ -98,6 +101,7 @@ const Login = () => {
                             value={pwd}
                             required
                         />
+                        <br />
                         <button className = 'sign_in_btn'>Sign In</button>
                     </form>
                     <p>
