@@ -39,7 +39,11 @@
     transform: rotate(360deg);
   }
 }
-
+.col-1,
+.col-2 {
+  width: 50%; /* Equal width for both columns */
+  text-align: left; /* Center the content in each column */
+}
 #form{
   max-width: 320px;
   width: 100vw;
@@ -72,10 +76,17 @@ label {
 
 
 .register{
+  display: flex;
+  gap: 0px; /* Adjust this value to create space between the columns */
+  padding: 20px; /* Add padding to the box */
+  border: 1px solid #ccc; /* Add border for better visualization */
+  justify-content: center;
+  align-items: center;
+  gap: 20px; 
   max-width: 978px;
   width: 100vw;
   display:flex;
-  border: 1px solid #234362;
+
   border-radius: 5px;
   /* box-shadow: 1px 3px 10px #e9ecef; */
   background-color: white;
@@ -96,10 +107,20 @@ label {
   flex-direction: column;
 }
 
-
+.already-registered {
+  color: blue; /* Change the color to your desired one */
+}
+.centered-box {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust this height if needed */
+}
 .register .col-2 img{
-  width: 480px;
-  height: 100%;
+
+  max-width: 100%;
+  height: auto;
   object-fit: cover;
   align-self: flex-end;
   border-top-right-radius: 5px;
