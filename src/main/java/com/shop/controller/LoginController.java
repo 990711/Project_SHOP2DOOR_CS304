@@ -37,7 +37,7 @@ public class LoginController {
 	// Get Riders
 	@GetMapping("/LoginDetails")
 	public List<Login> getAllRiders() {
-		smsservice.sendSMS("+94705076940", "this is the message");
+		smsservice.sendSMS("+94714064457", "this is the message");
 		return loginRepo.findAll();
 	}
 
