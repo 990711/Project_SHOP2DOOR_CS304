@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.model.Login;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.LoginService;
+import com.shop.service.SmsService;
 
 import jakarta.validation.Valid;
 
@@ -29,10 +30,14 @@ public class LoginController {
 
 	@Autowired
 	private LoginService service;
+	
+	@Autowired
+	private SmsService smsservice;
 
 	// Get Riders
 	@GetMapping("/LoginDetails")
 	public List<Login> getAllRiders() {
+		smsservice.sendSMS("+94705076940", "this is the message");
 		return loginRepo.findAll();
 	}
 
