@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/v2/")
+@RequestMapping("/api/v1/")
 public class LoginController {
 
 	@Autowired

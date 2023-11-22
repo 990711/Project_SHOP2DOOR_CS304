@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/v5/")
+@RequestMapping("/api/v1/")
 public class FoodSupplierController {
 
 	@Autowired
