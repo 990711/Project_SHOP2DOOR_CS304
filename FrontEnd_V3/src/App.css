@@ -1,0 +1,135 @@
+
+
+.App {
+  text-align: center;
+   background-color: #003d2b;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.col-1,
+.col-2 {
+  width: 50%; /* Equal width for both columns */
+  text-align: left; /* Center the content in each column */
+}
+#form{
+  max-width: 320px;
+  width: 100vw;
+  margin: 2em auto;
+}
+.sign_in_btn {
+  background-color: #276f39; /* Change the background color */
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Add padding to the button */
+  font-size: 18px; /* Adjust font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Show pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+/* Change button color on hover */
+.sign_in_btn:hover {
+  background-color: #205a2a;
+}
+
+label {
+  color: black; /* Change the color of labels */
+}
+
+.center {
+  text-align: center;
+  color: black;
+}
+
+
+.register{
+  display: flex;
+  gap: 0px; /* Adjust this value to create space between the columns */
+  padding: 20px; /* Add padding to the box */
+  border: 1px solid #ccc; /* Add border for better visualization */
+  justify-content: center;
+  align-items: center;
+  gap: 20px; 
+  max-width: 978px;
+  width: 100vw;
+  display:flex;
+
+  border-radius: 5px;
+  /* box-shadow: 1px 3px 10px #e9ecef; */
+  background-color: white;
+}
+
+.register .col-1{
+  align-items: center;
+  margin: auto;
+  padding: 3em 0;
+}
+
+.flex{
+  display: flex;
+  gap: 1em;
+}
+
+.flex-col{
+  flex-direction: column;
+}
+
+.already-registered {
+  color: blue; /* Change the color to your desired one */
+}
+.centered-box {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust this height if needed */
+}
+.register .col-2 img{
+
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  align-self: flex-end;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: block;
+}
+
+.signup-text,
+.signup-link {
+    color: black;
+    /* Add any other styles you need for these elements */
+}
