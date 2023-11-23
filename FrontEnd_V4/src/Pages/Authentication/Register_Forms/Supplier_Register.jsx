@@ -118,7 +118,7 @@ const Supplier_Register = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Supplier Register</h1>
+                    <h1 className="center">Supplier Register</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="name">
                             Name:

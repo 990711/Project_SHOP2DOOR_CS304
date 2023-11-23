@@ -7,20 +7,21 @@ import loginService from "../../../Services/loginService";
 const PHONE_REGEX = /^[0][0-9]{9}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
-const ShopOwner_Register = () => {
+const DeliveryRider_Register = () => {
     const phoneRef = useRef();
     const errRef = useRef();
     const emailRef = useRef();
 
 
-    const [shopName, setShopName] = useState('');
+    const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [branch, setBranch] = useState('');
-    const [location, setLocation] = useState('');
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
+    const [areaOfPreference, setAreaOfPreference] = useState('');
+    const [license, setLicense] = useState('');
+    const [vehicleType, setVehicleType] = useState('');
+    const [vehicleNo, setVehicleNo] = useState('');
 
     const [validPhone, setValidPhone] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
@@ -44,9 +45,10 @@ const ShopOwner_Register = () => {
         setValidEmail(EMAIL_REGEX.test(email));
     }, [email])
 
+
     useEffect(() => {
         setErrMsg('');
-    }, [shopName, phone, branch, location, email])
+    }, [name, phone, email, areaOfPreference, license, vehicleType, vehicleNo])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,13 +60,15 @@ const ShopOwner_Register = () => {
             return;
         }
         try {
-            // Make an API call to create a shop owner using loginService
-            const response = await loginService.createShopOwner({
-                shopName : shopName,
-                phone : phone,
-                branch : branch,
-                location : location,
-                email : email,
+            // Make an API call to create a delivery rider using loginService
+            const response = await loginService.createDeliveryRider({
+                name: name,
+                email: email,
+                phone: phone,
+                area_of_pref: areaOfPreference,
+                license : license,
+                vehicle_type: vehicleType,
+                vehicle_no: vehicleNo,
             });
 
             // Log the response data and access token
@@ -74,11 +78,13 @@ const ShopOwner_Register = () => {
 
             // Set success state and clear input fields
             setSuccess(true);
-            setShopName('');
+            setName('');
             setPhone('');
-            setBranch('');
-            setLocation('');
             setEmail('');
+            setAreaOfPreference('');
+            setLicense('');
+            setVehicleType('');
+            setVehicleNo('');
 
         } catch (err) {
             if (!err?.response) {
@@ -105,15 +111,15 @@ const ShopOwner_Register = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Shop Owner Register</h1>
+                    <h1 className="center">Delivery Rider Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="shopName">Shop Name:</label>
+                        <label htmlFor="name">Name:</label>
                         <input
                             type="text"
-                            id="shopName"
+                            id="name"
                             autoComplete="off"
-                            onChange={(e) => setShopName(e.target.value)}
-                            value={shopName}
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
                             required
                         />
 
@@ -121,45 +127,24 @@ const ShopOwner_Register = () => {
                             Phone:
                             <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
-                        </label>
+                            </label>
                         <input
                             type="text"
                             id="phone"
                             onChange={(e) => setPhone(e.target.value)}
                             value={phone}
-                            
                             ref={phoneRef}
                             required
-                            aria-invalid={validPhone ? "false" : "true"}
-                            aria-describedby="phonenote"
+                            aria-invalid={!validPhone}
+                            aria-describedby="contactnote"
                             onFocus={() => setPhoneFocus(true)}
                             onBlur={() => setPhoneFocus(false)}
                         />
-                        <p id="phonenote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
+                        <p id="contactnote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Start with 0.<br />
                             Must include 10 numbers.<br />
                         </p>
-
-                        <label htmlFor="branch">Branch:</label>
-                        <input
-                            type="text"
-                            id="branch"
-                            autoComplete="off"
-                            onChange={(e) => setBranch(e.target.value)}
-                            value={branch}
-                            required
-                        />
-
-                        <label htmlFor="location">Location:</label>
-                        <input
-                            type="text"
-                            id="location"
-                            autoComplete="off"
-                            onChange={(e) => setLocation(e.target.value)}
-                            value={location}
-                            required
-                        />
 
                         <label htmlFor="email">
                             Email:
@@ -190,6 +175,42 @@ const ShopOwner_Register = () => {
                             Enter valid email.
                         </p>
 
+                        <label htmlFor="areaOfPreference">Area of Preference:</label>
+                        <input
+                            type="text"
+                            id="areaOfPreference"
+                            onChange={(e) => setAreaOfPreference(e.target.value)}
+                            value={areaOfPreference}
+                            required
+                        />
+
+                        <label htmlFor="license">License:</label>
+                        <input
+                            type="text"
+                            id="license"
+                            onChange={(e) => setLicense(e.target.value)}
+                            value={license}
+                            required
+                        />
+
+                        <label htmlFor="vehicleType">Vehicle Type:</label>
+                        <input
+                            type="text"
+                            id="vehicleType"
+                            onChange={(e) => setVehicleType(e.target.value)}
+                            value={vehicleType}
+                            required
+                        />
+
+                        <label htmlFor="vehicleNo">Vehicle No:</label>
+                        <input
+                            type="text"
+                            id="vehicleNo"
+                            onChange={(e) => setVehicleNo(e.target.value)}
+                            value={vehicleNo}
+                            required
+                        />
+
                         <button disabled={!validPhone ? true : false}>Sign Up</button>
                     </form>
                     <p className="already-registered">
@@ -204,4 +225,5 @@ const ShopOwner_Register = () => {
     )
 }
 
-export default ShopOwner_Register;
+export default DeliveryRider_Register;
+
