@@ -10,17 +10,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: 'white' }}>
-        <Toolbar > 
-          
-          <Typography variant="h3" component="div" sx={{ flexGrow: 1, textAlign: 'left' ,fontWeight: 'bold',color:'#003d2b'}}>
+      <AppBar position="static" sx={{ backgroundColor: 'rgb(160, 242, 160)' }}>
+        <Toolbar>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1, textAlign: 'left', fontWeight: 'bold', color: '#003d2b' }}>
             SHOP2DOOR
           </Typography>
-          <Button color="inherit" sx={{ color:'#003d2b'}}>Home</Button>
-          <Button color="inherit" sx={{ color:'#003d2b'}}>Login</Button>
-          <Button color="inherit" sx={{ color:'#003d2b'}}>Contact</Button>
+          
         </Toolbar>
       </AppBar>
     </Box>
-  )
+  );
 }

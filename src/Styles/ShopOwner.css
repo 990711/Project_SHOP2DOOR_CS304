@@ -1,0 +1,94 @@
+
+/* Container styles */
+.container {
+    margin: 20px;
+  }
+
+  /* Title styles */
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #4caf50; /* Change the color to your preference */
+    text-align: center;
+    text-transform: uppercase;
+    
+    margin-bottom: 20px;
+  }
+  
+  /* Form styles */
+  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  /* Label styles */
+  label {
+    margin-top: 10px;
+  }
+  
+  /* Input styles */
+  input {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* Button container styles */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Button styles */
+button {
+  padding: 10px;
+  width: 48%;
+  cursor: pointer;
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block;
+  font-size: 16px; /* Set font size */
+  transition-duration: 0.4s; /* Smooth transition on hover */
+}
+
+/* Button hover styles */
+button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid #4caf50;
+}
+  /* Add more styles as needed */
+ 
+  /* ProductListing.css */
+
+/* Table container styles */
+.TableContainer {
+  margin-top: 20px;
+}
+
+/* Table styles */
+.Table {
+  min-width: 650px; /* Set a minimum width for the table */
+}
+
+/* Table header styles */
+.TableHead {
+  background-color: #f2f2f2; /* Light gray background for the header */
+}
+
+/* Table cell styles */
+.TableCell {
+  font-weight: bold; /* Make the text in cells bold */
+}
+
+/* Table row hover effect */
+.TableRow:hover {
+  background-color: #e0e0e0; /* Light gray background on hover */
+  cursor: pointer;
+}
