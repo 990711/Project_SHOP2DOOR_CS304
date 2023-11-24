@@ -26,6 +26,8 @@ import LinkPage from './Pages/Authentication/LinkPage';
 import Missing from './Pages/Authentication/Missing';
 import TabPanel from './Pages/TabPanel';
 import Header from './Components/Header'; 
+import MainLayout from './Components/MainLayout'; 
+
 
 //import loginService from "../../Services/loginService";
 
@@ -40,12 +42,17 @@ function App() {
       <Router>
       <Header />
         <Routes>
-        
-          <Route path = "/jobListing" element = {<JobListing />}></Route>
-          <Route path = "/productListing" element = {<ProductListing />}></Route>
-          <Route path = "/createproduct" element = {<CreateProduct />}></Route>
-          <Route path = "/updateproduct/:id" element = {<UpdateProduct />}></Route>
+          <Route path = "/" element = {<MainLayout />}>
+            <Route path = "/productListing" element = {<ProductListing />}></Route>
 
+            <Route path = "/jobListing" element = {<JobListing />}></Route>
+            <Route path = "/createproduct" element = {<CreateProduct />}></Route>
+            <Route path = "/updateproduct/:id" element = {<UpdateProduct />}></Route>
+
+
+          </Route>
+
+          
           <Route path = "/register" element = {<Register />}></Route>
           <Route path = "/login" element = {<Login />}></Route>
           <Route path = "/customerRegister" element = {<Customer_Register />}></Route>
@@ -68,9 +75,7 @@ function App() {
           
           <Route path = "/missing" element = {<Missing />}></Route>
 
-          <Route path="/" element={<TabPanel />}>
-          <Route path="productListing" element={<ProductListing />} />
-        </Route>
+  
 
 
 
