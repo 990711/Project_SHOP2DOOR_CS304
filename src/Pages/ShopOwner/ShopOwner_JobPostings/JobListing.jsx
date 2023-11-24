@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Modal from 'react-modal';
 import "../../../styles/ShopOwner.css";
+import { format } from 'date-fns';
+
 
 
 // Set the root element of your app for the modal
@@ -73,6 +75,14 @@ const JobListing = () => {
     }
   };
 
+  const formatDate = (date) => {
+    if (!date) {
+      return '';
+    }
+  
+    return format(new Date(date), 'dd-MM-yyyy'); // Format as "dd-mm-yyyy"
+  };
+
   const handleUpdate = () => {
     // Navigate to the update job page with the selected job's id
     navigate(`/UpdateJobPosting/${selectedJob.id}`);
@@ -123,7 +133,7 @@ const JobListing = () => {
               >
                 <TableCell>{job.jobTitle}</TableCell>
                 <TableCell>{job.description}</TableCell>
-                <TableCell>{job.applicationDeadline}</TableCell>
+                <TableCell>{formatDate(job.applicationDeadline)}</TableCell>
                 <TableCell>{job.applicationStatus}</TableCell>
               </TableRow>
             ))}
@@ -152,7 +162,9 @@ const JobListing = () => {
           {/* Display details of the selected job */}
           <p>Job Title: {selectedJob?.jobTitle}</p>
           <p>Description: {selectedJob?.description}</p>
-          <p>Application Deadline: {selectedJob?.applicationDeadline}</p>
+          
+          <p>Application Deadline: {formatDate(selectedJob?.applicationDeadline)}</p>
+          
           <p>Application Status: {selectedJob?.applicationStatus}</p>
 
           <div className="button-container">

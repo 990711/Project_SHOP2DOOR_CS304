@@ -27,8 +27,39 @@ const UpdateJobPosting = () => {
     });
   }, [id]);
 
+  const formatDateForDisplay = (date) => {
+    if (!date) {
+      return '';
+    }
+    const offset = new Date(date).getTimezoneOffset(); // Get the time zone offset in minutes
+  const adjustedDate = new Date(date);
+  adjustedDate.setMinutes(adjustedDate.getMinutes() - offset); // Adjust for time zone
+
+  return adjustedDate.toISOString().split('T')[0]; // Format as "yyyy-MM-dd"
+  };
+
+  const formatDateForServer = (formattedDate) => {
+    if (!formattedDate) {
+      return null;
+    }
+  
+    const offset = new Date().getTimezoneOffset();
+    const adjustedDate = new Date(`${formattedDate}T00:00:00.000Z`);
+    adjustedDate.setMinutes(adjustedDate.getMinutes() + offset);
+  
+    return adjustedDate.toISOString();
+  };
+  
+
   const updateJobPosting = (e) => {
     e.preventDefault();
+
+    const formattedDate = new Date(jobPosting.applicationDeadline).toISOString().split('T')[0];
+    const adjustedDateForServer = formatDateForServer(formattedDate);
+
+    // Set the formatted date in your jobPosting object
+    setJobPosting({ ...jobPosting, applicationDeadline: formattedDate });
+
 
     let updatedJobPosting = {
       id: id,
@@ -40,10 +71,10 @@ const UpdateJobPosting = () => {
 
     console.log("updatedJobPosting =>" + JSON.stringify(updatedJobPosting));
 
-    ShopOwner_JobPostingsService.updateJobPosting(updatedJobPosting)
+    ShopOwner_JobPostingsService.updateJobPostings(updatedJobPosting)
       .then((res) => {
         console.log("Server response:", res);
-        navigate("/jobpostings");
+        navigate("/joblisting");
       })
       .catch((error) => {
         console.error("Error from server:", error);
@@ -99,7 +130,9 @@ const UpdateJobPosting = () => {
             type="date"
             placeholder="Application Deadline"
             name="applicationDeadline"
-            value={jobPosting.applicationDeadline}
+            
+            value={formatDateForDisplay(jobPosting.applicationDeadline)}
+
             onChange={changeApplicationDeadlineHandler}
           />
 
@@ -108,6 +141,7 @@ const UpdateJobPosting = () => {
             name="applicationStatus"
             value={jobPosting.applicationStatus}
             onChange={changeApplicationStatusHandler}
+            style={{ height: '35px' }}
           >
             <option value="">Select Application Status</option>
             <option value="open">Open</option>
