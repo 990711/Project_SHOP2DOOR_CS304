@@ -4,6 +4,26 @@ import ProductListing from './Pages/ShopOwner/ShopOwner_ProductManagement/Produc
 import CreateProduct from './Pages/ShopOwner/ShopOwner_ProductManagement/CreateProduct';
 import UpdateProduct from './Pages/ShopOwner/ShopOwner_ProductManagement/UpdateProduct';
 
+import AddJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/AddJobPosting';
+import UpdateJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/UpdateJobPosting';
+import OrderManagement from './Pages/ShopOwner/ShopOwner_Orders/OrderManagement';
+import PayemntIntegration from './Pages/ShopOwner/ShopOwner_Orders/PayemntIntegration';
+import DeliverySheduling from './Pages/ShopOwner/ShopOwner_Orders/DeliverySheduling';
+import RiderManagement from './Pages/ShopOwner/ShopOwner_Orders/RiderManagement';
+import InventoryTracking from './Pages/ShopOwner/ShopOwner_Inventory/InventoryTracking';
+import Promotions from './Pages/ShopOwner/ShopOwner_Promotions/Promotions';
+import ShopAnalytics from './Pages/ShopOwner/ShopOwner_Analytics/ShopAnalytics';
+import SupplierInteraction from './Pages/ShopOwner/ShopOwner_Suppliers/SupplierInteraction';
+import SupplierPayments from './Pages/ShopOwner/ShopOwner_Suppliers/SupplierPayments';
+import UserInteraction from './Pages/ShopOwner/ShopOwner_Support/UserInteraction';
+import ShopSupport from './Pages/ShopOwner/ShopOwner_Support/ShopSupport';
+import ShopRatings from './Pages/ShopOwner/ShopOwner_Support/ShopRatings';
+import ShopNotifications from './Pages/ShopOwner/ShopOwner_Support/ShopNotifications';
+import FeedbackManagement from './Pages/ShopOwner/ShopOwner_Support/FeedbackManagement';
+import ShopSettings from './Pages/ShopOwner/ShopOwner_Settings/ShopSettings';
+import Dashboard from './Pages/ShopOwner/ShopOwner_Dashboard/Dashboard';
+
+
 
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
 import Register from './Pages/Authentication/Register_Forms/Register';
@@ -26,7 +46,9 @@ import LinkPage from './Pages/Authentication/LinkPage';
 import Missing from './Pages/Authentication/Missing';
 import TabPanel from './Pages/TabPanel';
 import Header from './Components/Header'; 
-import MainLayout from './Components/MainLayout'; 
+import MainLayout from './Components/MainLayout';
+import MainLayout2 from './Components/MainLayout2.jsx'; 
+
 
 
 //import loginService from "../../Services/loginService";
@@ -43,14 +65,39 @@ function App() {
       <Header />
         <Routes>
           <Route path = "/" element = {<MainLayout />}>
+            <Route index element={<Dashboard/>}/>
             <Route path = "/productListing" element = {<ProductListing />}></Route>
-
-            <Route path = "/jobListing" element = {<JobListing />}></Route>
+            <Route path = "/dashboard" element = {<Dashboard />}></Route>
+            <Route path = "/joblisting" element = {<JobListing />}></Route>
             <Route path = "/createproduct" element = {<CreateProduct />}></Route>
             <Route path = "/updateproduct/:id" element = {<UpdateProduct />}></Route>
 
+            <Route path="/ordermanagement" element={<OrderManagement/>}/>
+            <Route path="/paymentintegration" element={<PayemntIntegration/>}/>
+            <Route path="/deliveryscheduling" element={<DeliverySheduling/>}/>
+            <Route path="/ridermanagement" element={<RiderManagement/>}/>
+            
+            <Route path="/inventorytracking" element={<InventoryTracking/>}/>
+            <Route path="/promotions" element={<Promotions/>}/>
+            <Route path="/shopanalytics" element={<ShopAnalytics/>}/>
+            <Route path="/supplierinteraction" element={<SupplierInteraction/>}/>
+            <Route path="/supplierpayments" element={<SupplierPayments/>}/>
+            <Route path="/userinteraction" element={<UserInteraction/>}/>
+            <Route path="/shopsupport" element={<ShopSupport/>}/>
+            <Route path="/shopratings" element={<ShopRatings/>}/>
+            <Route path="/shopnotifications" element={<ShopNotifications/>}/>
+            <Route path="/feedbackmanagement" element={<FeedbackManagement/>}/>
+            <Route path="/shopsettings" element={<ShopSettings/>}/>
+            <Route path="/createproduct" element = {<CreateProduct/>}></Route>
+            <Route path="/updateproduct/:id" element={<UpdateProduct />} />
+            <Route path="/updatejobposting/:id" element={<UpdateJobPosting />} />
+            <Route path="/addjobposting" element = {<AddJobPosting/>}></Route>
 
-          </Route>
+        </Route>
+
+
+        <Route path = "/mainlayout2" element = {<MainLayout2 />}/>
+
 
           
           <Route path = "/register" element = {<Register />}></Route>

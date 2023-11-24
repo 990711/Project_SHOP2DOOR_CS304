@@ -100,15 +100,15 @@ return (
     <TableContainer component={Paper} className="TableContainer">
       <Table aria-label="simple table" className="Table">
         <TableHead>
-          <TableRow>
+          <TableRow >
           
-          <TableCell className="TableCell">Name</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Name</TableCell>
             
-            <TableCell className="TableCell">Description</TableCell>
-            <TableCell className="TableCell">Price</TableCell>
-            <TableCell className="TableCell">Quantity</TableCell>
-            <TableCell className="TableCell">Discount Price</TableCell>
-            <TableCell className="TableCell">Discount Percentage</TableCell>
+            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Description</TableCell>
+            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Price</TableCell>
+            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Quantity</TableCell>
+            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Price</TableCell>
+            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Percentage</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

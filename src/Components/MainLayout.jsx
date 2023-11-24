@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import {
   Drawer,
-  AppBar,
+  //AppBar,
   Toolbar,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  IconButton,
-  Typography,
+  //IconButton,
+  //Typography,
+  Collapse,
 } from '@mui/material';
 import {
-  Menu as MenuIcon,
+  //Menu as MenuIcon,
   Dashboard as DashboardIcon,
   ShoppingCart as ShoppingCartIcon,
   ListAlt as ListAltIcon,
@@ -27,6 +28,8 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 const MainLayout = () => {
   const [open, setOpen] = useState(true);
+  const [openItems, setOpenItems] = useState([]);
+
   const [rightOpen, setRightOpen] = useState(true); // Add state for right sidebar
 
   const navigate = useNavigate();
@@ -46,6 +49,17 @@ const MainLayout = () => {
     setRightOpen(false);
   };
 
+  const handleItemClick = (index, route) => {
+    if (openItems.includes(index)) {
+      setOpenItems(openItems.filter((item) => item !== index));
+    } else {
+      setOpenItems([...openItems, index]);
+    }
+    if (route) {
+      navigate(route);
+    }
+  };
+
   return (
     <div style={{ display: 'flex' }}>
  
@@ -61,6 +75,7 @@ const MainLayout = () => {
           '& .MuiDrawer-paper': {
             width: 240,
             boxSizing: 'border-box',
+            
           },
         }}
       >
@@ -68,56 +83,75 @@ const MainLayout = () => {
        
         <List>
           {[
-            { text: 'Dashboard', icon: <DashboardIcon />, route: '/' },
-            { text: 'Products', icon: <ShoppingCartIcon />, route: '/product-listing' },
+            { text: 'Dashboard', 
+            icon: <DashboardIcon />, 
+            route: '/' },
+
+            { text: 'Products', 
+            icon: <ShoppingCartIcon />, 
+            route: '/productListing' },
             {
               text: 'Orders',
               icon: <ListAltIcon />,
               children: [
-                { text: 'Order Management', route: '/order-management' },
-                { text: 'Payment Integration', route: '/payment-integration' },
-                { text: 'Delivery Scheduling', route: '/delivery-scheduling' },
-                { text: 'Rider Management', route: '/rider-management' },
+                { text: 'Order Management', route: '/ordermanagement' },
+                { text: 'Payment Integration', route: '/paymentintegration' },
+                { text: 'Delivery Scheduling', route: '/deliveryscheduling' },
+                { text: 'Rider Management', route: '/ridermanagement' },
               ],
             },
-            { text: 'Job Postings', icon: <SearchIcon />, route: '/job-postings' },
-            { text: 'Inventory', icon: <AccountBalanceIcon />, route: '/inventory-tracking' },
+            { text: 'Job Postings', icon: <SearchIcon />, route: '/joblisting' },
+            { text: 'Inventory', icon: <AccountBalanceIcon />, route: '/inventorytracking' },
             { text: 'Promotions', icon: <VolumeUpIcon />, route: '/promotions' },
-            { text: 'Analytics', icon: <ShowChartIcon />, route: '/shop-analytics' },
+            { text: 'Analytics', icon: <ShowChartIcon />, route: '/shopanalytics' },
             {
               text: 'Suppliers',
               icon: <PersonIcon />,
               children: [
-                { text: 'Supplier Interaction', route: '/supplier-interaction' },
-                { text: 'Supplier Payments', route: '/supplier-payment' },
+                { text: 'Supplier Interaction', route: '/supplierinteraction' },
+                { text: 'Supplier Payments', route: '/supplierpayment' },
               ],
             },
             {
               text: 'Support',
               icon: <PeopleIcon />,
               children: [
-                { text: 'User Interaction', route: '/user-interaction' },
-                { text: 'Shop Support', route: '/shop-support' },
-                { text: 'Shop Ratings', route: '/shop-ratings' },
-                { text: 'Shop Notifications', route: '/shop-notifications' },
-                { text: 'Feedback Management', route: '/feedback-management' },
+                { text: 'User Interaction', route: '/userinteraction' },
+                { text: 'Shop Support', route: '/shopsupport' },
+                { text: 'Shop Ratings', route: '/shopratings' },
+                { text: 'Shop Notifications', route: '/shopnotifications' },
+                { text: 'Feedback Management', route: '/feedbackmanagement' },
               ],
             },
-            { text: 'Settings', icon: <SettingsIcon />, route: '/shop-settings' },
+            { text: 'Settings', icon: <SettingsIcon />, route: '/shopsettings' },
           ].map((item, index) => (
-            <ListItem
-              button
-              key={index}
-              onClick={() => {
-                if (item.route) {
-                  navigate(item.route);
-                  handleDrawerClose();
-                }
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
+            <React.Fragment key={index}>
+              <ListItem
+                button
+                onClick={() => handleItemClick(index, item.route)}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItem>
+              <Collapse in={openItems.includes(index)}>
+                <List>
+                  {item.children &&
+                    item.children.map((child, childIndex) => (
+                      <ListItem
+                        button
+                        key={childIndex}
+                        onClick={() => {
+                          handleItemClick(childIndex, child.route);
+                        }}
+                      >
+                        {/* render child item content */}
+                        <ListItemIcon>{/* child icon */}</ListItemIcon>
+                        <ListItemText primary={child.text} />
+                      </ListItem>
+                    ))}
+                </List>
+              </Collapse>
+            </React.Fragment>
           ))}
         </List>
       </Drawer>
@@ -136,14 +170,14 @@ const MainLayout = () => {
         }}
       >
         {/* Right Sidebar Content */}
-      </Drawer>
+        </Drawer>
 
-      {/* Content */}
-      <div style={{ flexGrow: 1, padding: '10px 1px 1px', marginLeft: open ? 20 : 0 }}>
-        <Outlet />
-      </div>
-    </div>
-  );
+{/* Content */}
+<div style={{ flexGrow: 1, padding: '10px 1px 1px', marginLeft: open ? 20 : 0 }}>
+  <Outlet />
+</div>
+</div>
+);
 };
 
 export default MainLayout;
