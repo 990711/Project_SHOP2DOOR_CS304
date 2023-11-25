@@ -11,7 +11,7 @@
     color: #4caf50; /* Change the color to your preference */
     text-align: center;
     text-transform: uppercase;
-   
+    
     margin-bottom: 20px;
   }
 
@@ -31,20 +31,12 @@
     width: 75%;
     /* Add any additional styling for the input if needed */
   }
-  .title text {
-    color: black;
-    font-size: 15px;
-    font-weight: bold;
-    
-  }
 
-  .title button:hover,
-  .title button:focus {
-    color: rgb(16, 15, 15); /* Adjust the color for the hover and focus states */
-    outline: none; /* Remove the outline on hover and focus */
-    text-decoration: none; /* Remove text decoration on hover and focus */
+  .title button:hover {
+    color: rgb(16, 15, 15); /* Adjust the color for the hover state */
+    outline: none;
+    text-decoration: none;
   }
-  
   
   .title button:active {
     color: rgb(13, 67, 13); /* Adjust the color for the active (clicked) state */

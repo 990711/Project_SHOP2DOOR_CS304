@@ -103,12 +103,16 @@ return (
           <TableRow >
           
           <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Name</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Image</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Description</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Category</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Price</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Quantity</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Price</TableCell>
+          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Percentage</TableCell>
+
             
-            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Description</TableCell>
-            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Price</TableCell>
-            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Quantity</TableCell>
-            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Price</TableCell>
-            <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Percentage</TableCell>
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -119,8 +123,9 @@ return (
             onClick={() => handleRowClick(product)}>
               
               <TableCell>{product.name}</TableCell>
-              
+              <TableCell>{product.image}</TableCell>
               <TableCell>{product.description}</TableCell>
+              <TableCell>{product.category}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.quantity}</TableCell>
               <TableCell>{product.discountPrice}</TableCell>
@@ -150,6 +155,7 @@ return (
           {/* Display details of the selected product */}
           <p>Name: {selectedProduct?.name}</p>
           <p>Description: {selectedProduct?.description}</p>
+          <p>Category: {selectedProduct?.category}</p>
             <p>Price: {selectedProduct?.price}</p>
             <p>Quantity: {selectedProduct?.quantity}</p>
             <p>Discount Price: {selectedProduct?.discountPrice}</p>

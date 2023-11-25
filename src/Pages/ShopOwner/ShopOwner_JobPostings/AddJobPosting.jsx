@@ -80,7 +80,7 @@ const AddJobPosting = () => {
             name="applicationStatus"
             value={jobPosting.applicationStatus}
             onChange={changeApplicationStatusHandler}
-            style={{ height: '35px' }}
+            style={{ height: '40px' }}
           >
             <option value="">Select Application Status</option>
             <option value="open">Open</option>

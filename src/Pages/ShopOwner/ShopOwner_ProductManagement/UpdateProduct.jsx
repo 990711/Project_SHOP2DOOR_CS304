@@ -12,7 +12,9 @@ const UpdateProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState({
       name: '',
+      image: '',
       description: '',
+      category: '',
       price: '',
       quantity: '',
       discountPrice: '',
@@ -26,7 +28,9 @@ const UpdateProduct = () => {
           setProduct((prevProduct) => ({
             ...prevProduct,
             name: productData.name || '',
+            image: productData.image || '',
             description: productData.description || '',
+            category: productData.category || '',
             price: productData.price || '',
             quantity: productData.quantity || '',
             discountPrice: productData.discountPrice || '',
@@ -53,7 +57,9 @@ const UpdateProduct = () => {
         let updatedProduct = {
             id:id,
             name: product.name,
+            image: product.image,
             description: product.description,
+            category: product.category,
             price: product.price,
             quantity: product.quantity,
             discountPrice: product.discountPrice,
@@ -97,6 +103,14 @@ const UpdateProduct = () => {
     const changeDiscountPercentageHandler = (event) => {
       setProduct({ ...product, discountPercentage: event.target.value });
     };
+
+    const changeImageHandler = (event) => {
+      setProduct({ ...product, image: event.target.value });
+    };
+
+    const changeCategoryHandler = (event) => {
+      setProduct({ ...product, category: event.target.value });
+    };
   
     
   
@@ -114,6 +128,14 @@ const UpdateProduct = () => {
                         value={product.name}
                         onChange={changeNameHandler}
                       />
+
+                    <label>Image</label>
+                    <input
+                      placeholder='Image'
+                      name='image'
+                      value={product.image}
+                      onChange={changeImageHandler}
+                    />
                    
                       <label>Description</label>
                       <input
@@ -122,6 +144,36 @@ const UpdateProduct = () => {
                         value={product.description}
                         onChange={changeDescriptionHandler}
                       />
+
+                    <label>Category</label>
+                    <select
+                      name='category'
+                      value={product.category}
+                      onChange={changeCategoryHandler}
+                      style={{ height: '40px' }}
+                    >
+                      <option value="">Select Category</option>
+                      <option value="open">Fresh Products</option>
+                      <option value="closed">Dairy and Eggs</option>
+                      <option value="closed">Meat and Seafood</option>
+                      <option value="closed">Bakery</option>
+                      <option value="closed">Canned Goods</option>
+                      <option value="closed">Frozen Foods</option>
+                      <option value="closed">Pantry Staples</option>
+                      <option value="closed">Snacks</option>
+                      <option value="closed">Condiments</option>
+                      <option value="closed">Spices and Herbs</option>
+                      <option value="closed">Cleaning Supplies</option>
+                      <option value="closed">Personal Care</option>
+                      <option value="closed">Baby Care</option>
+                      <option value="closed">Household Items</option>
+                      <option value="closed">Pet Supplies</option>
+                      <option value="closed">Health and Wellness</option>
+                      <option value="closed">Alcoholic Beverages</option>
+                      <option value="closed">Special Diet</option>
+                      <option value="closed">Other</option>
+                    </select>
+
                       <label>Price</label>
                       <input
                         placeholder='Price'
