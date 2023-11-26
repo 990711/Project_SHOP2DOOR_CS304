@@ -73,7 +73,7 @@ const MainLayout = () => {
           width: 240,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: 240,
+            width: 220,
             boxSizing: 'border-box',
             
           },
@@ -161,23 +161,34 @@ const MainLayout = () => {
         anchor="right"
         open={rightOpen}
         sx={{
-          width: 20,
+          width: 20, // Adjust the width as needed
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: 80,
+            width: 70, // Adjust the width as needed
             boxSizing: 'border-box',
+            position: 'fixed', // Ensure it doesn't affect other elements
+            top: 0, // Position it at the top
+            height: '100%', // Occupy the full height
+            overflowY: 'hidden', // Hide scrollbar, content won't scroll
           },
         }}
       >
         {/* Right Sidebar Content */}
-        </Drawer>
+        <List>
+          <ListItem>
+            <ListItemText primary="Right" />
+          </ListItem>
+        </List>
+      </Drawer>
 
-{/* Content */}
-<div style={{ flexGrow: 1, padding: '10px 1px 1px', marginLeft: open ? 20 : 0 }}>
-  <Outlet />
-</div>
-</div>
-);
-};
+        {/* Content */}
+        <div style={{ flexGrow: 1, padding: '10px 1px 1px', marginLeft: open ? -30 : 0 , marginRight: open ? 80 : 0 }}>  
+        <div style={{ overflowY: 'auto', height: '100vh' }}>
+          <Outlet />
+        </div>
+        </div>
+        </div>
+        );
+        };
 
 export default MainLayout;

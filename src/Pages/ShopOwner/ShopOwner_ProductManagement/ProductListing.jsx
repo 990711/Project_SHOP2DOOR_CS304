@@ -74,7 +74,8 @@ const handleUpdate = () => {
 
 
 return (
-  <div className="title">Product Management
+<div>
+  <div className="title">Product Management</div>  
  
 <div style={{ display: 'flex', alignItems: 'center' ,marginLeft: '2px'}}>
   
@@ -173,7 +174,7 @@ return (
                   
         </div>
       </Modal>
-    </div>
+      </div>
   );
 };
 

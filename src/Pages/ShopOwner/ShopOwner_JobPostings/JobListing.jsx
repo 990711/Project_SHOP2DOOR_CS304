@@ -88,9 +88,10 @@ const JobListing = () => {
     navigate(`/UpdateJobPosting/${selectedJob.id}`);
   };
 
-  return (
+  return (<div>
     <div className="title">
       Job Postings
+      </div>
       <div style={{ display: 'flex', alignItems: 'center', marginLeft: '2px' }}>
         <button style={{ width: '250px' }} onClick={createJob}>
           Add Job

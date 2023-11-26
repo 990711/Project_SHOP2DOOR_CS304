@@ -58,6 +58,7 @@ return (
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ width: '75%' }}
             />
+            
         </div>
     </div>
 </div>
