@@ -39,15 +39,41 @@ public class Item {
 	@Column(name = "quantity")
 	private int quantity;
 	
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "image")
+	private String image;
 	
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "category")
+	private String category;
+	
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public Item() {
 		
 	}
 
-	public Item(@NotBlank(message = "this column must be filled!") String name,
-			@NotBlank(message = "this column must be filled!") float price,
+	
+
+	public Item(@NotBlank(message = "this column must be filled!") String name, float price,
 			@NotBlank(message = "this column must be filled!") String brand, String description,
-			float discount_percentage, @NotBlank(message = "this column must be filled!") int quantity) {
+			float discount_percentage, int quantity, @NotBlank(message = "this column must be filled!") String image,
+			@NotBlank(message = "this column must be filled!") String category) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -55,6 +81,8 @@ public class Item {
 		this.description = description;
 		this.discount_percentage = discount_percentage;
 		this.quantity = quantity;
+		this.image = image;
+		this.category = category;
 	}
 
 	public Long getItem_id() {
