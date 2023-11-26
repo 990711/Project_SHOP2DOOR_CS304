@@ -126,3 +126,58 @@ button:hover {
   background-color: #e0e0e0; /* Light gray background on hover */
   cursor: pointer;
 }
+
+
+
+/* CUSTOMERSIDEPANEL */
+.sidePanel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px; /* Adjust the width to make the buttons wider */
+  height: 100%;
+  background: #083d03;
+  /* background: #BCFFD7; */
+  color: #fff;
+  padding: 10px;
+}
+
+.sidePanel a {
+  display: flex; /* Display the icon and text in a row */
+  align-items: center; /* Center the content vertically */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-decoration: none;
+  color: #ffffff !important;
+  border-radius: 8px;
+}
+
+.sidePanel a .fa-icon {
+  margin-right: 8px; /* Increase the margin for more space */
+}
+
+.content {
+  padding-left: 12%; /* Adjust this value to match the width of your sidePanel */
+}
+
+.sidePanel a.active {
+  background-color: #34A853;
+}
+
+/* Icons style */
+.sidePanel a .fa-icon {
+  width: 30px; /* Adjust the icon's width */
+  font-size: 1.5em; /* Adjust the icon's size */
+}
+
+.rightPanelIcons {
+  font-size : 40px !important;
+  transition: color 0.4s; /* Add a smooth transition effect for color changes */
+  cursor: pointer;
+}
+
+.rightPanelIcons:hover {
+  color: #000000;
+  cursor: pointer;
+}
