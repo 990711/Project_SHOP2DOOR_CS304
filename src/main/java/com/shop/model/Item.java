@@ -39,11 +39,11 @@ public class Item {
 	@Column(name = "quantity")
 	private int quantity;
 	
-	@NotBlank(message = "this column must be filled!")
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "image")
 	private String image;
 	
-	@NotBlank(message = "this column must be filled!")
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "category")
 	private String category;
 	

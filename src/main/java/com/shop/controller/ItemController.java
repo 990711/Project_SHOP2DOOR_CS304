@@ -71,6 +71,12 @@ public class ItemController {
 	        response.put("deleted", Boolean.TRUE);
 	        return ResponseEntity.ok(response);
 	    }
+	 
+	 
+	 @GetMapping("/getItemsByCategory/{category}")
+	 public List<Item> getItemByCategory(@PathVariable String category){
+		 return itemRepo.findAllByCategory(category);
+	 }
 		
 	
 }
