@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SHOP_OWNER_API_BASE_URL = "http://localhost:8080/api/v1/shopowner";
+const SHOP_OWNER_API_BASE_URL = "http://localhost:8080/api/v1/ShopOwnerDetails";
 
 class ShopOwnerRegisterService {
     getShopOwners() {

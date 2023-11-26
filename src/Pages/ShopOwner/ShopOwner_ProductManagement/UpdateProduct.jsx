@@ -13,6 +13,7 @@ const UpdateProduct = () => {
     const [product, setProduct] = useState({
       name: '',
       image: '',
+      brand: '',
       description: '',
       category: '',
       price: '',
@@ -29,6 +30,7 @@ const UpdateProduct = () => {
             ...prevProduct,
             name: productData.name || '',
             image: productData.image || '',
+            brand: productData.brand || '',
             description: productData.description || '',
             category: productData.category || '',
             price: productData.price || '',
@@ -58,6 +60,7 @@ const UpdateProduct = () => {
             id:id,
             name: product.name,
             image: product.image,
+            brand: product.brand,
             description: product.description,
             category: product.category,
             price: product.price,
@@ -82,6 +85,10 @@ const UpdateProduct = () => {
   
     const changeNameHandler = (event) => {
       setProduct({ ...product, name: event.target.value });
+    };
+
+    const changeBrandHandler = (event) => {
+      setProduct({ ...product, brand: event.target.value });
     };
   
     const changeQuantityHandler = (event) => {
@@ -134,6 +141,14 @@ const UpdateProduct = () => {
                       placeholder='Image'
                       name='image'
                       value={product.image}
+                      onChange={changeImageHandler}
+                    />
+
+                    <label>Brand</label>
+                    <input
+                      placeholder='Brand'
+                      name='brand'
+                      value={product.brand}
                       onChange={changeImageHandler}
                     />
                    

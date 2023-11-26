@@ -11,6 +11,7 @@ const CreateProduct = () => {
     const [product, setProduct] = useState({
       name: '',
       image: '',
+      brand: '',
       description: '',
       category: '',
       price: '',
@@ -38,6 +39,10 @@ const CreateProduct = () => {
 
     const changeImageHandler = (event) => {
       setProduct({ ...product, image: event.target.value });
+    };
+
+    const changeBrandHandler = (event) => {
+      setProduct({ ...product, brand: event.target.value });
     };
 
     const changeCategoryHandler = (event) => {
@@ -88,6 +93,15 @@ const CreateProduct = () => {
                       value={product.image}
                       onChange={changeImageHandler}
                     />
+
+                    <label>Brand</label>
+                    <input
+                      placeholder='Brand'
+                      name='brand'
+                      value={product.brand}
+                      onChange={changeBrandHandler}
+                    />
+
                  
                     <label>Description</label>
                     <input

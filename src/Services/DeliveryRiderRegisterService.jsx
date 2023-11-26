@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DELIVERY_RIDER_API_BASE_URL = "http://localhost:8080/api/v1/deliveryrider";
+const DELIVERY_RIDER_API_BASE_URL = "http://localhost:8080/api/v1/DeliveryRiderDetails";
 
 class DeliveryRiderRegisterService {
     getDeliveryRiders() {
