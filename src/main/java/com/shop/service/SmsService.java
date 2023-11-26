@@ -15,16 +15,14 @@ public class SmsService {
 	
 	String OUTGOING_SMS_NUMBER ="+18168734493";
 	
+
 	public void setup() {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 	}
-	
+
 	public void sendSMS(String smsNumber, String smsMessage) {
 		setup();
-		Message message = Message.creator(
-				new PhoneNumber(smsNumber),
-				new PhoneNumber(OUTGOING_SMS_NUMBER),
-				smsMessage
-				).create();
+		Message message = Message.creator(new PhoneNumber(smsNumber), new PhoneNumber(OUTGOING_SMS_NUMBER), smsMessage)
+				.create();
 	}
 }
