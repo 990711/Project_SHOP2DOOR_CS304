@@ -1,4 +1,3 @@
-
 package com.shop.repository;
 
 import java.util.Optional;
@@ -10,9 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.shop.model.Login;
 
 @Repository
-public interface LoginRepo extends JpaRepository<Login, Long>{
+public interface LoginRepo extends JpaRepository<Login, Integer>{
 
 	Optional<Login> findByUsername(String username);
-	Optional<Login> findByPassword(String password);
 	
 }
