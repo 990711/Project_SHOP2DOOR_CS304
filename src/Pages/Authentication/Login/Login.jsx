@@ -101,7 +101,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="/home">Go to Home</a>
+                        <a href="/customermainlayout/dashboard">Go to Home</a>
                     </p>
                 </section>
             ) : (

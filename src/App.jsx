@@ -95,7 +95,7 @@ function App() {
 
         <Route path="/customermainlayout" element={<CustomerMainLayout />}>
           <Route index element={<CustomerDashboard/>}/>
-          <Route path="/customermainlayout/customerdashboard" element={<CustomerDashboard />} />
+          <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
           
           <Route path="/customermainlayout/freshproducts" element={<FreshProducts />} />
           <Route path="/customermainlayout/dairyandeggs" element={<DairyAndEggs />} />
