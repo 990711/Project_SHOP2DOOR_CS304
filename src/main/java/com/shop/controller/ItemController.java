@@ -56,6 +56,8 @@ public class ItemController {
 	    	item.setDescription(newItem.getDescription());
 	    	item.setDiscount_percentage(newItem.getDiscount_percentage());
 	    	item.setQuantity(newItem.getQuantity());
+	    	item.setImage(newItem.getImage());
+	    	item.setCategory(newItem.getCategory());
 	        
 	        Item updatedItem = itemRepo.save(item);
 	        return ResponseEntity.ok(updatedItem);

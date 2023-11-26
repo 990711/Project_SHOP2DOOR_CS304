@@ -1,5 +1,6 @@
 package com.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -8,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -38,21 +38,44 @@ public class ShopOwner extends Login{
 	
 	@Column(name = "e-mail")
 	private String email;
+	
+	
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="shopOwner")
+	private List<Item> items = new ArrayList<>();
+	
 
 	public ShopOwner() {
 		
 	}
 
+	
+
 	public ShopOwner(@NotBlank(message = "this column must be filled!") String shop_name,
 			@NotBlank(message = "this column must be filled!") String contact, String branch,
-			@NotBlank(message = "this column must be filled!") String location, String email) {
+			@NotBlank(message = "this column must be filled!") String location, String email, List<Item> items) {
 		super();
 		this.shop_name = shop_name;
 		this.contact = contact;
 		this.branch = branch;
 		this.location = location;
 		this.email = email;
+		this.items = items;
 	}
+
+
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+
 
 	public int getUser_id() {
 		return user_id;

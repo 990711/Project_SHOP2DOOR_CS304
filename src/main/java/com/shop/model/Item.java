@@ -1,10 +1,12 @@
 package com.shop.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -63,6 +65,20 @@ public class Item {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="shop id")
+	private ShopOwner shopOwner;
+	
+
+	public ShopOwner getShopOwner() {
+		return shopOwner;
+	}
+
+	public void setShopOwner(ShopOwner shopOwner) {
+		this.shopOwner = shopOwner;
+	}
 
 	public Item() {
 		
@@ -70,10 +86,11 @@ public class Item {
 
 	
 
+	
+
 	public Item(@NotBlank(message = "this column must be filled!") String name, float price,
 			@NotBlank(message = "this column must be filled!") String brand, String description,
-			float discount_percentage, int quantity, @NotBlank(message = "this column must be filled!") String image,
-			@NotBlank(message = "this column must be filled!") String category) {
+			float discount_percentage, int quantity, String image, String category, ShopOwner shopOwner) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -83,6 +100,7 @@ public class Item {
 		this.quantity = quantity;
 		this.image = image;
 		this.category = category;
+		this.shopOwner = shopOwner;
 	}
 
 	public Long getItem_id() {
