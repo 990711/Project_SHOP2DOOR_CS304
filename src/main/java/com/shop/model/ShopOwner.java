@@ -38,21 +38,6 @@ public class ShopOwner extends Login{
 	
 	@Column(name = "e-mail")
 	private String email;
-	
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="shop id",referencedColumnName="user_id")
-	private List<Item> item;
-	
-	
-
-	public List<Item> getItem() {
-		return item;
-	}
-
-	public void setItem(List<Item> item) {
-		this.item = item;
-	}
 
 	public ShopOwner() {
 		
