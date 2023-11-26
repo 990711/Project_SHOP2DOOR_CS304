@@ -20,6 +20,7 @@ import com.shop.exception.ResourceNotFound;
 import com.shop.model.Login;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.LoginService;
+import com.shop.service.SmsService;
 
 import jakarta.validation.Valid;
 
@@ -33,10 +34,14 @@ public class LoginController {
 
 	@Autowired
 	private LoginService service;
+	
+	@Autowired
+	private SmsService smsservice;
 
 	// Get Riders
 	@GetMapping("/LoginDetails")
-	public List<Login> getUsers() {
+	public List<Login> getAllRiders() {
+		smsservice.sendSMS("+94714064457", "this is the message");
 		return loginRepo.findAll();
 	}
 
