@@ -1,10 +1,15 @@
 package com.shop.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -35,6 +40,19 @@ public class ShopOwner extends Login{
 	private String email;
 	
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="shop id",referencedColumnName="user_id")
+	private List<Item> item;
+	
+	
+
+	public List<Item> getItem() {
+		return item;
+	}
+
+	public void setItem(List<Item> item) {
+		this.item = item;
+	}
 
 	public ShopOwner() {
 		

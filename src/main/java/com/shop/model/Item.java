@@ -5,11 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Customer")
+@Table(name = "Item")
 public class Item {
 
 	@Id
@@ -20,7 +21,7 @@ public class Item {
 	@Column(name = "name")
 	private String name;
 	
-	@NotBlank(message = "this column must be filled!")
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "price")
 	private float price;
 	
@@ -34,12 +35,11 @@ public class Item {
 	@Column(name = "discount percentage")
 	private float discount_percentage;
 	
-	@NotBlank(message = "this column must be filled!")
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "quantity")
 	private int quantity;
 	
 	
-
 	public Item() {
 		
 	}
