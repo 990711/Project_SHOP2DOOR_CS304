@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -120,6 +121,15 @@ public class LoginController {
     	}
         
     }
+    
+    @PutMapping("/Logout/{id}")
+	public ResponseEntity<String> Logout(@PathVariable int id){
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("Rider does not exist with id "+id));
+		login.setActive(false);
+		loginRepo.save(login);
+		String msg = "User successfully logged out!";
+		return ResponseEntity.ok(msg);
+	}
     
     
 
