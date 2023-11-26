@@ -39,17 +39,17 @@ public class LoginController {
 	@Autowired
 	private SmsService smsservice;
 
-	// Get Riders
+	// Get users
 	@GetMapping("/LoginDetails")
-	public List<Login> getAllRiders() {
+	public List<Login> getAllUsers() {
 		smsservice.sendSMS("+94714064457", "this is the message");
 		return loginRepo.findAll();
 	}
 
-	// Add Rider
+	// Add User
 	@PostMapping("/LoginDetails")
 	public ResponseEntity<Login> addUser(@Valid @RequestBody Login user) {
-
+		
 		Login savedLogin = service.createLogin(user);
 		return new ResponseEntity<Login>(savedLogin, HttpStatus.CREATED);
 	}
