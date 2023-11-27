@@ -45,8 +45,8 @@ public class ShopOwnerController {
 		}
 		
 		@GetMapping("/ShopOwner")
-	    public List<ShopOwner> getAllShops() {
-	        return shopOwnerRepo.findAll();
+	    public List<Object> getAllShops() {
+	        return shopOwnerRepo.getAllShops();
 	    }
 		
 	

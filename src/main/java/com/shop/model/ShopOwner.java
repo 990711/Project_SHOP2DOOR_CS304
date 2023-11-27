@@ -22,7 +22,7 @@ public class ShopOwner extends Login{
 	//private int user_id;
 	
 	@NotBlank(message = "this column must be filled!")
-	@Column(name = "shop name")
+	@Column(name = "shop_name")
 	private String shop_name;
 	
 	@NotBlank(message = "this column must be filled!")
@@ -36,7 +36,7 @@ public class ShopOwner extends Login{
 	@Column(name = "location")
 	private String location;
 	
-	@Column(name = "e-mail")
+	@Column(name = "email")
 	private String email;
 	
 	
