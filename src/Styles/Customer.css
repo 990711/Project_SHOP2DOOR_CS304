@@ -181,3 +181,42 @@ button:hover {
   color: #000000;
   cursor: pointer;
 }
+
+.dashboard-search {
+  width: 75%;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+  margin-top: 20px;
+}
+
+.shop-box {
+  height: 160px;
+  width: 200px;
+  border: 1px solid #ddd;
+  margin: 0px 0px 20px 10px;
+  text-align: center;
+  color: black;
+}
+
+.shop-box h4 {
+  font-size: medium;
+  padding: 0;
+}
+
+.shop-box p {
+  font-size: small;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+
+.shop-box-img {
+  height: 90px;
+  width: 180px;
+  margin-top: 10px;
+}

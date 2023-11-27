@@ -2,12 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ShopBox = ({ shop }) => {
+  const imageUrl = `../../../public/${shop.shop_name}.jpg`;
+
   return (
     <Link to={`/${shop.id}`} className="shop-box-link">
       <div className="shop-box">
-        {/* <img src={shop.shopImg} alt={shop.name} /> */}
+        <img className="shop-box-img" src={imageUrl} alt={shop.shop_name} />
         <h4>{shop.shop_name}</h4>
-        <p>Branch{shop.branch}</p>
+        <p>{shop.branch}</p>
       </div>
     </Link>
   );
