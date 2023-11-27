@@ -26,12 +26,12 @@ const CustomerDashboard = () => {
       });
   }, []);
 
-  const filteredPShops = shops.filter((shop) =>
+  const filteredShops = shops.filter((shop) =>
     shop.shop_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleRowClick = (shop) => {
-    setSelectedShop(product);
+    setSelectedShop(shop);
     setIsModalOpen(true);
   };
 
@@ -56,7 +56,7 @@ const CustomerDashboard = () => {
             style={{ width: "75%" }}
           />
           <div className="dashboard-content">
-            {shops.map((shop, index) => (
+            {filteredShops.map((shop, index) => (
               <ShopBox key={index} shop={shop} />
             ))}
           </div>
