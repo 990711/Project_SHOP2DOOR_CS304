@@ -79,6 +79,11 @@ public class ItemController {
 	 public List<Item> getItemByCategory(@PathVariable String category){
 		 return itemRepo.findAllByCategory(category);
 	 }
+	 
+	 @GetMapping("/Item/{id}")
+	 public List<Object> getItemByShopId(@PathVariable Long id){
+		 return itemRepo.getItemsByShopId(id);
+	 }
 		
 	
 }

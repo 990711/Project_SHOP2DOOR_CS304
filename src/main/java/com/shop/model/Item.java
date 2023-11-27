@@ -34,7 +34,7 @@ public class Item {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "discount percentage")
+	@Column(name = "discount_percentage")
 	private float discount_percentage;
 	
 	//@NotBlank(message = "this column must be filled!")
@@ -68,7 +68,7 @@ public class Item {
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="shop id")
+	@JoinColumn(name="shop_id")
 	private ShopOwner shopOwner;
 	
 
