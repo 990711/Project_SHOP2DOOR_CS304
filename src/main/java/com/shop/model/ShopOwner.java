@@ -14,12 +14,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "Shop Owner")
+@Table(name = "Shop_Owner")
 public class ShopOwner extends Login{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int user_id;
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//private int user_id;
 	
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "shop name")
@@ -77,13 +77,7 @@ public class ShopOwner extends Login{
 
 
 
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+	
 
 	public String getShop_name() {
 		return shop_name;
