@@ -8,10 +8,10 @@ const SidePanel = () => {
 
   return (
     <div className="sidePanel">
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+      <Link to="/customermainlayout/dashboard" className={location.pathname === "/customermainlayout/dashboard" ? "active" : ""}>
 	  	<FontAwesomeIcon icon={faHome} className="fa-icon"/> Dashboard
       </Link>
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+      <Link to="/customermainlayout/orders" className={location.pathname === "/customermainlayout/orders" ? "active" : ""}>
         <FontAwesomeIcon icon={faClipboardList}  className="fa-icon"/> Orders
       </Link>
       <Link to="/" className={location.pathname === "/" ? "active" : ""}>

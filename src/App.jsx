@@ -74,6 +74,7 @@ import MainLayout2 from './Components/MainLayout2.jsx';
 
 import CustomerMainLayout from './Pages/Customer/CustomerMainLayout';
 import CustomerDashboard from './Pages/Customer/CustomerDashboard';
+import CustomerOrders from './Pages/Customer/CustomerOrders';
 
 
 
@@ -96,6 +97,7 @@ function App() {
         <Route path="/customermainlayout" element={<CustomerMainLayout />}>
           <Route index element={<CustomerDashboard/>}/>
           <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
+          <Route path="/customermainlayout/orders" element={<CustomerOrders />} />
           
           <Route path="/customermainlayout/freshproducts" element={<FreshProducts />} />
           <Route path="/customermainlayout/dairyandeggs" element={<DairyAndEggs />} />
