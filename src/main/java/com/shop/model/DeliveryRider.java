@@ -1,10 +1,15 @@
 package com.shop.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,26 +32,48 @@ public class DeliveryRider extends Login{
 	private String contact;
 	
 	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="rider")
+	private List<Order> orders = new ArrayList<>();
+	
 	
 	public DeliveryRider() {
 		
 	}
 
+	
+
+
 	public DeliveryRider(@NotBlank(message = "this column must be filled!") String name,
 			@NotBlank(message = "this column must be filled!") @Size(max = 10, message = "Phone no must be 10 characters") String contact,
-			String email, @NotBlank(message = "this column must be filled!") String area_of_pref,
+			List<Order> orders, String email, @NotBlank(message = "this column must be filled!") String area_of_pref,
 			@NotBlank(message = "this column must be filled!") String license,
 			@NotBlank(message = "this column must be filled!") String vehicle_type,
 			@NotBlank(message = "this column must be filled!") String vehicle_no) {
 		super();
 		this.name = name;
 		this.contact = contact;
+		this.orders = orders;
 		this.email = email;
 		this.area_of_pref = area_of_pref;
 		this.license = license;
 		this.vehicle_type = vehicle_type;
 		this.vehicle_no = vehicle_no;
 	}
+
+
+
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+
+
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 
 
 

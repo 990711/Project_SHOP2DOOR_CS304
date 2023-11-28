@@ -33,20 +33,35 @@ public class Order {
 	
 	@Column
 	private float Total;
+	
 
-	@ManyToOne
+	@Column
+	private Time delivery_time;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "delivery_id")
 	private DeliveryRider rider;
-
+	
 	
 	public Order() {
 		super();
 	}
 	
+	
+
+	public Time getDelivery_time() {
+		return delivery_time;
+	}
+
+
+
+	public void setDelivery_time(Time delivery_time) {
+		this.delivery_time = delivery_time;
+	}
 	
 
 	public float getTotal() {
