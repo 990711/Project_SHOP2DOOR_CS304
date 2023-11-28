@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +22,17 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long order_id;
 
+	@Column
 	private Date date;
 
+	@Column
 	private Time time;
 
+	@Column
 	private String description;
+	
+	@Column
+	private float Total;
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -36,6 +43,20 @@ public class Order {
 	private DeliveryRider rider;
 
 	
+	public Order() {
+		super();
+	}
+	
+	
+
+	public float getTotal() {
+		return Total;
+	}
+
+	public void setTotal(float total) {
+		Total = total;
+	}
+
 	public long getOrder_id() {
 		return order_id;
 	}
