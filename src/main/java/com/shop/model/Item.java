@@ -1,10 +1,13 @@
 package com.shop.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -20,7 +23,7 @@ public class Item {
 	@Column(name = "name")
 	private String name;
 	
-	@NotBlank(message = "this column must be filled!")
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "price")
 	private float price;
 	
@@ -31,23 +34,63 @@ public class Item {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "discount percentage")
+	@Column(name = "discount_percentage")
 	private float discount_percentage;
 	
-	@NotBlank(message = "this column must be filled!")
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "quantity")
 	private int quantity;
 	
+	//@NotBlank(message = "this column must be filled!")
+	@Column(name = "image")
+	private String image;
 	
+	//@NotBlank(message = "this column must be filled!")
+	@Column(name = "category")
+	private String category;
+	
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="shop_id")
+	private ShopOwner shopOwner;
+	
+
+	public ShopOwner getShopOwner() {
+		return shopOwner;
+	}
+
+	public void setShopOwner(ShopOwner shopOwner) {
+		this.shopOwner = shopOwner;
+	}
 
 	public Item() {
 		
 	}
 
-	public Item(@NotBlank(message = "this column must be filled!") String name,
-			@NotBlank(message = "this column must be filled!") float price,
+	
+
+	
+
+	public Item(@NotBlank(message = "this column must be filled!") String name, float price,
 			@NotBlank(message = "this column must be filled!") String brand, String description,
-			float discount_percentage, @NotBlank(message = "this column must be filled!") int quantity) {
+			float discount_percentage, int quantity, String image, String category, ShopOwner shopOwner) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -55,6 +98,9 @@ public class Item {
 		this.description = description;
 		this.discount_percentage = discount_percentage;
 		this.quantity = quantity;
+		this.image = image;
+		this.category = category;
+		this.shopOwner = shopOwner;
 	}
 
 	public Long getItem_id() {

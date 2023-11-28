@@ -1,5 +1,7 @@
 package com.shop.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.model.Customer;
 import com.shop.model.Login;
 import com.shop.repositary.CustomerRepo;
+import com.shop.repositary.LoginRepo;
 import com.shop.service.CustomerService;
 
 import jakarta.validation.Valid;
@@ -26,12 +29,26 @@ public class CustomerController {
 	@Autowired
 	private CustomerService service;
 	
+	@Autowired
+	private LoginRepo loginRepo;
+	
 	// Add Customer
 		@PostMapping("/CustomerDetails")
-		public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) {
+		public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
 
-			Customer savedCustomer = service.createCustomer(customer);
-			return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
+			Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
+			
+			if (existingUser.isPresent()) {
+				return ResponseEntity.status(401).body("Please find another username..");
+	    	}else {
+	    		Customer savedCustomer = service.createCustomer(customer);
+	    		return ResponseEntity.ok("Registration successful!");
+	    	}
+			
+			//Customer savedCustomer = service.createCustomer(customer);
+			//return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
 		}
+		
+		
 	
 }
