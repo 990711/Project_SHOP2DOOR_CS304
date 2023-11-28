@@ -9,11 +9,12 @@ import com.twilio.type.PhoneNumber;
 @Service
 public class SmsService {
 
-	String ACCOUNT_SID = "ACd4a294afffc176dd796e2812a993409b";
+	String ACCOUNT_SID ="ACd4a294afffc176dd796e2812a993409b";
 
 	String AUTH_TOKEN = "";
-
-	String OUTGOING_SMS_NUMBER = "+18168734493";
+	
+	String OUTGOING_SMS_NUMBER ="+18168734493";
+	
 
 	public void setup() {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

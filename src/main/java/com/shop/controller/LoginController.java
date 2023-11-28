@@ -41,8 +41,11 @@ public class LoginController {
 
 	// Get users
 	@GetMapping("/LoginDetails")
-	public List<Login> getAllUsers() {
-		smsservice.sendSMS("+94714064457", "this is the message");
+
+	public List<Login> getAllRiders() {
+//		smsservice.sendSMS("+94714064457", "this is the message");
+
+
 		return loginRepo.findAll();
 	}
 
