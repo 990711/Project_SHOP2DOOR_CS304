@@ -2,6 +2,7 @@
 /* Container styles */
 .container {
     margin: 20px;
+    
   }
 
   /* Title styles */
@@ -63,6 +64,10 @@
     flex-direction: column;
     max-width: 500px;
     margin: auto;
+
+  
+    
+    
   }
   
   /* Label styles */

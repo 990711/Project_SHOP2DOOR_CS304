@@ -34,7 +34,9 @@ section {
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
-    background-color: rgb(160, 242, 160);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #9d989863; /* Add an outline with a 2px solid black border */
+
 }
 
 form {
@@ -43,6 +45,7 @@ form {
     justify-content: space-evenly;
     flex-grow: 1;
     padding-bottom: 1rem;
+    
 }
 
 a, a:visited {
@@ -58,6 +61,7 @@ textarea {
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  border: 2px solid #9d989863;
   
 }
 button{
@@ -66,6 +70,7 @@ button{
   padding: 0.25rem;
   border-radius: 0.5rem;
   color: #fff;
+  
 }
 
 label{

@@ -3,7 +3,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import Login from './Login';
 import { useNavigate } from "react-router-dom";
-import loginService from "../../../Services/loginService";
+import loginService from "../../../../Services/loginService";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -78,6 +78,7 @@ const Register = () => {
             setUser('');
             setPwd('');
             setMatchPwd('');
+            
     
             
             // Redirect based on user role

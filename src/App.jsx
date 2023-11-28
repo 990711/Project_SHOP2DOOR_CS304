@@ -3,6 +3,7 @@ import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import ProductListing from './Pages/ShopOwner/ShopOwner_ProductManagement/ProductListing';
 import CreateProduct from './Pages/ShopOwner/ShopOwner_ProductManagement/CreateProduct';
 import UpdateProduct from './Pages/ShopOwner/ShopOwner_ProductManagement/UpdateProduct';
+import Image from './Pages/Authentication/Register_Forms/Image';
 
 
 import FreshProducts from './Pages/ShopOwner/ShopOwner_ProductManagement/ProductsByCategory/FreshProducts';
@@ -49,13 +50,13 @@ import Dashboard from './Pages/ShopOwner/ShopOwner_Dashboard/Dashboard';
 
 
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
-import Register from './Pages/Authentication/Register_Forms/Register';
+import Register from './Pages/Authentication/Register_Forms/delete these pages later/Register.jsx';
 import Login from './Pages/Authentication/Login/Login';
 
-import Customer_Register from './Pages/Authentication/Register_Forms/Customer_Register';
-import ShopOwner_Register from './Pages/Authentication/Register_Forms/ShopOwner_Register';
-import Supplier_Register from './Pages/Authentication/Register_Forms/Supplier_Register';
-import DeliveryRider_Register from './Pages/Authentication/Register_Forms/DeliveryRider_Register';
+import Customer_Register from './Pages/Authentication/Register_Forms/delete these pages later/Customer_Register.jsx';
+import ShopOwner_Register from './Pages/Authentication/Register_Forms/delete these pages later/ShopOwner_Register.jsx';
+import Supplier_Register from './Pages/Authentication/Register_Forms/delete these pages later/Supplier_Register.jsx';
+import DeliveryRider_Register from './Pages/Authentication/Register_Forms/delete these pages later/DeliveryRider_Register.jsx';
 import Home from './Pages/Authentication/Home';
 import Customer from './Pages/Authentication/Customer';
 import DeliveryRider from './Pages/Authentication/DeliveryRider';
@@ -63,7 +64,7 @@ import Layout from './Pages/Authentication/Layout';
 import Lounge from './Pages/Authentication/Lounge';
 import ShopOwner from './Pages/Authentication/ShopOwner';
 import Supplier from './Pages/Authentication/Supplier';
-import Restaurant_Register from './Pages/Authentication/Register_Forms/Restaurant_Register';
+import Restaurant_Register from './Pages/Authentication/Register_Forms/delete these pages later/Restaurant_Register.jsx';
 
 import LinkPage from './Pages/Authentication/LinkPage';
 import Missing from './Pages/Authentication/Missing';
@@ -74,6 +75,9 @@ import MainLayout2 from './Components/MainLayout2.jsx';
 
 import CustomerMainLayout from './Pages/Customer/CustomerMainLayout';
 import CustomerDashboard from './Pages/Customer/CustomerDashboard';
+
+
+import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
 
 
 
@@ -149,6 +153,19 @@ function App() {
 
         </Route>
 
+
+        <Route path = "/registerlayout" element = {<RegisterLayout />}>
+          <Route index element={<Image/>}/>
+          <Route path = "image" element = {<Image />}></Route>
+        </Route>
+
+        <Route path = "/login" element = {<Login />}>
+          <Route index element={<Image/>}/>
+          <Route path = "image" element = {<Image />}></Route>
+        </Route>
+
+
+
         
 
 
@@ -158,11 +175,11 @@ function App() {
           
           <Route path = "/register" element = {<Register />}></Route>
           <Route path = "/login" element = {<Login />}></Route>
-          <Route path = "/customerRegister" element = {<Customer_Register />}></Route>
-          <Route path = "/shopOwnerRegister" element = {<ShopOwner_Register />}></Route>
-          <Route path = "/supplierRegister" element = {<Supplier_Register />}></Route>
-          <Route path = "/deliveryRiderRegister" element = {<DeliveryRider_Register />}></Route>
-          <Route path = "/restaurantRegister" element = {<Restaurant_Register />}></Route>
+          <Route path = "/customerRegister/:id" element = {<Customer_Register />}></Route>
+          <Route path = "/shopOwnerRegister/:id" element = {<ShopOwner_Register />}></Route>
+          <Route path = "/supplierRegister/:id" element = {<Supplier_Register />}></Route>
+          <Route path = "/deliveryRiderRegister/:id" element = {<DeliveryRider_Register />}></Route>
+          <Route path = "/restaurantRegister/:id" element = {<Restaurant_Register />}></Route>
 
           <Route path = "/layout" element = {<Layout />}></Route>
           <Route path = "/linkPage" element = {<LinkPage />}></Route>

@@ -1,30 +1,38 @@
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import Login from './Login';
 import { useNavigate } from "react-router-dom";
-import loginService from "../../../Services/loginService";
+import CustomerRegisterService from "../../../../Services/CustomerRegisterService";
+
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const Restaurant_Register = () => {
+const Customer_Register = () => {
+
     const phoneRef = useRef();
-    const errRef = useRef();
     const emailRef = useRef();
 
+    const errRef = useRef();
+
     const [name, setName] = useState('');
-    const [location, setLocation] = useState('');
-    const [phone, setPhone] = useState('');
+
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
-
+    const [phone, setPhone] = useState('');
     const [validPhone, setValidPhone] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
 
+    const [address, setAddress] = useState('');
+
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+
+
 
     useEffect(() => {
         phoneRef.current.focus();
@@ -42,9 +50,10 @@ const Restaurant_Register = () => {
         setValidEmail(EMAIL_REGEX.test(email));
     }, [email])
 
+
     useEffect(() => {
         setErrMsg('');
-    }, [name, location, phone, email])
+    }, [name, email, phone, address])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,39 +65,47 @@ const Restaurant_Register = () => {
             return;
         }
         try {
-            // Make an API call to create a restaurant using loginService
-            const response = await loginService.createRestaurant({
-                
+            // Make an API call to create a user using loginService
+            const response = await CustomerRegisterService.createCustomer({
                 name: name,
                 email: email,
                 phone: phone,
-                location: location,
+                address: address,
             });
-
+    
             // Log the response data and access token
             console.log(response?.data);
             console.log(response?.accessToken);
             console.log(JSON.stringify(response));
-
+            
+    
             // Set success state and clear input fields
             setSuccess(true);
             setName('');
-            setLocation('');
-            setPhone('');
             setEmail('');
+            setPhone('');
+            setAddress('');
+    
+            
+          
+            
+            
 
         } catch (err) {
+            
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Contact number Taken');
+                setErrMsg('Phone number Taken');
             } else {
-                setErrMsg('Registration Failed');
+                setErrMsg('Registration Failed')
             }
-
+            
             errRef.current.focus();
         }
     }
+
+    
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
@@ -102,51 +119,21 @@ const Restaurant_Register = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Restaurant Register</h1>
+                    <h1>Customer Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="name">Name:</label>
+                        <label htmlFor="name">
+                            Name:
+                        </label>
                         <input
                             type="text"
                             id="name"
                             autoComplete="off"
                             onChange={(e) => setName(e.target.value)}
-                            value={name}
+                            value={name}aria-describedby="namenote"
                             required
-                        />
-
-                        <label htmlFor="location">Location:</label>
-                        <input
-                            type="text"
-                            id="location"
-                            autoComplete="off"
-                            onChange={(e) => setLocation(e.target.value)}
-                            value={location}
-                            required
-                        />
-
-                        <label htmlFor="phone">
-                            Phone:
-                            <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
-                        </label>
-                        <input
-                            type="text"
-                            id="phone"
-                            onChange={(e) => setPhone(e.target.value)}
-                            value={phone}
                             
-                            ref={phoneRef}
-                            required
-                            aria-invalid={validPhone ? "false" : "true"}
-                            aria-describedby="phonenote"
-                            onFocus={() => setPhoneFocus(true)}
-                            onBlur={() => setPhoneFocus(false)}
                         />
-                        <p id="phonenote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            Start with 0.<br />
-                            Must include 10 numbers.<br />
-                        </p>
+                        
 
                         <label htmlFor="email">
                             Email:
@@ -176,8 +163,46 @@ const Restaurant_Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Enter valid email.
                         </p>
+                        
+                        <label htmlFor="phone">
+                            Phone:
+                            <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="phone"
+                            onChange={(e) => setPhone(e.target.value)}
+                            value={phone}
+                            
+                            ref={phoneRef}
+                            required
+                            aria-invalid={validPhone ? "false" : "true"}
+                            aria-describedby="phonenote"
+                            onFocus={() => setPhoneFocus(true)}
+                            onBlur={() => setPhoneFocus(false)}
+                        />
+                        <p id="phonenote" className={phoneFocus && !validPhone ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Start with 0.<br />
+                            Must include 10 numbers.<br />
+                        </p>
 
-                        <button disabled={!validPhone ? true : false}>Sign Up</button>
+
+                        <label htmlFor="address">
+                            Address:
+                        </label>
+                        <input
+                            type="text"
+                            id="address"
+                            onChange={(e) => setAddress(e.target.value)}
+                            value={address}
+                            required
+                        />
+                        
+
+                        
+                        <button disabled={!validPhone? true : false}>Sign Up</button>
                     </form>
                     <p>
                         Already registered?<br />
@@ -191,4 +216,6 @@ const Restaurant_Register = () => {
     )
 }
 
-export default Restaurant_Register;
+export default Customer_Register
+
+

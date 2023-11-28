@@ -1,7 +1,16 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import loginService from "../../../Services/loginService";
 import useAuth from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
+import {
+    Drawer,
+    Toolbar,
+    Grid,
+  } from '@mui/material';
+  import { Outlet, useNavigate } from 'react-router-dom';
+  
+  import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Login = () => {
 
@@ -17,6 +26,10 @@ const Login = () => {
     const [success, setSuccess] = useState(false);
     
     const navigate = useNavigate(); // Add this line
+
+    const [open, setOpen] = useState(true); // Set the initial state to true to open the drawer.
+
+
 
 
     useEffect(() => {
@@ -50,33 +63,31 @@ const Login = () => {
             console.log(useAuth);
             console.log(typeof setAuth);
 
-            /*
-            if(response?.data?.accessToken){
-                loginService.setToken(response?.data?.accessToken);
-                navigate('/home');
-            }
-            */
-
-            //const userData = { user, pwd, role };
-
-            // Invoke setAuth with the new user data
-            //setAuth(userData); // The error seems to be here
-
-
-            //setAuth({ user, pwd, role });
-
-            // Example user data
-     // const userData = { user: 'bhashini', pwd: '!@#123QWEqwe', role: 'Customer' };
-
-      // Invoke setAuth with the new user data
-     // setAuth(userData);
-
+            
             setUser('');
             setPwd('');
             setSuccess(true);
            
 
-            navigate(from, { replace: true });
+            switch (role) {
+                case "Customer":
+                    navigate("/customermainlayout");
+                    break;
+                case "Shop Owner":
+                    navigate("/");
+                    break;
+                case "Supplier":
+                    navigate("");
+                    break;
+                case "Delivery Rider":
+                    navigate("");
+                    break;
+                case "Restaurant Owner":
+                    navigate("");
+                    break;
+                default:
+                    break;
+            }
     
 
         } catch (err) {
@@ -92,9 +103,30 @@ const Login = () => {
     }
 
 
-
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        <Grid container>
+          {/* Left Sidebar */}
+          <Grid item xs={6} style={{ overflowY: 'auto', height: '100%' }}>
+          
+          <Drawer
+              variant="persistent"
+              anchor="left"
+              open={open}
+              sx={{
+                width: '50%',
+                //height: '100%', // Set the height to 100%
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                  width: '50%',
+                  boxSizing: 'border-box',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                },
+              }}
+            >
+              <Toolbar />
+
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
             {success ? (
                 
                 <section>
@@ -156,14 +188,36 @@ const Login = () => {
                         Need an Account?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="/register">Sign Up</a>
+                            <a href="/registerlayout">Sign Up</a>
                         </span>
                     </p>
                 </section>
             )}
         </div>
-    )
-}
+  
+  
+  
+              
+           
+            </Drawer>
+          </Grid>
+    
+          {/* Content */}
+          <Grid item xs={6} style={{ 
+              padding: '10px 1px 1px', 
+              overflowY: 'auto', 
+              height: '100vh',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+               }}>
+            <Outlet />
+          </Grid>
+        </Grid>
+      );
+    };
+
+
 
 export default Login
 

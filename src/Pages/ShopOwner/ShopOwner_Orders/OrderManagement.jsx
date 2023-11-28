@@ -10,6 +10,8 @@ import Paper from '@mui/material/Paper';
 import Modal from 'react-modal';
 import { format } from 'date-fns';
 import "../../../styles/ShopOwner.css";
+import OrderService from '../../../Services/OrderService';
+
 
 // Set the root element of your app for the modal
 Modal.setAppElement('#root');
@@ -22,8 +24,14 @@ const OrderManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredOrders = orders.filter((order) =>
-    order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase())
+    order.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    OrderService.getOrders().then((res) => {
+      setOrders(res.data);
+    });
+  }, []);
 
   const formatDate = (date) => {
     if (!date) {
@@ -103,11 +111,11 @@ const OrderManagement = () => {
           <TableBody>
             {filteredOrders.map((order) => (
               <TableRow
-                key={order.orderNumber}
+                key={order.order_id}
                 className="TableRow"
                 onClick={() => handleRowClick(order)}
               >
-                <TableCell>{order.orderNumber}</TableCell>
+                <TableCell>{order.order_id}</TableCell>
                 <TableCell>{formatDate(order.date)}</TableCell>
                 <TableCell>{order.time}</TableCell>
                 <TableCell>{order.items}</TableCell>
@@ -146,7 +154,7 @@ const OrderManagement = () => {
       >
         <div>
           {/* Display details of the selected order */}
-          <p>Order Number: {selectedOrder?.orderNumber}</p>
+          <p>Order Number: {selectedOrder?.order_id}</p>
           <p>Date: {formatDate(selectedOrder?.date)}</p>
           <p>Time: {selectedOrder?.time}</p>
           <p>Items: {selectedOrder?.items}</p>

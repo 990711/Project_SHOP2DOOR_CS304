@@ -2,25 +2,23 @@ import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import loginService from "../../../Services/loginService";
+import loginService from "../../../../Services/loginService";
 
 const PHONE_REGEX = /^[0][0-9]{9}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
-const ShopOwner_Register = () => {
+const Restaurant_Register = () => {
     const phoneRef = useRef();
     const errRef = useRef();
     const emailRef = useRef();
 
-
-    const [shopName, setShopName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [branch, setBranch] = useState('');
+    const [name, setName] = useState('');
     const [location, setLocation] = useState('');
+    const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
+
 
     const [validPhone, setValidPhone] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
@@ -46,7 +44,7 @@ const ShopOwner_Register = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [shopName, phone, branch, location, email])
+    }, [name, location, phone, email])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,13 +56,13 @@ const ShopOwner_Register = () => {
             return;
         }
         try {
-            // Make an API call to create a shop owner using loginService
-            const response = await loginService.createShopOwner({
-                shopName : shopName,
-                phone : phone,
-                branch : branch,
-                location : location,
-                email : email,
+            // Make an API call to create a restaurant using loginService
+            const response = await loginService.createRestaurant({
+                
+                name: name,
+                email: email,
+                phone: phone,
+                location: location,
             });
 
             // Log the response data and access token
@@ -74,10 +72,9 @@ const ShopOwner_Register = () => {
 
             // Set success state and clear input fields
             setSuccess(true);
-            setShopName('');
-            setPhone('');
-            setBranch('');
+            setName('');
             setLocation('');
+            setPhone('');
             setEmail('');
 
         } catch (err) {
@@ -105,15 +102,25 @@ const ShopOwner_Register = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Shop Owner Register</h1>
+                    <h1>Restaurant Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="shopName">Shop Name:</label>
+                        <label htmlFor="name">Name:</label>
                         <input
                             type="text"
-                            id="shopName"
+                            id="name"
                             autoComplete="off"
-                            onChange={(e) => setShopName(e.target.value)}
-                            value={shopName}
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            required
+                        />
+
+                        <label htmlFor="location">Location:</label>
+                        <input
+                            type="text"
+                            id="location"
+                            autoComplete="off"
+                            onChange={(e) => setLocation(e.target.value)}
+                            value={location}
                             required
                         />
 
@@ -140,26 +147,6 @@ const ShopOwner_Register = () => {
                             Start with 0.<br />
                             Must include 10 numbers.<br />
                         </p>
-
-                        <label htmlFor="branch">Branch:</label>
-                        <input
-                            type="text"
-                            id="branch"
-                            autoComplete="off"
-                            onChange={(e) => setBranch(e.target.value)}
-                            value={branch}
-                            required
-                        />
-
-                        <label htmlFor="location">Location:</label>
-                        <input
-                            type="text"
-                            id="location"
-                            autoComplete="off"
-                            onChange={(e) => setLocation(e.target.value)}
-                            value={location}
-                            required
-                        />
 
                         <label htmlFor="email">
                             Email:
@@ -204,4 +191,4 @@ const ShopOwner_Register = () => {
     )
 }
 
-export default ShopOwner_Register;
+export default Restaurant_Register;
