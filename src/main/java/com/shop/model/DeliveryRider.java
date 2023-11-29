@@ -3,6 +3,8 @@ package com.shop.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +33,7 @@ public class DeliveryRider extends Login{
 	@Column(name = "contact")
 	private String contact;
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="rider")
 	private List<Order> orders = new ArrayList<>();
 	

@@ -1,5 +1,8 @@
 package com.shop.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -9,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -55,6 +59,15 @@ public class Item {
 	@Column(name = "category")
 	private String category;
 	
+	@JsonIgnore  // without this, all items can be obtained with shop owner details.
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="shop_id")
+	private ShopOwner shopOwner;
+	
+	
+	@ManyToMany(mappedBy="items")
+	private Set<Order> orders = new HashSet<>();
+	
 	
 	public String getImage() {
 		return image;
@@ -72,10 +85,7 @@ public class Item {
 		this.category = category;
 	}
 	
-	@JsonIgnore  // without this, all items can be obtained with shop owner details.
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="shop_id")
-	private ShopOwner shopOwner;
+	
 	
 
 	public ShopOwner getShopOwner() {

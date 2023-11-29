@@ -2,6 +2,10 @@ package com.shop.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -38,13 +44,21 @@ public class Order {
 	@Column
 	private Time delivery_time;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "delivery_id")
 	private DeliveryRider rider;
+	
+	@ManyToMany()
+	@JoinTable(name="order_items",
+				joinColumns = @JoinColumn(name="order_id"),
+				inverseJoinColumns = @JoinColumn(name="item_id"))
+	private Set<Item> items = new HashSet<>();
 	
 	
 	public Order() {
