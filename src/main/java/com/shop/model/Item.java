@@ -1,5 +1,7 @@
 package com.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,6 +44,10 @@ public class Item {
 	private int quantity;
 	
 	//@NotBlank(message = "this column must be filled!")
+	@Column(name = "reorder_point")
+	private int reorder_point;
+	
+	//@NotBlank(message = "this column must be filled!")
 	@Column(name = "image")
 	private String image;
 	
@@ -66,7 +72,7 @@ public class Item {
 		this.category = category;
 	}
 	
-	
+	@JsonIgnore  // without this, all items can be obtained with shop owner details.
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="shop_id")
 	private ShopOwner shopOwner;

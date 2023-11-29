@@ -3,6 +3,8 @@ package com.shop.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +42,7 @@ public class ShopOwner extends Login{
 	private String email;
 	
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="shopOwner")
 	private List<Item> items = new ArrayList<>();
 	

@@ -44,9 +44,14 @@ public class ShopOwnerController {
 			return new ResponseEntity<ShopOwner>(savedShopOwner, HttpStatus.CREATED);
 		}
 		
+//		@GetMapping("/ShopOwner")
+//	    public List<Object> getAllShops() {
+//	        return shopOwnerRepo.getAllShops();
+//	    }
+		
 		@GetMapping("/ShopOwner")
-	    public List<Object> getAllShops() {
-	        return shopOwnerRepo.getAllShops();
+	    public List<ShopOwner> getAllShops() {
+	        return shopOwnerRepo.findAll();
 	    }
 		
 	

@@ -81,7 +81,7 @@ public class ItemController {
 	 }
 	 
 	 @GetMapping("/Item/{id}")
-	 public List<Object> getItemByShopId(@PathVariable Long id){
+	 public List<Item> getItemByShopId(@PathVariable Long id){
 		 return itemRepo.getItemsByShopId(id);
 	 }
 		
