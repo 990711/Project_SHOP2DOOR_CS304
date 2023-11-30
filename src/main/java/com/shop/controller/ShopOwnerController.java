@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.Item;
 import com.shop.model.ShopOwner;
+import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ItemRepo;
+import com.shop.repositary.ShopOwnerJobRepo;
 import com.shop.repositary.ShopOwnerRepo;
 import com.shop.service.ShopOwnerService;
 
@@ -36,6 +38,9 @@ public class ShopOwnerController {
 	
 	@Autowired
     private ItemRepo itemRepo;
+	
+	@Autowired
+    private ShopOwnerJobRepo shopOwnerJobRepo;
 	
 	// Add Customer
 		@PostMapping("/ShopOwnerDetails")
@@ -71,6 +76,26 @@ public class ShopOwnerController {
 			
 			
 			itemRepo.save(newItem);
+			shopOwnerRepo.save(shop);
+			
+			return ResponseEntity.ok("Successfully added item..");
+		}
+	
+		@PutMapping("/ShopOwnerJob/{id}")
+		public ResponseEntity<String> updateJobs(@PathVariable Long id, @RequestBody ShopOwnerJob newJob){
+			ShopOwner shop = shopOwnerRepo.findById(id)
+	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
+			
+			//Item item = new Item()
+			
+			shop.getJobs().add(newJob);
+			
+			newJob.setShop(shop);
+			
+			//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+			
+			
+			shopOwnerJobRepo.save(newJob);
 			shopOwnerRepo.save(shop);
 			
 			return ResponseEntity.ok("Successfully added item..");

@@ -30,7 +30,7 @@ public class ShopOwnerJob {
     @Column(name = "description")
     private String description;
     
-    @Temporal(TemporalType.DATE) // Add this annotation to store only the date part
+    @Temporal(TemporalType.DATE) // Add this annotation to store only the date part , 2023-12-01
     @Column(name = "applicationDeadline")
     private Date applicationDeadline;
     
