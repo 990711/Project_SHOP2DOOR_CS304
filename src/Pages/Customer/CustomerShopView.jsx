@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ShopOwnerRegisterService from "../../Services/ShopOwnerRegisterService";
 import "../../styles/Customer.css";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import Modal from "react-modal"; // Import react-modal
 Modal.setAppElement("#root"); // Set the root element of your app
@@ -40,26 +41,28 @@ const CustomerViewShop = () => {
   };
 
   return (
-    <div className="title">
-      <button onClick={() => navigate("/customermainlayout/dashboard")}>
-        SHOP2DOOR
-      </button>
-
-      <div style={{ display: "flex", alignItems: "center", marginLeft: "2px" }}>
-        <div style={{ flexGrow: 1, margin: "20px" }}>
+    <div>
+      <div className="customer-header">
+          <h1
+            className="customer-header-name"
+            // onClick={() => navigate("/customermainlayout/dashboard")}
+          >
+            SHOP2DOOR
+          </h1>
           <input
             type="text"
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ width: "75%" }}
+            className="customer-header-search"
           />
-          <div className="dashboard-content">
-            {/* Items goes here */}
-            <h1>Shops</h1>
-          </div>
+          <ShoppingCartIcon className="customer-header-icons" />
         </div>
-      </div>
+
+        <div className="dashboard-content">
+          {/* Items goes here */}
+          <h1>Shops</h1>
+        </div>
     </div>
   );
 };

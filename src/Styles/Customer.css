@@ -121,19 +121,37 @@ button:hover {
 /* Header items */
 .customer-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  /* align-items: center; */
-  margin-left: "2px";
+  padding: 0 2px;
 }
 
-.customer-header-btn {
-  width: 30%;
+.customer-header-name {
+  width: 20%;
+  line-height: 40px;
 }
 
+.customer-header-name:hover {
+  cursor: pointer;
+}
 .customer-header-search {
-  width: 50% !important;
-
+  width: 50%;
+  line-height: 40px;
 }
+
+.customer-header-icons {
+  font-size: 40px !important;
+  transition: color 0.4s; /* Add a smooth transition effect for color changes */
+  cursor: pointer;
+  color: #757575;
+  line-height: 40px;
+}
+
+.customer-header-icons:hover {
+  color: #292929;
+  cursor: pointer;
+}
+
 
 /* CUSTOMERSIDEPANEL */
 .sidePanel {
@@ -178,17 +196,6 @@ button:hover {
 .sidePanel a .fa-icon {
   width: 25px; /* Adjust the icon's width */
   font-size: 1.5em; /* Adjust the icon's size */
-}
-
-.rightPanelIcons {
-  font-size: 40px !important;
-  transition: color 0.4s; /* Add a smooth transition effect for color changes */
-  cursor: pointer;
-}
-
-.rightPanelIcons:hover {
-  color: #000000;
-  cursor: pointer;
 }
 
 .dashboard-search {
