@@ -1,6 +1,8 @@
 package com.shop.model;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -45,6 +48,9 @@ public class ShopOwnerJob {
 	@JoinColumn(name="shop_id")
 	private ShopOwner shop;
     
+    @ManyToMany(mappedBy="appliedJobs")
+	private Set<Customer> candidate = new HashSet<>();
+    
 
     public ShopOwner getShop() {
 		return shop;
@@ -76,12 +82,20 @@ public class ShopOwnerJob {
 
 
 
-	
+	public Set<Customer> getCandidate() {
+		return candidate;
+	}
+
+
+
+	public void setCandidate(Set<Customer> candidate) {
+		this.candidate = candidate;
+	}
 
 
 
 	public ShopOwnerJob(String jobTitle, String description, Date applicationDeadline, String applicationStatus,
-			String applicationPostingDate, ShopOwner shop) {
+			String applicationPostingDate, ShopOwner shop, Set<Customer> candidate) {
 		super();
 		this.jobTitle = jobTitle;
 		this.description = description;
@@ -89,6 +103,7 @@ public class ShopOwnerJob {
 		this.applicationStatus = applicationStatus;
 		this.applicationPostingDate = applicationPostingDate;
 		this.shop = shop;
+		this.candidate = candidate;
 	}
 
 
