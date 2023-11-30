@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,15 +45,15 @@ public class ShopOwnerController {
 			return new ResponseEntity<ShopOwner>(savedShopOwner, HttpStatus.CREATED);
 		}
 		
-//		@GetMapping("/ShopOwner")
-//	    public List<Object> getAllShops() {
-//	        return shopOwnerRepo.getAllShops();
-//	    }
+	@GetMapping("/ShopOwner")
+    public List<Map<String, Object>> getAllShops() {
+       return shopOwnerRepo.getAllShops();
+   }
 		
-		@GetMapping("/ShopOwner")
-	    public List<ShopOwner> getAllShops() {
-	        return shopOwnerRepo.findAll();
-	    }
+//		@GetMapping("/ShopOwner")
+//	    public List<ShopOwner> getAllShops() {
+//	        return shopOwnerRepo.findAll();
+//	    }
 		
 	
 		@PutMapping("/ShopOwner/{id}")
