@@ -58,6 +58,7 @@ public class ShopOwnerJobController {
     	shopowner_jobpostings.setDescription(jobPostingsDetails.getDescription());
     	shopowner_jobpostings.setApplicationDeadline(jobPostingsDetails.getApplicationDeadline());
     	shopowner_jobpostings.setApplicationStatus(jobPostingsDetails.getApplicationStatus());
+    	shopowner_jobpostings.setApplicationPostingDate(jobPostingsDetails.getApplicationPostingDate());
  
         
         // Add more fields to update as needed

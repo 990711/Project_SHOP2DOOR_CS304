@@ -8,9 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -46,6 +43,22 @@ public class ShopOwner extends Login{
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="shopOwner")
 	private List<Item> items = new ArrayList<>();
 	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="shop")
+	private List<ShopOwnerJob> jobs = new ArrayList<>();
+	
+
+	public List<ShopOwnerJob> getJobs() {
+		return jobs;
+	}
+
+
+
+	public void setJobs(List<ShopOwnerJob> jobs) {
+		this.jobs = jobs;
+	}
+
+
 
 	public ShopOwner() {
 		
@@ -53,9 +66,13 @@ public class ShopOwner extends Login{
 
 	
 
+	
+
+
 	public ShopOwner(@NotBlank(message = "this column must be filled!") String shop_name,
 			@NotBlank(message = "this column must be filled!") String contact, String branch,
-			@NotBlank(message = "this column must be filled!") String location, String email, List<Item> items) {
+			@NotBlank(message = "this column must be filled!") String location, String email, List<Item> items,
+			List<ShopOwnerJob> jobs) {
 		super();
 		this.shop_name = shop_name;
 		this.contact = contact;
@@ -63,6 +80,7 @@ public class ShopOwner extends Login{
 		this.location = location;
 		this.email = email;
 		this.items = items;
+		this.jobs = jobs;
 	}
 
 

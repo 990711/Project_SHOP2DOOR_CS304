@@ -2,11 +2,16 @@ package com.shop.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -32,20 +37,63 @@ public class ShopOwnerJob {
     @Column(name = "applicationStatus")
     private String applicationStatus;
     
+    @Column(name = "applicationPostingDate")
+    private String applicationPostingDate;
+    
+    @JsonIgnore 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="shop_id")
+	private ShopOwner shop;
+    
 
-    public ShopOwnerJob() {
+    public ShopOwner getShop() {
+		return shop;
+	}
+
+
+
+	public void setShop(ShopOwner shop) {
+		this.shop = shop;
+	}
+
+
+
+	public ShopOwnerJob() {
         // Default constructor
     }
 
-    public ShopOwnerJob(String jobTitle, String description, Date applicationDeadline, String applicationStatus) {
-        this.jobTitle = jobTitle;
-        this.description = description;
-        this.applicationDeadline = applicationDeadline;
-        this.applicationStatus = applicationStatus;
-     
-    }
+    
 
-    // Getters and setters for the fields
+    public String getApplicationPostingDate() {
+		return applicationPostingDate;
+	}
+
+
+
+	public void setApplicationPostingDate(String applicationPostingDate) {
+		this.applicationPostingDate = applicationPostingDate;
+	}
+
+
+
+	
+
+
+
+	public ShopOwnerJob(String jobTitle, String description, Date applicationDeadline, String applicationStatus,
+			String applicationPostingDate, ShopOwner shop) {
+		super();
+		this.jobTitle = jobTitle;
+		this.description = description;
+		this.applicationDeadline = applicationDeadline;
+		this.applicationStatus = applicationStatus;
+		this.applicationPostingDate = applicationPostingDate;
+		this.shop = shop;
+	}
+
+
+
+	// Getters and setters for the fields
 
 
     public long getId() {
