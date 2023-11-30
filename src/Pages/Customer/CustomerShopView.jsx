@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ShopOwnerRegisterService from "../../Services/ShopOwnerRegisterService";
 import "../../styles/Customer.css";
-import ShopBox from "./ShopBox";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Modal from "react-modal"; // Import react-modal
 Modal.setAppElement("#root"); // Set the root element of your app
 
-const CustomerDashboard = () => {
+const CustomerViewShop = () => {
   const navigate = useNavigate();
   const [shops, setShops] = useState([]);
   const [selectedShops, setSelectedShops] = useState([]);
@@ -42,31 +40,28 @@ const CustomerDashboard = () => {
   };
 
   return (
-    <div>
-      <div className="customer-header">
-        <button className="customer-header-btn" onClick={() => navigate("/customermainlayout/dashboard")}>
-          SHOP2DOOR
-        </button>
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="customer-header-search"
-        />
-        <ShoppingCartIcon className="rightPanelIcons"/>
+    <div className="title">
+      <button onClick={() => navigate("/customermainlayout/dashboard")}>
+        SHOP2DOOR
+      </button>
 
-      </div>
-
-      <div style={{ flexGrow: 1, margin: "20px" }}>
-        <div className="dashboard-content">
-          {filteredShops.map((shop, index) => (
-            <ShopBox key={index} shop={shop} />
-          ))}
+      <div style={{ display: "flex", alignItems: "center", marginLeft: "2px" }}>
+        <div style={{ flexGrow: 1, margin: "20px" }}>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: "75%" }}
+          />
+          <div className="dashboard-content">
+            {/* Items goes here */}
+            <h1>Shops</h1>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default CustomerDashboard;
+export default CustomerViewShop;

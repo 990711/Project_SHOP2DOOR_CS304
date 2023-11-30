@@ -45,7 +45,7 @@ import ShopNotifications from './Pages/ShopOwner/ShopOwner_Support/ShopNotificat
 import FeedbackManagement from './Pages/ShopOwner/ShopOwner_Support/FeedbackManagement';
 import ShopSettings from './Pages/ShopOwner/ShopOwner_Settings/ShopSettings';
 import Dashboard from './Pages/ShopOwner/ShopOwner_Dashboard/Dashboard';
-
+import CustomerViewShop from "./Pages/Customer/CustomerShopView.jsx";
 
 
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
@@ -97,6 +97,9 @@ function App() {
         <Route path="/customermainlayout" element={<CustomerMainLayout />}>
           <Route index element={<CustomerDashboard/>}/>
           <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
+          <Route path="/customermainlayout/shop/:shop_name" element={<CustomerViewShop />} />
+
+
           <Route path="/customermainlayout/orders" element={<CustomerOrders />} />
           
           <Route path="/customermainlayout/freshproducts" element={<FreshProducts />} />

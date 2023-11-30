@@ -9,7 +9,6 @@ import {
   ListItemText,
   Collapse,
 } from "@mui/material";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Outlet, useNavigate } from "react-router-dom";
 import SidePanel from "./SidePanel";
 import "../../styles/Customer.css";
@@ -67,43 +66,13 @@ const CustomerMainLayout = () => {
       >
         <SidePanel></SidePanel>
       </Drawer>
-      {/* Right Drawer (Sidebar) */}
-      <Drawer
-        variant="persistent"
-        anchor="right"
-        open={rightOpen}
-        sx={{
-          width: 90, // Adjust the width as needed
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: 90, // Adjust the width as needed
-            boxSizing: "border-box",
-            position: "fixed", // Ensure it doesn't affect other elements
-            marginTop: 2,
-            top: 0, // Position it at the top
-            height: "10%",
-            overflowY: "hidden", // Hide scrollbar, content won't scroll
-            overflowX: "hidden", // Hide scrollbar, content won't scroll
-            border: "none", // Ensure no border
-          },
-        }}
-      >
-        {/* Right Sidebar Content */}
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <ShoppingCartIcon className="rightPanelIcons"/>
-            </ListItemIcon>
-          </ListItem>
-        </List>
-      </Drawer>
 
       {/* Content */}
       <div
         style={{
           flexGrow: 1,
           padding: "10px 1px 1px",
-          marginLeft: open ? -30 : 0,
+          marginLeft: open ? 40 : 90,
           marginRight: open ? 80 : 0,
         }}
       >

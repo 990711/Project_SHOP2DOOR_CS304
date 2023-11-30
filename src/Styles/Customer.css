@@ -1,74 +1,68 @@
-
 /* Container styles */
 .container {
-    margin: 20px;
-  }
+  margin: 20px;
+}
 
-  /* Title styles */
-  .title {
-    font-size: 30px;
-    font-weight: bold;
-    color: #4caf50; /* Change the color to your preference */
-    text-align: center;
-    text-transform: uppercase;
-    
-    margin-bottom: 20px;
-  }
+/* Title styles */
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #4caf50; /* Change the color to your preference */
+  text-align: center;
+  text-transform: uppercase;
 
-  .title button {
-    background: none;
-    border: none;
-    padding: 0;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    color: #4caf50;  /* You can adjust the color to your preference */
-    outline: none;
-  }
-  
-  .title input {
-    width: 75%;
-    /* Add any additional styling for the input if needed */
-  }
+  margin-bottom: 20px;
+}
 
-  .title button:hover {
-    color: rgb(16, 15, 15); /* Adjust the color for the hover state */
-    outline: none;
-    text-decoration: none;
-  }
-  
-  .title button:active {
-    color: rgb(13, 67, 13); /* Adjust the color for the active (clicked) state */
-    outline: none;
-    text-decoration: none;
-  }
+.title button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: #4caf50; /* You can adjust the color to your preference */
+  outline: none;
+}
 
+.title input {
+  width: 75%;
+  /* Add any additional styling for the input if needed */
+}
 
- 
+.title button:hover {
+  color: rgb(16, 15, 15); /* Adjust the color for the hover state */
+  outline: none;
+  text-decoration: none;
+}
 
-  
-  /* Form styles */
-  form {
-  
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  /* Label styles */
-  label {
-    margin-top: 10px;
-  }
-  
-  /* Input styles */
-  input {
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-  
-  /* Button container styles */
+.title button:active {
+  color: rgb(13, 67, 13); /* Adjust the color for the active (clicked) state */
+  outline: none;
+  text-decoration: none;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* Label styles */
+label {
+  margin-top: 10px;
+}
+
+/* Input styles */
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+/* Button container styles */
 .button-container {
   display: flex;
   justify-content: space-between;
@@ -97,9 +91,6 @@ button:hover {
   color: black;
   border: 1px solid #4caf50;
 }
-  /* Add more styles as needed */
- 
-  /* ProductListing.css */
 
 /* Table container styles */
 .TableContainer {
@@ -127,7 +118,22 @@ button:hover {
   cursor: pointer;
 }
 
+/* Header items */
+.customer-header {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin-left: "2px";
+}
 
+.customer-header-btn {
+  width: 30%;
+}
+
+.customer-header-search {
+  width: 50% !important;
+
+}
 
 /* CUSTOMERSIDEPANEL */
 .sidePanel {
@@ -175,7 +181,7 @@ button:hover {
 }
 
 .rightPanelIcons {
-  font-size : 40px !important;
+  font-size: 40px !important;
   transition: color 0.4s; /* Add a smooth transition effect for color changes */
   cursor: pointer;
 }
@@ -191,7 +197,10 @@ button:hover {
 
 .dashboard-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsive grid */
   margin-top: 20px;
 }
 
@@ -214,10 +223,18 @@ button:hover {
   font-size: small;
 }
 
-a:link { text-decoration: none; }
-a:visited { text-decoration: none; }
-a:hover { text-decoration: none; }
-a:active { text-decoration: none; }
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
 
 .shop-box-img {
   height: 90px;
