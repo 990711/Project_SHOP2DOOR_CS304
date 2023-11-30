@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ShopBox = ({ shop }) => {
-  const imageUrl = `../../../${shop.shop_name}.jpg`;
+  const imageUrl = `../../../${shop.shop_id % 4}.jpg`;
 
   return (
     <Link to={`/${shop.shop_id}`} className="shop-box-link">
