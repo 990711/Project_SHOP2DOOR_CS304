@@ -75,8 +75,7 @@ function App() {
         <Route path="/customermainlayout" element={<CustomerMainLayout />}>
           <Route index element={<CustomerDashboard/>}/>
           <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
-          <Route path="/customermainlayout/shop/:shop_name" element={<CustomerViewShop />} />
-          
+          <Route path="/customermainlayout/shop/:shop_name/:branch/:ShopCode" element={<CustomerViewShop />} />
         </Route>
 
         <Route path = "/" element = {<MainLayout />}>

@@ -1,68 +1,102 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import ShopOwnerRegisterService from "../../Services/ShopOwnerRegisterService";
+import { useNavigate, useParams } from "react-router-dom";
+import ItemsServices from "../../Services/ItemsService";
 import "../../styles/Customer.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Modal from "react-modal";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import ItemBox from "./ItemBox";
 
-import Modal from "react-modal"; // Import react-modal
-Modal.setAppElement("#root"); // Set the root element of your app
+Modal.setAppElement("#root");
 
 const CustomerViewShop = () => {
+  const { shop_name, branch, ShopCode } = useParams();
   const navigate = useNavigate();
-  const [shops, setShops] = useState([]);
-  const [selectedShops, setSelectedShops] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const ShopId = (ShopCode - 1234) / 1000;
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedShop, setSelectedShop] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [Items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [itemsByCategory, setItemsByCategory] = useState({});
+  const [currentTab, setCurrentTab] = useState(0); // Track the current active tab
 
   useEffect(() => {
-    ShopOwnerRegisterService.getShopOwners()
+    ItemsServices.GetItemsByShopID(ShopId)
       .then((response) => {
-        setShops(response.data);
+        setItems(response.data);
       })
       .catch((error) => {
         console.error("Error fetching shops:", error);
       });
-  }, []);
+  }, [ShopId]);
 
-  const filteredShops = shops.filter((shop) =>
-    shop.shop_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    setCategories(getCategories(Items));
+    setItemsByCategory(separateItemsIntoCategories(Items));
+  }, [Items]);
 
-  const handleRowClick = (shop) => {
-    setSelectedShop(shop);
-    setIsModalOpen(true);
+  const getCategories = (data) => {
+    let categories = [...new Set(data.map((item) => item.category))];
+    return categories;
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedShop(null);
+  const separateItemsIntoCategories = (items) => {
+    let itemsByCategory = {};
+
+    items.forEach((item) => {
+      if (itemsByCategory[item.category]) {
+        itemsByCategory[item.category].push(item);
+      } else {
+        itemsByCategory[item.category] = [item];
+      }
+    });
+    return itemsByCategory;
+  };
+
+  const handleChangeTab = (event, newValue) => {
+    setCurrentTab(newValue);
   };
 
   return (
     <div>
       <div className="customer-header">
-          <h1
-            className="customer-header-name"
-            // onClick={() => navigate("/customermainlayout/dashboard")}
-          >
-            SHOP2DOOR
-          </h1>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="customer-header-search"
-          />
-          <ShoppingCartIcon className="customer-header-icons" />
-        </div>
+        <h1 className="customer-header-name">SHOP2DOOR</h1>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="customer-header-search"
+        />
+        <ShoppingCartIcon className="customer-header-icons" />
+      </div>
+      <div className="customer-shop-view-header">
+        <h2>{shop_name + " - " + branch}</h2>
+      </div>
 
-        <div className="dashboard-content">
-          {/* Items goes here */}
-          <h1>Shops</h1>
-        </div>
+      <div className="tabs-content">
+        <Tabs>
+          <TabList>
+            {categories.map((category, index) => (
+              <Tab key={index}>{category}</Tab>
+            ))}
+          </TabList>
+
+          {categories.map((category, index) => (
+            <TabPanel key={index}>
+              {/* Render items based on the selected category */}
+              {itemsByCategory[category] &&
+                itemsByCategory[category].map((item) => (
+                  <div key={item.id}>
+                    {/* Render your item content here */}
+                    <ItemBox item={item} />
+                  </div>
+                ))}
+            </TabPanel>
+          ))}
+        </Tabs>
+      </div>
     </div>
   );
 };

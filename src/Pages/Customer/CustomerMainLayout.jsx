@@ -56,10 +56,10 @@ const CustomerMainLayout = () => {
         anchor="left"
         open={open}
         sx={{
-          width: "15%",
+          width: "240px",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: "15%",
+            width: "240px",
             boxSizing: "border-box",
           },
         }}
@@ -76,7 +76,7 @@ const CustomerMainLayout = () => {
           marginRight: open ? 80 : 0,
         }}
       >
-        <div style={{ overflowY: "auto", height: "100vh" }}>
+        <div style={{ height: "100vh" }}>
           <Outlet />
         </div>
       </div>
