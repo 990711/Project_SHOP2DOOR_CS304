@@ -1,23 +1,20 @@
 package com.shop.model;
 
-import jakarta.persistence.Entity;
+import java.sql.Date;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.util.Date;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-
 @Entity
 @Table(name = "shopowner_job_postings")
+public class ShopOwnerJob {
 
-
-public class ShopOwner_JobPostings {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,11 +33,11 @@ public class ShopOwner_JobPostings {
     private String applicationStatus;
     
 
-    public ShopOwner_JobPostings() {
+    public ShopOwnerJob() {
         // Default constructor
     }
 
-    public ShopOwner_JobPostings(String jobTitle, String description, Date applicationDeadline, String applicationStatus) {
+    public ShopOwnerJob(String jobTitle, String description, Date applicationDeadline, String applicationStatus) {
         this.jobTitle = jobTitle;
         this.description = description;
         this.applicationDeadline = applicationDeadline;
@@ -89,6 +86,5 @@ public class ShopOwner_JobPostings {
     public void setApplicationStatus(String applicationStatus) {
         this.applicationStatus = applicationStatus;
     }
-
-
+	
 }

@@ -15,42 +15,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shop.exception.ResourceNotFoundException;
-import com.shop.model.ShopOwner_JobPostings;
-import com.shop.repository.ShopOwner_JobPostingsRepository;
+import com.shop.exception.ResourceNotFound;
+import com.shop.model.ShopOwnerJob;
+import com.shop.repository.ShopOwnerJobRepo;
+
 
 @RestController
-@RequestMapping("/api/v1/") // Base path for JobPostings API
+@RequestMapping("/api/v1/")
+public class ShopOwnerJobController {
 
-public class ShopOwner_JobPostingsController {
 	@Autowired
-    private ShopOwner_JobPostingsRepository shopOwner_jobPostingsRepository;
+    private ShopOwnerJobRepo shopOwner_jobPostingsRepository;
 
     // Get all job postings
-    @GetMapping("/shopowner_jobpostings")
-    public List<ShopOwner_JobPostings> getAllJobPostings() {
+    @GetMapping("/ShopOwnerJob")
+    public List<ShopOwnerJob> getAllJobPostings() {
         return shopOwner_jobPostingsRepository.findAll();
     }
 
     // Create a new job posting
-    @PostMapping("/shopowner_jobpostings")
-    public ShopOwner_JobPostings createJobPosting(@RequestBody ShopOwner_JobPostings shopowner_jobpostings) {
+    @PostMapping("/ShopOwnerJob")
+    public ShopOwnerJob createJobPosting(@RequestBody ShopOwnerJob shopowner_jobpostings) {
         return shopOwner_jobPostingsRepository.save(shopowner_jobpostings);
     }
 
     // Get a job posting by ID
-    @GetMapping("/shopowner_jobpostings/{id}")
-    public ResponseEntity<ShopOwner_JobPostings> getJobPostingById(@PathVariable Long id) {
-    	ShopOwner_JobPostings shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Job Posting not found with id: " + id));
+    @GetMapping("/ShopOwnerJob/{id}")
+    public ResponseEntity<ShopOwnerJob> getJobPostingById(@PathVariable Long id) {
+    	ShopOwnerJob shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
         return ResponseEntity.ok(shopowner_jobpostings);
     }
 
     // Update a job posting by ID
-    @PutMapping("/shopowner_jobpostings/{id}")
-    public ResponseEntity<ShopOwner_JobPostings> updateJobPosting(@PathVariable Long id, @RequestBody ShopOwner_JobPostings jobPostingsDetails) {
-    	ShopOwner_JobPostings shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Job Posting not found with id: " + id));
+    @PutMapping("/ShopOwnerJob/{id}")
+    public ResponseEntity<ShopOwnerJob> updateJobPosting(@PathVariable Long id, @RequestBody ShopOwnerJob jobPostingsDetails) {
+    	ShopOwnerJob shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
         
    
     	shopowner_jobpostings.setJobTitle(jobPostingsDetails.getJobTitle());
@@ -61,20 +62,20 @@ public class ShopOwner_JobPostingsController {
         
         // Add more fields to update as needed
         
-        ShopOwner_JobPostings updatedJobPosting = shopOwner_jobPostingsRepository.save(shopowner_jobpostings);
+        ShopOwnerJob updatedJobPosting = shopOwner_jobPostingsRepository.save(shopowner_jobpostings);
         return ResponseEntity.ok(updatedJobPosting);
     }
 
     // Delete a job posting by ID
-    @DeleteMapping("/shopowner_jobpostings/{id}")
+    @DeleteMapping("/ShopOwnerJob/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteJobPosting(@PathVariable Long id) {
-    	ShopOwner_JobPostings shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Job Posting not found with id: " + id));
+    	ShopOwnerJob shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
         
         shopOwner_jobPostingsRepository.delete(shopowner_jobpostings);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-
+	
 }
