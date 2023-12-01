@@ -273,6 +273,7 @@ a:active {
   padding: 15px;
   text-align: left;
   color: black;
+  position: relative;
 }
 
 .single {
@@ -287,4 +288,21 @@ a:active {
   cursor: pointer;
   border: none;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.original-price {
+  color: #555; /* Example color for original price */
+  text-decoration: line-through; /* Example: strike through the original price */
+}
+.discounted-price {
+  font-weight: bold;
+}
+
+.discount-percentage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: green; /* Green background color */
+  color: white; /* White text color */
+  padding: 5px; /* Add padding for better visibility */
 }
