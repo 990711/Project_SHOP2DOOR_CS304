@@ -46,11 +46,13 @@ const CustomerViewShop = () => {
 
     items.forEach((item) => {
       if (itemsByCategory[item.category]) {
-        itemsByCategory[item.category].push(item);
+        itemsByCategory[item.category].items.push(item);
+        itemsByCategory[item.category].count++;
       } else {
-        itemsByCategory[item.category] = [item];
+        itemsByCategory[item.category] = { items: [item], count: 1 };
       }
     });
+
     return itemsByCategory;
   };
 
@@ -75,7 +77,7 @@ const CustomerViewShop = () => {
         <h2>{shop_name + " - " + branch}</h2>
       </div>
 
-      <div className="tabs-content">
+      <div className="shop-view-tabs">
         <Tabs>
           <TabList>
             {categories.map((category, index) => (
@@ -86,13 +88,13 @@ const CustomerViewShop = () => {
           {categories.map((category, index) => (
             <TabPanel key={index}>
               {/* Render items based on the selected category */}
-              {itemsByCategory[category] &&
-                itemsByCategory[category].map((item) => (
-                  <div key={item.id}>
-                    {/* Render your item content here */}
-                    <ItemBox item={item} />
-                  </div>
-                ))}
+              <div className="shop-view-tabs-container">
+              {itemsByCategory[category] && Array.isArray(itemsByCategory[category].items) && (
+  itemsByCategory[category].items.map((item) => (
+    <ItemBox key={item.id} item={item} itemsCount={itemsByCategory[category].count} />
+  ))
+)}
+              </div>
             </TabPanel>
           ))}
         </Tabs>

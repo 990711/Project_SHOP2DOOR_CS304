@@ -129,6 +129,7 @@ button:hover {
 .customer-header-name {
   width: 20%;
   line-height: 40px;
+  color: #0e6d04;
 }
 
 .customer-header-name:hover {
@@ -153,7 +154,7 @@ button:hover {
 }
 
 
-/* CUSTOMERSIDEPANEL */
+/* Customer Side Panel */
 .sidePanel {
   position: fixed;
   left: 0;
@@ -247,4 +248,43 @@ a:active {
   height: 90px;
   width: 180px;
   margin-top: 10px;
+}
+
+/* View tabs */
+.shop-view-tabs {
+  margin-top: 20px;
+}
+
+/* Items box */
+.shop-view-tabs-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(400px, 1fr)
+  ); /* Responsive grid */
+  margin-top: 20px;
+}
+
+.item-box {
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 0px 0px 20px 10px;
+  padding: 15px;
+  text-align: left;
+  color: black;
+}
+
+.single {
+  width: 45%;
+}
+
+.multiple {
+  width: 90%;
+}
+
+.item-box:hover {
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
