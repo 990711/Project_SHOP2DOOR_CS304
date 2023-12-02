@@ -1,10 +1,12 @@
 package com.shop.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.model.Customer;
 import com.shop.model.Login;
+import com.shop.model.Order;
 import com.shop.repositary.CustomerRepo;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.CustomerService;
@@ -49,6 +52,9 @@ public class CustomerController {
 			//return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
 		}
 		
-		
+		@GetMapping("/Customer")
+		public List<Customer> getCustomers() {
+			return customerRepo.findAll();
+		}
 	
 }

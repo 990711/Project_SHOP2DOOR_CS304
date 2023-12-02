@@ -13,7 +13,7 @@ public interface ItemRepo extends JpaRepository<Item, Long>{
 
 	List<Item> findAllByCategory(String category);
 	
-	@Query(value = "SELECT name,brand,category,description,image,price FROM item WHERE shop_id = :id", nativeQuery = true)
-	List<Object> getItemsByShopId(Long id);
+	@Query(value = "SELECT * FROM item WHERE shop_id = :id", nativeQuery = true)
+	List<Item> getItemsByShopId(Long id);
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
+import com.shop.model.Item;
 import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ShopOwnerJobRepo;
 
@@ -26,6 +27,7 @@ public class ShopOwnerJobController {
 
 	@Autowired
     private ShopOwnerJobRepo shopOwner_jobPostingsRepository;
+	
 
     // Get all job postings
     @GetMapping("/shopowner_jobpostings")
@@ -58,6 +60,7 @@ public class ShopOwnerJobController {
     	shopowner_jobpostings.setDescription(jobPostingsDetails.getDescription());
     	shopowner_jobpostings.setApplicationDeadline(jobPostingsDetails.getApplicationDeadline());
     	shopowner_jobpostings.setApplicationStatus(jobPostingsDetails.getApplicationStatus());
+    	shopowner_jobpostings.setApplicationPostingDate(jobPostingsDetails.getApplicationPostingDate());
  
         
         // Add more fields to update as needed
@@ -77,5 +80,10 @@ public class ShopOwnerJobController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+    
+    @GetMapping("/ShopOwnerJob/{id}")
+	 public List<ShopOwnerJob> getJobsByShopId(@PathVariable Long id){
+		 return shopOwner_jobPostingsRepository.getJobsByShopId(id);
+	 }
 	
 }

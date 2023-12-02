@@ -2,13 +2,20 @@ package com.shop.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,21 +28,64 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long order_id;
 
+	@Column
 	private Date date;
 
+	@Column
 	private Time time;
 
+	@Column
 	private String description;
+	
+	@Column
+	private float Total;
+	
 
-	@ManyToOne
+	@Column
+	private Time delivery_time;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "delivery_id")
 	private DeliveryRider rider;
-
 	
+	@ManyToMany()
+	@JoinTable(name="order_items",
+				joinColumns = @JoinColumn(name="order_id"),
+				inverseJoinColumns = @JoinColumn(name="item_id"))
+	private Set<Item> items = new HashSet<>();
+	
+	
+	public Order() {
+		super();
+	}
+	
+	
+
+	public Time getDelivery_time() {
+		return delivery_time;
+	}
+
+
+
+	public void setDelivery_time(Time delivery_time) {
+		this.delivery_time = delivery_time;
+	}
+	
+
+	public float getTotal() {
+		return Total;
+	}
+
+	public void setTotal(float total) {
+		Total = total;
+	}
+
 	public long getOrder_id() {
 		return order_id;
 	}
