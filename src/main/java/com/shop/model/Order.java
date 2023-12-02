@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -54,11 +55,14 @@ public class Order {
 	@JoinColumn(name = "delivery_id")
 	private DeliveryRider rider;
 	
-	@ManyToMany()
-	@JoinTable(name="order_items",
-				joinColumns = @JoinColumn(name="order_id"),
-				inverseJoinColumns = @JoinColumn(name="item_id"))
-	private Set<Item> items = new HashSet<>();
+//	@ManyToMany()
+//	@JoinTable(name="order_items",
+//				joinColumns = @JoinColumn(name="order_id"),
+//				inverseJoinColumns = @JoinColumn(name="item_id"))
+//	private Set<Item> items = new HashSet<>();
+	
+	@OneToMany(mappedBy = "order")
+	private Set<ItemQuantity> itemQuantity;
 	
 	
 	public Order() {

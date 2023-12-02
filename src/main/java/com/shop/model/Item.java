@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -65,8 +66,11 @@ public class Item {
 	private ShopOwner shopOwner;
 	
 	
-	@ManyToMany(mappedBy="items")
-	private Set<Order> orders = new HashSet<>();
+//	@ManyToMany(mappedBy="items")
+//	private Set<Order> orders = new HashSet<>();
+	
+	@OneToMany(mappedBy = "item")
+	private Set<ItemQuantity> orderQuantity;
 	
 	
 	public String getImage() {
