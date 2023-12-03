@@ -1,6 +1,8 @@
 package com.shop.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +67,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/Login")
-    public ResponseEntity<String> handleLogin(@RequestBody Login login) {
+    public ResponseEntity<Object> handleLogin(@RequestBody Login login) {
         // Extract username and password from the request
         String username = login.getUsername();
         String password = login.getPassword();
@@ -80,7 +82,10 @@ public class LoginController {
         	{
         		if(existingUser.get().getRole().equals(role))
         		{
-        			return ResponseEntity.ok("Login successful!");
+        			Map<String, Object> responseData = new HashMap<>();
+                    responseData.put("status", "success");
+                    responseData.put("user", existingUser.get());
+                    return ResponseEntity.ok(responseData);
         		}
         		else {
                     // Authentication failed
