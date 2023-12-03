@@ -11,12 +11,15 @@ import Modal from 'react-modal';
 import { format } from 'date-fns';
 import "../../../styles/ShopOwner.css";
 import OrderService from '../../../Services/OrderService';
+import { useLocation } from 'react-router-dom';
 
 
 // Set the root element of your app for the modal
 Modal.setAppElement('#root');
 
 const OrderManagement = () => {
+  const location = useLocation();
+  const user = location.state?.user;
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);

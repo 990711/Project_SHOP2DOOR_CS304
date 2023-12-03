@@ -5,8 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import ShopOwner_ProductService from '../../../Services/ShopOwner/ShopOwner_ProductService';
 import "../../../styles/ShopOwner.css";
+import { useLocation } from 'react-router-dom';
 
 const CreateProduct = () => {
+  const location = useLocation();
+  const user = location.state?.user;
     const navigate = useNavigate();
     const [product, setProduct] = useState({
       name: '',
@@ -25,12 +28,12 @@ const CreateProduct = () => {
       e.preventDefault();
   
       ShopOwner_ProductService.createProduct(product).then((res) => {
-        navigate('/productlisting');
+        navigate('/productlisting',{ state: { user } });
       });
     };
   
     const cancel = () => {
-      navigate('/productlisting');
+      navigate('/productlisting',{ state: { user } });
     };
   
     const changeNameHandler = (event) => {

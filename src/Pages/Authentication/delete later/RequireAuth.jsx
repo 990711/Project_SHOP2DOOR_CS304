@@ -1,7 +1,7 @@
 import { useNavigate, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import React, { useEffect, useState } from 'react';
-import loginService from "../../Services/loginService";
+import loginService from "../../../Services/loginService";
 import { ROLES } from './constants';
 
 const RequireAuth = ({ allowedRole , children}) => {

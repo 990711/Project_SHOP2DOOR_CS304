@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import ShopOwner_JobPostingsService from '../../../Services/ShopOwner/ShopOwner_JobPostingsService'; // Import your job service
 import "../../../styles/ShopOwner.css";
 import { useParams } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const UpdateJobPosting = () => {
+  const location = useLocation();
+  const user = location.state?.user;
   const navigate = useNavigate();
   const { id } = useParams();
   const [jobPosting, setJobPosting] = useState({
@@ -74,7 +77,7 @@ const UpdateJobPosting = () => {
     ShopOwner_JobPostingsService.updateJobPostings(updatedJobPosting)
       .then((res) => {
         console.log("Server response:", res);
-        navigate("/joblisting");
+        navigate("/joblisting",{ state: { user } });
       })
       .catch((error) => {
         console.error("Error from server:", error);

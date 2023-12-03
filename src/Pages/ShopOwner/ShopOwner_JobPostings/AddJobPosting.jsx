@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShopOwner_JobPostingsService from '../../../Services/ShopOwner/ShopOwner_JobPostingsService'; // Import your job service
 import "../../../styles/ShopOwner.css";
+import { useLocation } from 'react-router-dom';
 
 const AddJobPosting = () => {
+  const location = useLocation();
+  const user = location.state?.user;
   const navigate = useNavigate();
   const [jobPosting, setJobPosting] = useState({
     jobTitle: "",
@@ -16,7 +19,7 @@ const AddJobPosting = () => {
     e.preventDefault();
 
     ShopOwner_JobPostingsService.createJobPostings(jobPosting).then((res) => {
-      navigate('/jobListing');
+      navigate('/jobListing',{ state: { user } });
     });
   };
 
@@ -25,7 +28,7 @@ const AddJobPosting = () => {
 
 
   const cancel = () => {
-    navigate("/jobpostings");
+    navigate("/jobListing",{ state: { user } });
   };
 
   const changeJobTitleHandler = (event) => {

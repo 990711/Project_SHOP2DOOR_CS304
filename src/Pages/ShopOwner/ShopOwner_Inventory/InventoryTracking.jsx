@@ -9,10 +9,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Modal from 'react-modal';
+import { useLocation } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
 const InventoryTracking = () => {
+  const location = useLocation();
+  const user = location.state?.user;
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,7 +39,7 @@ const InventoryTracking = () => {
   };
 
   const CreateProduct = () => {
-    navigate('/CreateProduct');
+    navigate('/CreateProduct',{ state: { user } });
   };
 
   const filteredProducts = products.filter((product) =>
@@ -70,7 +73,7 @@ const InventoryTracking = () => {
   const handleUpdate = () => {
     console.log('Selected product for update:', selectedProduct);
     if (selectedProduct && selectedProduct.item_id) {
-      navigate(`/UpdateProduct/${selectedProduct.item_id}`);
+      navigate(`/UpdateProduct/${selectedProduct.item_id}`,{ state: { user } });
     } else {
       console.error('Selected product or ID is undefined.');
     }

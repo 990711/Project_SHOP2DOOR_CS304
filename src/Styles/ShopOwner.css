@@ -53,6 +53,54 @@
     text-decoration: none;
   }
 
+  /* Add this CSS to your stylesheet or component */
+
+/* Styles for the main container */
+.shop-owner-profile-container {
+  display: flex;
+  justifyContent: center;
+  alignItems: center;
+  height: 100vh;
+}
+
+/* Styles for the Paper element */
+.shop-owner-paper {
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the Avatar and Username section */
+.avatar-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar-icon {
+  margin-right: 10px;
+}
+
+/* Styles for the Shop Information section */
+.shop-info {
+  margin-bottom: 20px;
+}
+
+/* Styles for the Divider */
+.custom-divider {
+  margin: 20px 0;
+}
+
+/* Styles for the Shop Owner Details List */
+.shop-details-list {
+  padding: 0;
+}
+
+/* Styles for the Edit Profile button */
+.edit-profile-button {
+  margin-top: 20px;
+}
+
 
  
 
@@ -139,3 +187,5 @@ button:hover {
   background-color: #e0e0e0; /* Light gray background on hover */
   cursor: pointer;
 }
+
+

@@ -7,7 +7,7 @@ const Image = () => {
         
         <img src={myImage} 
         alt="" 
-        style={{ height: '725px' }} 
+        style={{ height: '837px' }} 
         />
       </div>
     );

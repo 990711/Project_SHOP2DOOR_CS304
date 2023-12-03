@@ -1,12 +1,16 @@
+import { useLocation } from 'react-router-dom';
 
-function Dashboard() {
+const Dashboard = () => {
+    const location = useLocation();
+    const user = location.state?.user;
+
+    console.log(user); // Check the user prop
+
     return (
-      
         <div>
-            Dashboard
+            <h4>hello, {user}</h4>
         </div>
-      
-    )
-  }
-  
-  export default Dashboard
+    );
+};
+
+export default Dashboard;

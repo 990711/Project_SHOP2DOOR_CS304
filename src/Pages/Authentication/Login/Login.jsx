@@ -12,15 +12,17 @@ import {
   import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Login = () => {
+  const Login= ()=>{
 
     const [role, setRole] = useState("Customer");
 
     const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
+    
+    const [user, setUser] = useState(''); // Declare state variable
 
-    const [user, setUser] = useState('');
+    
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
@@ -39,6 +41,8 @@ const Login = () => {
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
+
+
 
 
 
@@ -62,19 +66,24 @@ const Login = () => {
             console.log({ user, pwd, role});
             console.log(useAuth);
             console.log(typeof setAuth);
+            console.log(response?.data.user.username);
+            console.log(response?.data);
+            console.log(user); 
 
-            
+            /*
             setUser('');
             setPwd('');
             setSuccess(true);
-           
+           */
+            setUser(response?.data.user.username); // Assuming response.data contains user information
+
 
             switch (role) {
                 case "Customer":
                     navigate("/customermainlayout");
                     break;
                 case "Shop Owner":
-                    navigate("/");
+                    navigate("/", { state: { user } });
                     break;
                 case "Supplier":
                     navigate("");
@@ -148,9 +157,10 @@ const Login = () => {
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setUser(e.target.value)}
-                            value={user}
+                            value={user} // Use the user state directly here
                             required
                         />
+
 
                         <label htmlFor="password">Password:</label>
                         <input
@@ -211,7 +221,7 @@ const Login = () => {
               alignItems: 'center',
               justifyContent: 'center'
                }}>
-            <Outlet />
+            <Outlet user={user} />
           </Grid>
         </Grid>
       );
