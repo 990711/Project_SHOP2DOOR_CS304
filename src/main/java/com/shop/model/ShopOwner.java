@@ -15,10 +15,6 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "Shop_Owner")
 public class ShopOwner extends Login{
-
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private int user_id;
 	
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "shop_name")

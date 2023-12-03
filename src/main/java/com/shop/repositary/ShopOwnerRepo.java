@@ -2,6 +2,7 @@ package com.shop.repositary;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,8 +16,11 @@ public interface ShopOwnerRepo extends JpaRepository<ShopOwner, Long>{
 //	@Query(value = "SELECT shop_name,location,email,branch,contact FROM shop_owner", nativeQuery = true)
 //	List<Object> getAllShops();
 	
+	Optional<ShopOwner> findByUsername(String username);
+	
 	@Query(value = "SELECT user_id as shop_id,shop_name,location,email,branch,contact FROM shop_owner", nativeQuery = true)
 	List<Map<String, Object>> getAllShops();
 
+	
 	
 }

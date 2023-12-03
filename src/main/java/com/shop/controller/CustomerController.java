@@ -78,9 +78,9 @@ public class CustomerController {
 	    	customer.setAddress(newCustomer.getAddress());
 	    	customer.setEmail(newCustomer.getEmail());
 	    	customer.setName(newCustomer.getName());
-	    	customer.setPassword(newCustomer.getPassword());
+	    	//customer.setPassword(newCustomer.getPassword());
 	    	customer.setPhone(newCustomer.getPhone());
-	    	customer.setUsername(newCustomer.getUsername());
+	    	//customer.setUsername(newCustomer.getUsername());
 	        
 	        Customer updatedCustomer = customerRepo.save(customer);
 	        return ResponseEntity.ok(updatedCustomer);
