@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 const CreateProduct = () => {
   const location = useLocation();
   const user = location.state?.user;
+  const category = location.state?.category;
     const navigate = useNavigate();
     const [product, setProduct] = useState({
       name: '',
@@ -122,25 +123,25 @@ const CreateProduct = () => {
                       style={{ height: '40px' }}
                     >
                       <option value="">Select Category</option>
-                      <option value="open">Fresh Products</option>
-                      <option value="closed">Dairy and Eggs</option>
-                      <option value="closed">Meat and Seafood</option>
-                      <option value="closed">Bakery</option>
-                      <option value="closed">Canned Goods</option>
-                      <option value="closed">Frozen Foods</option>
-                      <option value="closed">Pantry Staples</option>
-                      <option value="closed">Snacks</option>
-                      <option value="closed">Condiments</option>
-                      <option value="closed">Spices and Herbs</option>
-                      <option value="closed">Cleaning Supplies</option>
-                      <option value="closed">Personal Care</option>
-                      <option value="closed">Baby Care</option>
-                      <option value="closed">Household Items</option>
-                      <option value="closed">Pet Supplies</option>
-                      <option value="closed">Health and Wellness</option>
-                      <option value="closed">Alcoholic Beverages</option>
-                      <option value="closed">Special Diet</option>
-                      <option value="closed">Other</option>
+                      <option value="Fresh Products">Fresh Products</option>
+                      <option value="Dairy and Eggs">Dairy and Eggs</option>
+                      <option value="Meat and Seafood">Meat and Seafood</option>
+                      <option value="Bakery">Bakery</option>
+                      <option value="Canned Goods">Canned Goods</option>
+                      <option value="Frozen Foods">Frozen Foods</option>
+                      <option value="Pantry Staples">Pantry Staples</option>
+                      <option value="Snacks">Snacks</option>
+                      <option value="Condiments">Condiments</option>
+                      <option value="Spices and Herbs">Spices and Herbs</option>
+                      <option value="Cleaning Supplies">Cleaning Supplies</option>
+                      <option value="Personal Care">Personal Care</option>
+                      <option value="Baby Care">Baby Care</option>
+                      <option value="Household Items">Household Items</option>
+                      <option value="Pet Supplies">Pet Supplies</option>
+                      <option value="Health and Wellness">Health and Wellness</option>
+                      <option value="Alcoholic Beverages">Alcoholic Beverages</option>
+                      <option value="Special Diet">Special Diet</option>
+                      <option value="Other">Other</option>
                     </select>
 
                     <label>Price</label>

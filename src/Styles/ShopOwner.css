@@ -188,4 +188,14 @@ button:hover {
   cursor: pointer;
 }
 
+  /* Title styles */
+  .username {
+    font-size: 15px;
+    font-weight: bold;
+    color: #4caf50; /* Change the color to your preference */
+    text-align: center;
+   
+    margin-top: 20px;
+  }
+
 

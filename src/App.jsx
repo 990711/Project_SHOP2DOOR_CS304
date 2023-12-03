@@ -52,32 +52,13 @@ import CustomerViewShop from "./Pages/Customer/CustomerShopView.jsx";
 
 
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
-import Register from './Pages/Authentication/Register_Forms/delete these pages later/Register.jsx';
 import Login from './Pages/Authentication/Login/Login';
 
-import Customer_Register from './Pages/Authentication/Register_Forms/delete these pages later/Customer_Register.jsx';
-import ShopOwner_Register from './Pages/Authentication/Register_Forms/delete these pages later/ShopOwner_Register.jsx';
-import Supplier_Register from './Pages/Authentication/Register_Forms/delete these pages later/Supplier_Register.jsx';
-import DeliveryRider_Register from './Pages/Authentication/Register_Forms/delete these pages later/DeliveryRider_Register.jsx';
-import Home from './Pages/Authentication/delete later/Home.jsx';
-import Customer from './Pages/Authentication/delete later/Customer.jsx';
-import DeliveryRider from './Pages/Authentication/delete later/DeliveryRider.jsx';
-import Layout from './Pages/Authentication/delete later/Layout.jsx';
-import Lounge from './Pages/Authentication/delete later/Lounge.jsx';
-import ShopOwner from './Pages/Authentication/delete later/ShopOwner.jsx';
-import Supplier from './Pages/Authentication/delete later/Supplier.jsx';
-import Restaurant_Register from './Pages/Authentication/Register_Forms/delete these pages later/Restaurant_Register.jsx';
 
-import LinkPage from './Pages/Authentication/delete later/LinkPage.jsx';
-import Missing from './Pages/Authentication/delete later/Missing.jsx';
-import TabPanel from './Pages/TabPanel';
 import Header from './Components/Header'; 
 import MainLayout from './Pages/ShopOwner/MainLayout';
 import ShopOwnerProfile from './Pages/ShopOwner/ShopOwnerProfile';
 import UpdateShopOwnerProfile from './Pages/ShopOwner/UpdateShopOwnerProfile';
-
-
-import MainLayout2 from './Components/MainLayout2.jsx'; 
 
 import CustomerMainLayout from './Pages/Customer/CustomerMainLayout';
 import CustomerDashboard from './Pages/Customer/CustomerDashboard';
@@ -185,29 +166,6 @@ function App() {
 
 
         
-
-
-        <Route path = "/mainlayout2" element = {<MainLayout2 />}/>
-
-
-          
-          <Route path = "/register" element = {<Register />}></Route>
-          <Route path = "/customerRegister/:id" element = {<Customer_Register />}></Route>
-          <Route path = "/shopOwnerRegister/:id" element = {<ShopOwner_Register />}></Route>
-          <Route path = "/supplierRegister/:id" element = {<Supplier_Register />}></Route>
-          <Route path = "/deliveryRiderRegister/:id" element = {<DeliveryRider_Register />}></Route>
-          <Route path = "/restaurantRegister/:id" element = {<Restaurant_Register />}></Route>
-
- 
-
-
-          
-
-
-  
-
-
-
 
 
         </Routes>

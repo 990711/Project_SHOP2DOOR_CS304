@@ -11,6 +11,9 @@ import {
   //Typography,
   Collapse,
 } from '@mui/material';
+import { AccountCircle as AccountCircleIcon, Edit as EditIcon } from '@mui/icons-material';
+import "../../styles/ShopOwner.css";
+
 import {
   //Menu as MenuIcon,
   Dashboard as DashboardIcon,
@@ -30,7 +33,7 @@ import {
 } from '@mui/icons-material';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
+import {Typography,Avatar,} from '@mui/material';
 
 const MainLayout = () => {
   const location = useLocation();
@@ -102,10 +105,19 @@ const MainLayout = () => {
           },
         }}
       >
+        {/* Display username at the top of the left sidebar */}
        
-       
+        <div className="username">
+        <div style={{ textAlign: 'center' }}>
+          <Typography variant="h5">{user}</Typography>
+        </div>
+        </div>
+        
+        
         <List>
           {[
+            
+
             { text: 'Dashboard', 
             icon: <DashboardIcon />, 
             route: '/'},

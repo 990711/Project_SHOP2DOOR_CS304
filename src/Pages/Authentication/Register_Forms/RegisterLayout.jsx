@@ -15,7 +15,8 @@ import {
   import ShopOwnerRegisterService from '../../../Services/ShopOwnerRegisterService';
   import SupplierRegisterService from '../../../Services/SupplierRegisterService';
   //import loginService from "../../../Services/loginService";
-  import loginService from "../../../Services/loginService";
+  //import loginService from "../../../Services/loginService";
+
 
 
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -196,6 +197,7 @@ import {
                 setEmail('');
                 setPhone('');
                 setAddress('');
+                navigate("/login");
           
             
               } catch (err) {
@@ -240,7 +242,8 @@ import {
                     setUser('');
                     setPwd('');
                     setMatchPwd('');
-            
+                    navigate("/login");
+
                 } catch (err) {
                     if (!err?.response) {
                         setErrMsg('No Server Response');
@@ -282,7 +285,8 @@ import {
                     setUser('');
                     setPwd('');
                     setMatchPwd('');
-            
+                    navigate("/login");
+
                     
                   
                     
@@ -335,7 +339,8 @@ import {
                     setUser('');
                     setPwd('');
                     setMatchPwd('');
-        
+                    navigate("/login");
+
                 } catch (err) {
                     if (!err?.response) {
                         setErrMsg('No Server Response');
@@ -376,7 +381,8 @@ import {
                     setUser('');
                     setPwd('');
                     setMatchPwd('');
-        
+                    navigate("/login");
+
                 } catch (err) {
                     if (!err?.response) {
                         setErrMsg('No Server Response');

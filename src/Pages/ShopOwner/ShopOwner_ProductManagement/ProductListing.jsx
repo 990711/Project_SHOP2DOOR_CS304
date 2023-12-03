@@ -76,7 +76,7 @@ const ProductListing = () => {
   const handleUpdate = () => {
     console.log('Selected product for update:', selectedProduct);
     if (selectedProduct && selectedProduct.item_id) {
-      navigate(`/UpdateProduct/${selectedProduct.item_id}`,{ state: { user } });
+      navigate(`/UpdateProduct/${selectedProduct.item_id}`,{ state: { user,category: selectedProduct.category } });
     
     } else {
       console.error('Selected product or ID is undefined.');

@@ -50,16 +50,28 @@ const UpdateShopOwnerProfile = () => {
           <Typography variant="h5">{user}</Typography>
         </div>
 
-        {/* Shop information */}
-        <Typography variant="h6" gutterBottom>
-          {shopOwner.shopName}
-        </Typography>
+        
 
         <Divider style={{ margin: '20px 0' }} />
 
         {/* Shop owner details */}
         <List>
           
+
+        <ListItem>
+           
+           <ListItemText primary={
+               <>
+               <InputLabel>Shop Name</InputLabel>
+
+             <TextField
+               
+               value={shopOwner.shopName}
+               onChange={handleChange('shopname')}
+             />
+             </>
+           } />
+         </ListItem>
 
           <ListItem>
            

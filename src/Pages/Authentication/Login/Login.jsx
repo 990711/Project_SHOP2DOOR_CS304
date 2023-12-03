@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import loginService from "../../../Services/loginService";
-import useAuth from '../../hooks/useAuth';
 //import { useNavigate } from 'react-router-dom';
 import {
     Drawer,
@@ -16,7 +15,6 @@ import {
 
     const [role, setRole] = useState("Customer");
 
-    const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
     
@@ -64,8 +62,6 @@ import {
 
             //const accessToken = response?.data?.accessToken;
             console.log({ user, pwd, role});
-            console.log(useAuth);
-            console.log(typeof setAuth);
             console.log(response?.data.user.username);
             console.log(response?.data);
             console.log(user); 
