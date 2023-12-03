@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.Customer;
 import com.shop.model.Item;
+import com.shop.model.Login;
 import com.shop.model.ShopOwner;
 import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ItemRepo;
+import com.shop.repositary.LoginRepo;
 import com.shop.repositary.ShopOwnerJobRepo;
 import com.shop.repositary.ShopOwnerRepo;
 import com.shop.service.ShopOwnerService;
@@ -45,6 +47,9 @@ public class ShopOwnerController {
 	@Autowired
     private ShopOwnerJobRepo shopOwnerJobRepo;
 	
+	@Autowired
+	private LoginRepo loginRepo;
+	
 	// Add ShopOwner
 //		@PostMapping("/ShopOwner")
 //		public ResponseEntity<ShopOwner> addShopOwner(@Valid @RequestBody ShopOwner shopOwner) {
@@ -56,8 +61,8 @@ public class ShopOwnerController {
 		@PostMapping("/ShopOwner")
 		public ResponseEntity<String> addShopOwner(@Valid @RequestBody ShopOwner shopOwner) {
 
-			//Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
-			Optional<ShopOwner> existingUser = shopOwnerRepo.findByUsername(shopOwner.getUsername());
+			Optional<Login> existingUser = loginRepo.findByUsername(shopOwner.getUsername());
+			//Optional<ShopOwner> existingUser = shopOwnerRepo.findByUsername(shopOwner.getUsername());
 			
 			if (existingUser.isPresent()) {
 				return ResponseEntity.status(401).body("Please find another username..");

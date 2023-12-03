@@ -44,8 +44,8 @@ public class CustomerController {
 		@PostMapping("/Customer")
 		public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
 
-			//Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
-			Optional<Customer> existingUser = customerRepo.findByUsername(customer.getUsername());
+			Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
+			//Optional<Customer> existingUser = customerRepo.findByUsername(customer.getUsername());
 			
 			if (existingUser.isPresent()) {
 				return ResponseEntity.status(401).body("Please find another username..");
