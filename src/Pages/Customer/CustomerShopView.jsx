@@ -87,6 +87,7 @@ const CustomerViewShop = () => {
                       itemsCount={itemsByCategory[category].count}
                     />
                   ))}
+
               </div>
             </TabPanel>
           ))}

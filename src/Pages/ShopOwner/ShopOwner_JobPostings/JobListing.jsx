@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import Modal from 'react-modal';
 import "../../../styles/ShopOwner.css";
 import { format } from 'date-fns';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -19,6 +20,8 @@ import { format } from 'date-fns';
 Modal.setAppElement('#root');
 
 const JobListing = () => {
+  const location = useLocation();
+  const user = location.state?.user;
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -41,7 +44,7 @@ const JobListing = () => {
 
   const createJob = () => {
     // Navigate to the create job page
-    navigate('/addjobposting');
+    navigate('/addjobposting',{ state: { user } });
   };
 
   const filteredJobs = jobs.filter((job) =>
@@ -85,7 +88,7 @@ const JobListing = () => {
 
   const handleUpdate = () => {
     // Navigate to the update job page with the selected job's id
-    navigate(`/UpdateJobPosting/${selectedJob.id}`);
+    navigate(`/UpdateJobPosting/${selectedJob.id}`,{ state: { user } });
   };
 
   return (<div>

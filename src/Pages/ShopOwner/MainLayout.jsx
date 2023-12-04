@@ -11,6 +11,9 @@ import {
   //Typography,
   Collapse,
 } from '@mui/material';
+import { AccountCircle as AccountCircleIcon, Edit as EditIcon } from '@mui/icons-material';
+import "../../styles/ShopOwner.css";
+
 import {
   //Menu as MenuIcon,
   Dashboard as DashboardIcon,
@@ -23,10 +26,19 @@ import {
   Person as PersonIcon,
   People as PeopleIcon,
   Settings as SettingsIcon,
+  ExitToApp as ExitToAppIcon,
+  Message as MessageIcon,
+  Notifications as NotificationsIcon,
+  Help as HelpIcon,
 } from '@mui/icons-material';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import {Typography,Avatar,} from '@mui/material';
 
 const MainLayout = () => {
+  const location = useLocation();
+  const user = location.state?.user;
+  console.log('User in MainLayout:', user);
   const [open, setOpen] = useState(true);
   const [openItems, setOpenItems] = useState([]);
 
@@ -50,17 +62,47 @@ const MainLayout = () => {
   };
 
   const handleItemClick = (index, route) => {
+    console.log('Item clicked:', route);
     if (openItems.includes(index)) {
       setOpenItems(openItems.filter((item) => item !== index));
     } else {
       setOpenItems([...openItems, index]);
     }
     if (route) {
-      navigate(route);
+      navigate(route, { state: { user } });
     }
   };
 
+  const handleRightItemClick = (index, route) => {
+    console.log('Right Sidebar Item clicked:', route);
+    // Handle right sidebar item click logic here
+    if (route === '/login') {
+      handleLogout();
+    } else if (route) {
+      navigate(route, { state: { user } });
+    }
+  };
+
+  
+
+  const handleLogout = async () => {
+    // Perform any necessary logout actions on the server side
+  
+    // Clear authentication data on the client side
+    // Example: Clearing a user session
+    // This might vary based on your authentication mechanism
+    // For example, if using a session:
+    
+   
+  
+    // Navigate to the login page
+    navigate('/login', { replace: true });
+  };
+  
+
+
   return (
+    
     <div style={{ display: 'flex' }}>
  
 
@@ -79,14 +121,23 @@ const MainLayout = () => {
           },
         }}
       >
-        <Toolbar />
+        {/* Display username at the top of the left sidebar */}
        
+        <div className="username">
+        <div style={{ textAlign: 'center' }}>
+          <Typography variant="h5">{user}</Typography>
+        </div>
+        </div>
+        
+        
         <List>
           {[
+            
+
             { text: 'Dashboard', 
             icon: <DashboardIcon />, 
-            route: '/' },
-
+            route: '/'},
+            
             { text: 'Products', 
             icon: <ShoppingCartIcon />, 
             route: '/productListing' },
@@ -174,11 +225,27 @@ const MainLayout = () => {
         }}
       >
         {/* Right Sidebar Content */}
-        <List>
-          <ListItem>
-            <ListItemText primary="Right" />
+      <List>
+        {[
+          { text: 'Profile', icon: <PersonIcon />, route: '/shopownerprofile' },
+          { text: 'Message', icon: <MessageIcon />, route: '/messages' },
+          { text: 'Notification', icon: <NotificationsIcon />, route: '/notifications' },
+          { text: 'Help', icon: <HelpIcon />, route: '/help' },
+         // { text: 'Settings', icon: <SettingsIcon />, route: '/settings' },
+          { text: 'Logout', icon: <ExitToAppIcon />, route: '/login'}, 
+        ].map((item, index) => (
+          
+          <ListItem
+            button
+            key={index}
+            onClick={() => handleRightItemClick(index, item.route)}
+            title={item.text} // Set the title attribute
+          >
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
           </ListItem>
-        </List>
+        ))}
+      </List>
       </Drawer>
 
         {/* Content */}
@@ -188,6 +255,7 @@ const MainLayout = () => {
         </div>
         </div>
         </div>
+        
         );
         };
 

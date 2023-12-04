@@ -8,21 +8,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import "../../../styles/ShopOwner.css";
+import Modal from 'react-modal';
+import { useLocation } from 'react-router-dom';
 
-import Modal from 'react-modal'; // Import react-modal
-Modal.setAppElement('#root'); // Set the root element of your app
+Modal.setAppElement('#root');
 
 const ProductListing = () => {
+  const location = useLocation();
+  const user = location.state?.user;
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-
 
   useEffect(() => {
     ShopOwner_ProductService.getProducts().then((res) => {
@@ -32,110 +30,136 @@ const ProductListing = () => {
 
   const deleteProduct = (id) => {
     ShopOwner_ProductService.deleteProduct(id).then((res) => {
-      setProducts(products.filter((product) => product.id !== id));
+      if (res.status === 200) {
+        // Update the state with the new list of products after successful deletion
+        setProducts(products.filter((product) => product.item_id !== id));
+      } else {
+        console.error('Failed to delete the product.');
+      }
     });
   };
+  
+
   const CreateProduct = () => {
-    navigate('/CreateProduct');
- };
+    navigate('/CreateProduct',{ state: { user } });
+  };
 
- const filteredProducts = products.filter((product) =>
-  product.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-const handleRowClick = (product) => {
-  setSelectedProduct(product);
-  setIsModalOpen(true);
-};
+  const handleRowClick = (product) => {
+    console.log('Clicked row:', product);
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
 
-const closeModal = () => {
-  setIsModalOpen(false);
-  setSelectedProduct(null);
-  
-};
-
-const deleteModal = () => {
-  const userConfirmed = window.confirm('Are you sure you want to delete this product?');
-  
-  if (userConfirmed) {
+  const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
-    deleteProduct(selectedProduct?.id);
-  }
+  };
 
-  // Close the modal regardless of user's choice
-  setIsModalOpen(false);
-  setSelectedProduct(null);
-};
+  const deleteModal = () => {
+    const userConfirmed = window.confirm('Are you sure you want to delete this product?');
 
-const handleUpdate = () => {
-  navigate(`/UpdateProduct/${selectedProduct.id}`);};
+    if (userConfirmed) {
+      setIsModalOpen(false);
+      setSelectedProduct(null);
+      deleteProduct(selectedProduct?.item_id);
+      
+    } else {
+      setIsModalOpen(false);
+      setSelectedProduct(null);
+    }
+  };
 
-
-
-return (
-<div>
-  <div className="title">Product Management</div>  
- 
-<div style={{ display: 'flex', alignItems: 'center' ,marginLeft: '2px'}}>
-  
-    <button
-      style={{ width: '250px' }}
-      onClick={CreateProduct}
-    >
-      Add Product
-    </button>
-  
-  <div style={{ flexGrow: 1, margin: '20px'}}>
-    <input
-      type="text"
-      placeholder="Search..."
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      style={{ width: '75%' }}
-    />
-  </div>
-</div>
-
+  const handleUpdate = () => {
+    console.log('Selected product for update:', selectedProduct);
+    if (selectedProduct && selectedProduct.item_id) {
+      navigate(`/UpdateProduct/${selectedProduct.item_id}`,{ state: { user,category: selectedProduct.category } });
     
-    <TableContainer component={Paper} className="TableContainer">
-      <Table aria-label="simple table" className="Table">
-        <TableHead>
-          <TableRow >
-          
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Name</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Image</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Description</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Category</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Price</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Quantity</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Price</TableCell>
-          <TableCell className="TableCell" style={{ fontWeight: 'bold'}}>Discount Percentage</TableCell>
+    } else {
+      console.error('Selected product or ID is undefined.');
+    }
+  };
 
-            
-            
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {filteredProducts.map((product) => (
-            <TableRow 
-            key={product.id} 
-            className="TableRow"
-            onClick={() => handleRowClick(product)}>
-              
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.image}</TableCell>
-              <TableCell>{product.description}</TableCell>
-              <TableCell>{product.category}</TableCell>
-              <TableCell>{product.price}</TableCell>
-              <TableCell>{product.quantity}</TableCell>
-              <TableCell>{product.discountPrice}</TableCell>
-              <TableCell>{product.discountPercentage}</TableCell>
+  return (
+    <div>
+      <div className="title">Product Management</div>
+
+      <div style={{ display: 'flex', alignItems: 'center', marginLeft: '2px' }}>
+        <button style={{ width: '250px' }} onClick={CreateProduct}>
+          Add Product
+        </button>
+        <div style={{ flexGrow: 1, margin: '20px' }}>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: '75%' }}
+          />
+        </div>
+      </div>
+
+      <TableContainer component={Paper} className="TableContainer">
+        <Table aria-label="simple table" className="Table">
+          <TableHead>
+            <TableRow>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Name
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Image
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Brand
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Description
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Category
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Price
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Quantity
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Discount Price
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Discount Percentage
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>{/* Modal for updating the product */}
+          </TableHead>
+          <TableBody>
+            {filteredProducts.map((product, index) => (
+              <TableRow
+                key={product.id || index}
+                className="TableRow"
+                onClick={() => {
+                  console.log('Clicked product:', product);
+                  handleRowClick(product);
+                }}
+              >
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.image}</TableCell>
+                <TableCell>{product.brand}</TableCell>
+                <TableCell>{product.description}</TableCell>
+                <TableCell>{product.category}</TableCell>
+                <TableCell>{product.price}</TableCell>
+                <TableCell>{product.quantity}</TableCell>
+                <TableCell>{product.discountPrice}</TableCell>
+                <TableCell>{product.discount_percentage}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -153,28 +177,24 @@ return (
         }}
       >
         <div>
-          {/* Display details of the selected product */}
           <p>Name: {selectedProduct?.name}</p>
+          <p>Brand: {selectedProduct?.brand}</p>
           <p>Description: {selectedProduct?.description}</p>
           <p>Category: {selectedProduct?.category}</p>
-            <p>Price: {selectedProduct?.price}</p>
-            <p>Quantity: {selectedProduct?.quantity}</p>
-            <p>Discount Price: {selectedProduct?.discountPrice}</p>
-            <p>Discount Percentage: {selectedProduct?.discountPercentage}</p>
-          {/* Add other details as needed */}
-          
-          
+          <p>Price: {selectedProduct?.price}</p>
+          <p>Quantity: {selectedProduct?.quantity}</p>
+          <p>Discount Price: {selectedProduct?.discountPrice}</p>
+          <p>Discount Percentage: {selectedProduct?.discountPercentage}</p>
 
           <div className="button-container">
-                  <button style={{ marginRight: '10px' }} onClick={handleUpdate}>
-                  Update
-                  </button>
-                  <button onClick={deleteModal }>Delete</button>
-                  </div>
-                  
+            <button style={{ marginRight: '10px' }} onClick={handleUpdate}>
+              Update
+            </button>
+            <button onClick={deleteModal}>Delete</button>
+          </div>
         </div>
       </Modal>
-      </div>
+    </div>
   );
 };
 

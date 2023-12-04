@@ -1,8 +1,10 @@
 import "./App.css";
+import React, { useState } from 'react';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import ProductListing from './Pages/ShopOwner/ShopOwner_ProductManagement/ProductListing';
 import CreateProduct from './Pages/ShopOwner/ShopOwner_ProductManagement/CreateProduct';
 import UpdateProduct from './Pages/ShopOwner/ShopOwner_ProductManagement/UpdateProduct';
+import Image from './Pages/Authentication/Register_Forms/Image';
 
 
 import AddJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/AddJobPosting';
@@ -25,35 +27,25 @@ import ShopSettings from './Pages/ShopOwner/ShopOwner_Settings/ShopSettings';
 import Dashboard from './Pages/ShopOwner/ShopOwner_Dashboard/Dashboard';
 import CustomerViewShop from "./Pages/Customer/CustomerShopView.jsx";
 
-
 import JobListing from './Pages/ShopOwner/ShopOwner_JobPostings/JobListing';
-import Register from './Pages/Authentication/Register_Forms/Register';
 import Login from './Pages/Authentication/Login/Login';
 
-import Customer_Register from './Pages/Authentication/Register_Forms/Customer_Register';
-import ShopOwner_Register from './Pages/Authentication/Register_Forms/ShopOwner_Register';
-import Supplier_Register from './Pages/Authentication/Register_Forms/Supplier_Register';
-import DeliveryRider_Register from './Pages/Authentication/Register_Forms/DeliveryRider_Register';
-import Home from './Pages/Authentication/Home';
-import Customer from './Pages/Authentication/Customer';
-import DeliveryRider from './Pages/Authentication/DeliveryRider';
-import Layout from './Pages/Authentication/Layout';
-import Lounge from './Pages/Authentication/Lounge';
-import ShopOwner from './Pages/Authentication/ShopOwner';
-import Supplier from './Pages/Authentication/Supplier';
-import Restaurant_Register from './Pages/Authentication/Register_Forms/Restaurant_Register';
 
-import LinkPage from './Pages/Authentication/LinkPage';
-import Missing from './Pages/Authentication/Missing';
-import TabPanel from './Pages/TabPanel';
 import Header from './Components/Header'; 
 import MainLayout from './Pages/ShopOwner/MainLayout';
-import MainLayout2 from './Components/MainLayout2.jsx'; 
+import ShopOwnerProfile from './Pages/ShopOwner/ShopOwnerProfile';
+import UpdateShopOwnerProfile from './Pages/ShopOwner/UpdateShopOwnerProfile';
 
 import CustomerMainLayout from './Pages/Customer/CustomerMainLayout';
 import CustomerDashboard from './Pages/Customer/CustomerDashboard';
 import CustomerOrders from './Pages/Customer/CustomerOrders';
+
 import CustomerCategories from './Pages/Customer/CustomerCategory';
+
+
+import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
+import ProtectedRoute from './Pages/Authentication/ProtectedRoute';
+
 
 
 
@@ -61,6 +53,9 @@ import CustomerCategories from './Pages/Customer/CustomerCategory';
 
 
 function App() {
+
+  const [user, setUser] = useState('');
+
   return (
     <div>
       <Router>
@@ -74,12 +69,19 @@ function App() {
           <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
           <Route path="/customermainlayout/shop/:shop_name/:branch/:ShopCode" element={<CustomerViewShop />} />
           <Route path="/customermainlayout/categories" element={<CustomerCategories />} />
+
         </Route>
 
-        <Route path = "/" element = {<MainLayout />}>
+
+        
+
+      
+
+
+        <Route path = "/" element = {<ProtectedRoute ><MainLayout /></ProtectedRoute>}>
             <Route index element={<Dashboard/>}/>
             <Route path = "/productListing" element = {<ProductListing />}></Route>
-            <Route path = "/dashboard" element = {<Dashboard />}></Route>
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path = "/joblisting" element = {<JobListing />}></Route>
             <Route path = "/createproduct" element = {<CreateProduct />}></Route>
             <Route path = "/updateproduct/:id" element = {<UpdateProduct />}></Route>
@@ -100,46 +102,27 @@ function App() {
             <Route path="/shopnotifications" element={<ShopNotifications/>}/>
             <Route path="/feedbackmanagement" element={<FeedbackManagement/>}/>
             <Route path="/shopsettings" element={<ShopSettings/>}/>
-            <Route path="/createproduct" element = {<CreateProduct/>}></Route>
-            <Route path="/updateproduct/:id" element={<UpdateProduct />} />
             <Route path="/updatejobposting/:id" element={<UpdateJobPosting />} />
             <Route path="/addjobposting" element = {<AddJobPosting/>}></Route>
+            <Route path="/shopownerprofile" element = {<ShopOwnerProfile/>}></Route>
+            <Route path="/updateshopownerprofile/:username" element = {<UpdateShopOwnerProfile/>}></Route>
 
         </Route>
 
+
+        <Route path = "/registerlayout" element = {<RegisterLayout />}>
+          <Route index element={<Image/>}/>
+          <Route path = "image" element = {<Image />}></Route>
+        </Route>
+
+        <Route path="/login" element={<Login setUser={setUser} />}>
+          <Route index element={<Image/>}/>
+          <Route path = "image" element = {<Image />}></Route>
+        </Route>
+
+
+
         
-
-
-        <Route path = "/mainlayout2" element = {<MainLayout2 />}/>
-
-
-          
-          <Route path = "/register" element = {<Register />}></Route>
-          <Route path = "/login" element = {<Login />}></Route>
-          <Route path = "/customerRegister" element = {<Customer_Register />}></Route>
-          <Route path = "/shopOwnerRegister" element = {<ShopOwner_Register />}></Route>
-          <Route path = "/supplierRegister" element = {<Supplier_Register />}></Route>
-          <Route path = "/deliveryRiderRegister" element = {<DeliveryRider_Register />}></Route>
-          <Route path = "/restaurantRegister" element = {<Restaurant_Register />}></Route>
-
-          <Route path = "/layout" element = {<Layout />}></Route>
-          <Route path = "/linkPage" element = {<LinkPage />}></Route>
-
-          
-
-            <Route path = "/lounge" element = {<Lounge />}></Route>
-            <Route path = "/shopOwner" element = {<ShopOwner />}></Route>
-            <Route path = "/supplier" element = {<Supplier />}></Route>
-            <Route path = "/home" element = {<Home />}></Route>
-            <Route path = "/customer" element = {<Customer />}></Route>
-            <Route path = "/deliveryRider" element = {<DeliveryRider />}></Route>
-          
-          <Route path = "/missing" element = {<Missing />}></Route>
-
-  
-
-
-
 
 
         </Routes>

@@ -34,6 +34,7 @@ const SidePanel = () => {
       >
         <FontAwesomeIcon icon={faClipboardList} className="fa-icon" /> Orders
       </Link>
+
       <Link
         to="/customermainlayout/categories"
         className={location.pathname === "/customermainlayout/categories" ? "active" : ""}

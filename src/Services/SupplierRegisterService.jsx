@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SUPPLIER_API_BASE_URL = "http://localhost:8080/api/v1/supplier";
+const SUPPLIER_API_BASE_URL = "http://localhost:8080/api/v1/FoodSupplierDetails";
 
 class SupplierRegisterService {
     getSuppliers() {

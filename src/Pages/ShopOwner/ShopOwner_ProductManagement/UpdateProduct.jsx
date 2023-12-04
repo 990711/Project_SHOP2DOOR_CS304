@@ -6,13 +6,17 @@ import { useNavigate } from "react-router-dom";
 import ShopOwner_ProductService from '../../../Services/ShopOwner/ShopOwner_ProductService';
 import "../../../styles/ShopOwner.css";
 import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const UpdateProduct = () => {
+  const location = useLocation();
+  const user = location.state?.user;
     const navigate = useNavigate();
     const { id } = useParams();
     const [product, setProduct] = useState({
       name: '',
       image: '',
+      brand: '',
       description: '',
       category: '',
       price: '',
@@ -29,6 +33,7 @@ const UpdateProduct = () => {
             ...prevProduct,
             name: productData.name || '',
             image: productData.image || '',
+            brand: productData.brand || '',
             description: productData.description || '',
             category: productData.category || '',
             price: productData.price || '',
@@ -43,12 +48,12 @@ const UpdateProduct = () => {
       e.preventDefault();
   
       ShopOwner_ProductService.createProduct(product).then((res) => {
-        navigate('/productlisting');
+        navigate('/productlisting',{ state: { user } });
       });
     };
   
     const cancel = () => {
-      navigate('/productlisting');
+      navigate('/productlisting',{ state: { user } });
     };
 
     const updateProduct = (e) => {
@@ -58,6 +63,7 @@ const UpdateProduct = () => {
             id:id,
             name: product.name,
             image: product.image,
+            brand: product.brand,
             description: product.description,
             category: product.category,
             price: product.price,
@@ -72,7 +78,7 @@ const UpdateProduct = () => {
         ShopOwner_ProductService.updateProduct(updatedProduct)
         .then((res) => {
           console.log('Server response:', res);
-          navigate('/productlisting');
+          navigate('/productlisting',{ state: { user } });
         })
         .catch((error) => {
           console.error('Error from server:', error);
@@ -82,6 +88,10 @@ const UpdateProduct = () => {
   
     const changeNameHandler = (event) => {
       setProduct({ ...product, name: event.target.value });
+    };
+
+    const changeBrandHandler = (event) => {
+      setProduct({ ...product, brand: event.target.value });
     };
   
     const changeQuantityHandler = (event) => {
@@ -109,6 +119,7 @@ const UpdateProduct = () => {
     };
 
     const changeCategoryHandler = (event) => {
+      console.log('Selected category:', event.target.value);
       setProduct({ ...product, category: event.target.value });
     };
   
@@ -136,6 +147,14 @@ const UpdateProduct = () => {
                       value={product.image}
                       onChange={changeImageHandler}
                     />
+
+                    <label>Brand</label>
+                    <input
+                      placeholder='Brand'
+                      name='brand'
+                      value={product.brand}
+                      onChange={changeBrandHandler}
+                    />
                    
                       <label>Description</label>
                       <input
@@ -153,25 +172,25 @@ const UpdateProduct = () => {
                       style={{ height: '40px' }}
                     >
                       <option value="">Select Category</option>
-                      <option value="open">Fresh Products</option>
-                      <option value="closed">Dairy and Eggs</option>
-                      <option value="closed">Meat and Seafood</option>
-                      <option value="closed">Bakery</option>
-                      <option value="closed">Canned Goods</option>
-                      <option value="closed">Frozen Foods</option>
-                      <option value="closed">Pantry Staples</option>
-                      <option value="closed">Snacks</option>
-                      <option value="closed">Condiments</option>
-                      <option value="closed">Spices and Herbs</option>
-                      <option value="closed">Cleaning Supplies</option>
-                      <option value="closed">Personal Care</option>
-                      <option value="closed">Baby Care</option>
-                      <option value="closed">Household Items</option>
-                      <option value="closed">Pet Supplies</option>
-                      <option value="closed">Health and Wellness</option>
-                      <option value="closed">Alcoholic Beverages</option>
-                      <option value="closed">Special Diet</option>
-                      <option value="closed">Other</option>
+                      <option value="Fresh Products">Fresh Products</option>
+                      <option value="Dairy and Eggs">Dairy and Eggs</option>
+                      <option value="Meat and Seafood">Meat and Seafood</option>
+                      <option value="Bakery">Bakery</option>
+                      <option value="Canned Goods">Canned Goods</option>
+                      <option value="Frozen Foods">Frozen Foods</option>
+                      <option value="Pantry Staples">Pantry Staples</option>
+                      <option value="Snacks">Snacks</option>
+                      <option value="Condiments">Condiments</option>
+                      <option value="Spices and Herbs">Spices and Herbs</option>
+                      <option value="Cleaning Supplies">Cleaning Supplies</option>
+                      <option value="Personal Care">Personal Care</option>
+                      <option value="Baby Care">Baby Care</option>
+                      <option value="Household Items">Household Items</option>
+                      <option value="Pet Supplies">Pet Supplies</option>
+                      <option value="Health and Wellness">Health and Wellness</option>
+                      <option value="Alcoholic Beverages">Alcoholic Beverages</option>
+                      <option value="Special Diet">Special Diet</option>
+                      <option value="Other">Other</option>
                     </select>
 
                       <label>Price</label>
