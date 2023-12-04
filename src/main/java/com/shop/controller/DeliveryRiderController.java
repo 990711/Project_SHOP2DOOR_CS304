@@ -48,12 +48,12 @@ public class DeliveryRiderController {
 //			return new ResponseEntity<DeliveryRider>(savedDeliveryRider, HttpStatus.CREATED);
 //		}
 	
-		@GetMapping("/DeliveryRider")
+		@GetMapping("/DeliveryRiderDetails")
 		public List<DeliveryRider> getRiders() {
 			return deliveryRiderRepo.findAll();
 		}
 		
-		@PostMapping("/DeliveryRider")
+		@PostMapping("/DeliveryRiderDetails")
 		public ResponseEntity<String> addDeliveryRider(@Valid @RequestBody DeliveryRider rider) {
 
 			Optional<Login> existingUser = loginRepo.findByUsername(rider.getUsername());
@@ -70,14 +70,14 @@ public class DeliveryRiderController {
 			//return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
 		}
 		
-		@GetMapping("/DeliveryRider/{username}")
+		@GetMapping("/DeliveryRiderDetails/{username}")
 	    public ResponseEntity<DeliveryRider> getDeliveryRiderByUsername(@PathVariable String username) {
 			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));
 	        return ResponseEntity.ok(rider);
 	 }
 		
-		@PutMapping("/DeliveryRider/{username}")
+		@PutMapping("/DeliveryRiderDetails/{username}")
 	    public ResponseEntity<DeliveryRider> updateDeliveryRiderByUsername(@PathVariable String username, @RequestBody DeliveryRider newRider) {
 			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));
@@ -94,7 +94,7 @@ public class DeliveryRiderController {
 	        return ResponseEntity.ok(updatedDeliveryRider);
 	    }
 		
-		@DeleteMapping("/DeliveryRider/{username}")
+		@DeleteMapping("/DeliveryRiderDetails/{username}")
 		public ResponseEntity<String> deleteDeliveryRider(@PathVariable String username){
 			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));

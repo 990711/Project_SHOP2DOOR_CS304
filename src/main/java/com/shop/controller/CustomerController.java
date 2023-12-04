@@ -41,7 +41,7 @@ public class CustomerController {
 	private LoginRepo loginRepo;
 	
 	// Add Customer
-		@PostMapping("/Customer")
+		@PostMapping("/CustomerDetails")
 		public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
 
 			Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
@@ -58,19 +58,19 @@ public class CustomerController {
 			//return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
 		}
 		
-		@GetMapping("/Customer")
+		@GetMapping("/CustomerDetails")
 		public List<Customer> getCustomers() {
 			return customerRepo.findAll();
 		}
 		
-		@GetMapping("/Customer/{username}")
+		@GetMapping("/CustomerDetails/{username}")
 	    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable String username) {
 	    	Customer customer = customerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
 	        return ResponseEntity.ok(customer);
 	 }
 		
-		@PutMapping("/Customer/{username}")
+		@PutMapping("/CustomerDetails/{username}")
 	    public ResponseEntity<Customer> updateCustomerByUsername(@PathVariable String username, @RequestBody Customer newCustomer) {
 	    	Customer customer = customerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
@@ -86,7 +86,7 @@ public class CustomerController {
 	        return ResponseEntity.ok(updatedCustomer);
 	    }
 		
-		@DeleteMapping("/Customer/{username}")
+		@DeleteMapping("/CustomerDetails/{username}")
 		public ResponseEntity<String> deleteCustomer(@PathVariable String username){
 			Customer customer = customerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
