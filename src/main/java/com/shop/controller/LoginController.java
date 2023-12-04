@@ -124,7 +124,6 @@ public class LoginController {
     	    // Return 201 Created with the saved user
     	    return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     	}
-        
     }
     
     @PutMapping("/Logout/{id}")

@@ -53,6 +53,7 @@ public class ItemController {
 	    	item.setName(newItem.getName());
 	    	item.setPrice(newItem.getPrice());
 	    	item.setBrand(newItem.getBrand());
+	    	item.setCategory(newItem.getCategory());
 	    	item.setDescription(newItem.getDescription());
 	    	item.setDiscount_percentage(newItem.getDiscount_percentage());
 	    	item.setQuantity(newItem.getQuantity());
