@@ -11,7 +11,7 @@ Modal.setAppElement("#root"); // Set the root element of your app
 const CustomerDashboard = () => {
   const navigate = useNavigate();
   const [shops, setShops] = useState([]);
-  const [selectedShops, setSelectedShops] = useState([]);
+  const [selectedShops, setSelectedShops] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,16 +30,6 @@ const CustomerDashboard = () => {
   const filteredShops = shops.filter((shop) =>
     shop.shop_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const handleRowClick = (shop) => {
-    setSelectedShop(shop);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedShop(null);
-  };
 
   return (
     <div>
