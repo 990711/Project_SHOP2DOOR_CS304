@@ -58,7 +58,7 @@ public class ShopOwnerController {
 //			return new ResponseEntity<ShopOwner>(savedShopOwner, HttpStatus.CREATED);
 //		}
 		
-		@PostMapping("/ShopOwner")
+		@PostMapping("/ShopOwnerDetails")
 		public ResponseEntity<String> addShopOwner(@Valid @RequestBody ShopOwner shopOwner) {
 
 			Optional<Login> existingUser = loginRepo.findByUsername(shopOwner.getUsername());
@@ -75,7 +75,7 @@ public class ShopOwnerController {
 			//return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
 		}
 		
-	@GetMapping("/ShopOwner")
+	@GetMapping("/ShopOwnerDetails")
     public List<Map<String, Object>> getAllShops() {
        return shopOwnerRepo.getAllShops();
    }
@@ -126,14 +126,14 @@ public class ShopOwnerController {
 			return ResponseEntity.ok("Successfully added item..");
 		}
 		
-		@GetMapping("/ShopOwner/{username}")
+		@GetMapping("/ShopOwnerDetails/{username}")
 	    public ResponseEntity<ShopOwner> getShopByUsername(@PathVariable String username) {
 	    	ShopOwner shop = shopOwnerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
 	        return ResponseEntity.ok(shop);
 	 }
 		
-		@PutMapping("/ShopOwner/{username}")
+		@PutMapping("/ShopOwnerDetails/{username}")
 	    public ResponseEntity<ShopOwner> updateShopOwnerByUsername(@PathVariable String username, @RequestBody ShopOwner newShop) {
 			ShopOwner shop = shopOwnerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
@@ -148,7 +148,7 @@ public class ShopOwnerController {
 	        return ResponseEntity.ok(updatedShop);
 	    }
 		
-		@DeleteMapping("/ShopOwner/{username}")
+		@DeleteMapping("/ShopOwnerDetails/{username}")
 		public ResponseEntity<String> deleteShopOwner(@PathVariable String username){
 			ShopOwner shop = shopOwnerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));

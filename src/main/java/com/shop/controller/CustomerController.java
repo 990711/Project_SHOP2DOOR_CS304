@@ -71,7 +71,7 @@ public class CustomerController {
 	 }
 		
 		@PutMapping("/CustomerDetails/{username}")
-	    public ResponseEntity<Customer> updateCustomerByUsername(@PathVariable String username, @RequestBody Customer newCustomer) {
+	    public ResponseEntity<Customer> updateCustomerByUsername(@PathVariable String username,@Valid @RequestBody Customer newCustomer) {
 	    	Customer customer = customerRepo.findByUsername(username)
 	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
 	        
