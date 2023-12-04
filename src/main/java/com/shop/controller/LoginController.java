@@ -61,9 +61,18 @@ public class LoginController {
 	}
 	
 	
-	@DeleteMapping("/LoginDetails/{id}")
+	/*@DeleteMapping("/LoginDetails/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable int id){
-		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("Rider does not exist with id "+id));
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setDeleted(true);
+		loginRepo.save(login);
+		String msg = "User successfully deleted!";
+		return ResponseEntity.ok(msg);
+	}*/
+	
+	@DeleteMapping("/LoginDetails/{username}")
+	public ResponseEntity<String> deleteUser(@PathVariable String username){
+		Login login = loginRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFound("User does not exist with username "+username));
 		login.setDeleted(true);
 		loginRepo.save(login);
 		String msg = "User successfully deleted!";
@@ -180,15 +189,40 @@ public class LoginController {
         
     }
     
-    @PutMapping("/LoginDetails/{id}") // Logout
+    /*@PutMapping("/LoginDetails/{id}") // Logout By ID
 	public ResponseEntity<String> Logout(@PathVariable int id){
-		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("Rider does not exist with id "+id));
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setActive(false);
+		loginRepo.save(login);
+		String msg = "User successfully logged out!";
+		return ResponseEntity.ok(msg);
+	}*/
+    
+    @PutMapping("/LoginDetails/{username}") // Logout By username
+	public ResponseEntity<String> Logout(@PathVariable String username){
+		Login login = loginRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFound("User does not exist with username "+username));
 		login.setActive(false);
 		loginRepo.save(login);
 		String msg = "User successfully logged out!";
 		return ResponseEntity.ok(msg);
 	}
     
+    @PutMapping("/LoginDetailsBlock/{id}") // block a user By ID
+	public ResponseEntity<String> blockUser(@PathVariable int id){
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setBlocked(true);
+		loginRepo.save(login);
+		String msg = "User Blocked!";
+		return ResponseEntity.ok(msg);
+    }
     
+    @PutMapping("/LoginDetailsUnblock/{id}") // block a user By ID
+	public ResponseEntity<String> unblockUser(@PathVariable int id){
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setBlocked(false);
+		loginRepo.save(login);
+		String msg = "User Unblocked!";
+		return ResponseEntity.ok(msg);
+    }
 
 }
