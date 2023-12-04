@@ -53,14 +53,11 @@ import MainLayout2 from './Components/MainLayout2.jsx';
 import CustomerMainLayout from './Pages/Customer/CustomerMainLayout';
 import CustomerDashboard from './Pages/Customer/CustomerDashboard';
 import CustomerOrders from './Pages/Customer/CustomerOrders';
+import CustomerCategories from './Pages/Customer/CustomerCategory';
 
 
 
 //import loginService from "../../Services/loginService";
-
-
-
-
 
 
 function App() {
@@ -76,6 +73,7 @@ function App() {
           <Route index element={<CustomerDashboard/>}/>
           <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
           <Route path="/customermainlayout/shop/:shop_name/:branch/:ShopCode" element={<CustomerViewShop />} />
+          <Route path="/customermainlayout/categories" element={<CustomerCategories />} />
         </Route>
 
         <Route path = "/" element = {<MainLayout />}>
