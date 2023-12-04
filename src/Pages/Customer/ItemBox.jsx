@@ -28,3 +28,4 @@ const ItemBox = ({ item, itemsCount }) => {
 };
 
 export default ItemBox;
+

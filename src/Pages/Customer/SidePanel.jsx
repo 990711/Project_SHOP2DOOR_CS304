@@ -34,7 +34,11 @@ const SidePanel = () => {
       >
         <FontAwesomeIcon icon={faClipboardList} className="fa-icon" /> Orders
       </Link>
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+
+      <Link
+        to="/customermainlayout/categories"
+        className={location.pathname === "/customermainlayout/categories" ? "active" : ""}
+      >
         <FontAwesomeIcon icon={faList} className="fa-icon" /> Categories
       </Link>
       <Link to="/" className={location.pathname === "/" ? "active" : ""}>

@@ -11,9 +11,7 @@ import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 const CustomerViewShop = () => {
-  const { shop_name, branch, ShopCode } = useParams();
   const navigate = useNavigate();
-  const ShopId = (ShopCode - 1234) / 1000;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [Items, setItems] = useState([]);
@@ -21,14 +19,14 @@ const CustomerViewShop = () => {
   const [itemsByCategory, setItemsByCategory] = useState({});
 
   useEffect(() => {
-    ItemsServices.GetItemsByShopID(ShopId)
+    ItemsServices.GetAllItems()
       .then((response) => {
         setItems(response.data);
       })
       .catch((error) => {
         console.error("Error fetching shops:", error);
       });
-  }, [ShopId]);
+  }, []);
 
   useEffect(() => {
     setCategories(getCategories(Items));
@@ -59,11 +57,14 @@ const CustomerViewShop = () => {
     <div>
       <div className="customer-header">
         <h1 className="customer-header-name">SHOP2DOOR</h1>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="customer-header-search"
+        />
         <ShoppingCartIcon className="customer-header-icons" />
-        
-      </div>
-      <div className="customer-shop-view-header">
-        <h2>{shop_name + " - " + branch}</h2>
       </div>
 
       <div className="shop-view-tabs">
@@ -87,7 +88,6 @@ const CustomerViewShop = () => {
                       itemsCount={itemsByCategory[category].count}
                     />
                   ))}
-
               </div>
             </TabPanel>
           ))}

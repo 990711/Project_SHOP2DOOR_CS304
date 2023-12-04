@@ -124,6 +124,7 @@ button:hover {
   align-items: center;
   justify-content: space-between;
   padding: 0 2px;
+  height: 80px;
 }
 
 .customer-header-name {
@@ -138,6 +139,12 @@ button:hover {
 .customer-header-search {
   width: 50%;
   line-height: 40px;
+  font-size: 1.3em !important;
+  border: 2px solid #ccc !important;
+  outline: none;
+  border-radius: 30px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
 }
 
 .customer-header-icons {
