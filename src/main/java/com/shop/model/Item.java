@@ -23,56 +23,73 @@ import jakarta.validation.constraints.NotBlank;
 public class Item {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long item_id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long item_id;
+
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "name")
 	private String name;
-	
-	//@NotBlank(message = "this column must be filled!")
+
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "price")
 	private float price;
-	
+
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "brand")
 	private String brand;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "discount_percentage")
 	private float discount_percentage;
-	
-	//@NotBlank(message = "this column must be filled!")
+
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "quantity")
 	private int quantity;
-	
-	//@NotBlank(message = "this column must be filled!")
+
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "reorder_point")
 	private int reorder_point;
-	
-	//@NotBlank(message = "this column must be filled!")
+
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "image")
 	private String image;
-	
-	//@NotBlank(message = "this column must be filled!")
+
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "category")
 	private String category;
-	
-	@JsonIgnore  // without this, all items can be obtained with shop owner details.
+
+	@JsonIgnore // without this, all items can be obtained with shop owner details.
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="shop_id")
+	@JoinColumn(name = "shop_id")
 	private ShopOwner shopOwner;
-	
-	
+
 //	@ManyToMany(mappedBy="items")
 //	private Set<Order> orders = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "item")
-	private Set<ItemQuantity> orderQuantity;
-	
-	
+	private Set<ItemQuantity> orderQuantity = new HashSet<ItemQuantity>();
+
+	public Item() {
+
+	}
+
+	public Item(@NotBlank(message = "this column must be filled!") String name, float price,
+			@NotBlank(message = "this column must be filled!") String brand, String description,
+			float discount_percentage, int quantity, String image, String category, ShopOwner shopOwner) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.brand = brand;
+		this.description = description;
+		this.discount_percentage = discount_percentage;
+		this.quantity = quantity;
+		this.image = image;
+		this.category = category;
+		this.shopOwner = shopOwner;
+	}
+
 	public String getImage() {
 		return image;
 	}
@@ -88,38 +105,12 @@ public class Item {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
-	
 
 	public ShopOwner getShopOwner() {
 		return shopOwner;
 	}
 
 	public void setShopOwner(ShopOwner shopOwner) {
-		this.shopOwner = shopOwner;
-	}
-
-	public Item() {
-		
-	}
-
-	
-
-	
-
-	public Item(@NotBlank(message = "this column must be filled!") String name, float price,
-			@NotBlank(message = "this column must be filled!") String brand, String description,
-			float discount_percentage, int quantity, String image, String category, ShopOwner shopOwner) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.brand = brand;
-		this.description = description;
-		this.discount_percentage = discount_percentage;
-		this.quantity = quantity;
-		this.image = image;
-		this.category = category;
 		this.shopOwner = shopOwner;
 	}
 
@@ -178,7 +169,22 @@ public class Item {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
+
+	public int getReorder_point() {
+		return reorder_point;
+	}
+
+	public void setReorder_point(int reorder_point) {
+		this.reorder_point = reorder_point;
+	}
+
+	public Set<ItemQuantity> getOrderQuantity() {
+		return orderQuantity;
+	}
+
+	public void setOrderQuantity(Set<ItemQuantity> orderQuantity) {
+		this.orderQuantity = orderQuantity;
+	}
+
 	
 }

@@ -14,6 +14,10 @@ public class ItemQuantityKey implements Serializable {
 	@Column(name = "item_id")
 	private long itemId;
 
+	public ItemQuantityKey() {
+		super();
+	}
+
 	public ItemQuantityKey(long orderId, long itemId) {
 		super();
 		this.orderId = orderId;

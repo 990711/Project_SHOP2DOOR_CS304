@@ -62,7 +62,7 @@ public class Order {
 //	private Set<Item> items = new HashSet<>();
 	
 	@OneToMany(mappedBy = "order")
-	private Set<ItemQuantity> itemQuantity;
+	private Set<ItemQuantity> itemQuantity = new HashSet<ItemQuantity>();
 	
 	
 	public Order() {
@@ -70,6 +70,22 @@ public class Order {
 	}
 	
 	
+
+	public Order(long order_id, Date date, Time time, String description, float total, Time delivery_time,
+			Customer customer, DeliveryRider rider, Set<ItemQuantity> itemQuantity) {
+		super();
+		this.order_id = order_id;
+		this.date = date;
+		this.time = time;
+		this.description = description;
+		Total = total;
+		this.delivery_time = delivery_time;
+		this.customer = customer;
+		this.rider = rider;
+		this.itemQuantity = itemQuantity;
+	}
+
+
 
 	public Time getDelivery_time() {
 		return delivery_time;
@@ -122,5 +138,43 @@ public class Order {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+
+
+	public DeliveryRider getRider() {
+		return rider;
+	}
+
+
+
+	public void setRider(DeliveryRider rider) {
+		this.rider = rider;
+	}
+
+
+
+	public Set<ItemQuantity> getItemQuantity() {
+		return itemQuantity;
+	}
+
+
+
+	public void setItemQuantity(Set<ItemQuantity> itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
+	
+	
 
 }

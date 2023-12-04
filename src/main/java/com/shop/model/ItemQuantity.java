@@ -1,5 +1,7 @@
 package com.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -11,20 +13,24 @@ public class ItemQuantity {
 
 	@EmbeddedId
 	private ItemQuantityKey id;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	@MapsId("orderId")
 	@JoinColumn(name = "order_id")
 	private Order order;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	@MapsId("itemId")
 	@JoinColumn(name = "item_id")
 	private Item item;
-	
+
 	private int quantity;
-	
-	
+
+	public ItemQuantity() {
+		super();
+	}
 
 	public ItemQuantity(ItemQuantityKey id, Order order, Item item, int quantity) {
 		super();
