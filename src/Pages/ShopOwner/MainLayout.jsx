@@ -76,13 +76,29 @@ const MainLayout = () => {
   const handleRightItemClick = (index, route) => {
     console.log('Right Sidebar Item clicked:', route);
     // Handle right sidebar item click logic here
-    if (route) {
+    if (route === '/login') {
+      handleLogout();
+    } else if (route) {
       navigate(route, { state: { user } });
     }
   };
 
   
 
+  const handleLogout = async () => {
+    // Perform any necessary logout actions on the server side
+  
+    // Clear authentication data on the client side
+    // Example: Clearing a user session
+    // This might vary based on your authentication mechanism
+    // For example, if using a session:
+    
+   
+  
+    // Navigate to the login page
+    navigate('/login', { replace: true });
+  };
+  
 
 
   return (
@@ -216,7 +232,7 @@ const MainLayout = () => {
           { text: 'Notification', icon: <NotificationsIcon />, route: '/notifications' },
           { text: 'Help', icon: <HelpIcon />, route: '/help' },
          // { text: 'Settings', icon: <SettingsIcon />, route: '/settings' },
-          { text: 'Logout', icon: <ExitToAppIcon />, route: '/login' }, 
+          { text: 'Logout', icon: <ExitToAppIcon />, route: '/login'}, 
         ].map((item, index) => (
           
           <ListItem

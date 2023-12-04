@@ -19,6 +19,10 @@ class ShopOwnerRegisterService {
         return axios.get(SHOP_OWNER_API_BASE_URL + '/' + shopOwnerUsername);
     }
 
+    updateShopOwnerByUserName(shopOwner) {
+        return axios.put(SHOP_OWNER_API_BASE_URL + '/' + shopOwner.username, shopOwner);
+    }
+
     updateShopOwner(shopOwner) {
         return axios.put(SHOP_OWNER_API_BASE_URL + '/' + shopOwner.id, shopOwner);
     }

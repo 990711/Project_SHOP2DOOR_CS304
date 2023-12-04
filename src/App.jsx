@@ -148,7 +148,7 @@ function App() {
             <Route path="/updatejobposting/:id" element={<UpdateJobPosting />} />
             <Route path="/addjobposting" element = {<AddJobPosting/>}></Route>
             <Route path="/shopownerprofile" element = {<ShopOwnerProfile/>}></Route>
-            <Route path="/updateshopownerprofile" element = {<UpdateShopOwnerProfile/>}></Route>
+            <Route path="/updateshopownerprofile/:username" element = {<UpdateShopOwnerProfile/>}></Route>
 
         </Route>
 

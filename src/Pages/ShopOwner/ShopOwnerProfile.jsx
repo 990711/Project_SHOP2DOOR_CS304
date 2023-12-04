@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Paper,
   Typography,
@@ -15,6 +15,8 @@ import { AccountCircle as AccountCircleIcon, Edit as EditIcon } from '@mui/icons
 import "../../styles/ShopOwner.css";
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import ShopOwnerRegisterService from '../../Services/ShopOwnerRegisterService';
+
 
 const ShopOwnerProfile = () => {
   const location = useLocation();
@@ -23,6 +25,7 @@ const ShopOwnerProfile = () => {
 
   console.log('User in ShopOwnerProfile:', user);
   // Shop owner details
+  /*
   const shopOwner = {
     username: 'user',
     password: 'pwd',
@@ -33,9 +36,52 @@ const ShopOwnerProfile = () => {
     location: 'location',
     email: 'email@example.com',
   };
+  */
+
+  const [shopOwner, setShopOwner] = useState({
+    username: '',
+    password: '',
+    role: '',
+    shop_name: '',
+    contact: '',
+    branch: '',
+    location: '',
+    email: '',
+  });
+
+  useEffect(() => {
+    // Fetch shop owner details when the component mounts
+    fetchShopOwners(user);
+  }, [user]); // Empty dependency array ensures this effect runs once on mount
+
+
+  const fetchShopOwners = (userName) => {
+    ShopOwnerRegisterService.getShopOwnerByUserName(userName)
+      .then(response => {
+        setShopOwner(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching shop owners:', error);
+  
+        // Log the details of the Axios error for debugging
+        if (error.response) {
+          // The request was made, but the server responded with a status code that falls out of the range of 2xx
+          console.error('Response data:', error.response.data);
+          console.error('Response status:', error.response.status);
+          console.error('Response headers:', error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('No response received. Request:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error in setting up the request:', error.message);
+        }
+      });
+  };
+  
 
   const updateProfile = () => {
-    navigate('/updateshopownerprofile',{ state: { user } });
+    navigate('/updateshopownerprofile/${shopOwner.user',{ state: { user } });
   };
 
   return (
@@ -51,7 +97,7 @@ const ShopOwnerProfile = () => {
 
         {/* Shop information */}
         <Typography variant="h6" gutterBottom>
-          {shopOwner.shopName}
+          {shopOwner.shop_name}
         </Typography>
 
         <Divider style={{ margin: '20px 0' }} />

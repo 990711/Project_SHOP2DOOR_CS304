@@ -72,6 +72,19 @@ const CreateProduct = () => {
     const changeDiscountPercentageHandler = (event) => {
       setProduct({ ...product, discountPercentage: event.target.value });
     };
+
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+  
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setProduct({ ...product, image: reader.result });
+        };
+  
+        reader.readAsDataURL(file);
+      }
+    };
   
     
   
@@ -90,12 +103,16 @@ const CreateProduct = () => {
                       onChange={changeNameHandler}
                     />
 
+
                     <label>Image</label>
                     <input
                       placeholder='Image'
                       name='image'
                       value={product.image}
                       onChange={changeImageHandler}
+                      //type="file"
+                      //accept="image/*"
+                      //onChange={handleImageUpload}
                     />
 
                     <label>Brand</label>

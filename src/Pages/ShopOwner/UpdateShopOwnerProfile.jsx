@@ -1,10 +1,12 @@
 // UpdateShopOwnerProfile.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paper, Typography, Avatar, Button, Divider, List, ListItem, ListItemText, ListItemAvatar, TextField ,InputLabel} from '@mui/material';
 import { AccountCircle as AccountCircleIcon, Save as SaveIcon } from '@mui/icons-material';
 import "../../styles/ShopOwner.css";
 import { Link } from 'react-router-dom';
+//const { username } = useParams();
 import { useNavigate } from 'react-router-dom';
+import ShopOwnerRegisterService from '../../Services/ShopOwnerRegisterService';
 
 import { useLocation } from 'react-router-dom';
 
@@ -15,29 +17,67 @@ const UpdateShopOwnerProfile = () => {
 
   console.log('User in UpdateShopOwnerProfile:', user);
 
-  // Shop owner details
-  const [shopOwner, setShopOwner] = React.useState({
-    username: 'user',
-    password: 'pwd',
-    role: 'role',
-    shopName: 'Doe\'s Emporium',
-    contact: 'phone',
-    branch: 'branch',
-    location: 'location',
-    email: 'email@example.com',
+  const [shopOwner, setShopOwner] = useState({
+    username: '',
+    password: '',
+    role: '',
+    shop_name: '',
+    contact: '',
+    branch: '',
+    location: '',
+    email: '',
   });
+
+  useEffect(() => {
+    ShopOwnerRegisterService.getShopOwnerByUserName(user).then((res) => {
+      let ShopOwnerData = res.data;
+      setShopOwner((prevShopOwner) => ({
+        ...prevShopOwner,
+        //username: ShopOwnerData.username || '',
+        password: ShopOwnerData.password || '',
+        role: ShopOwnerData.role || '',
+        shop_name: ShopOwnerData.shop_name || '',
+        contact: ShopOwnerData.contact || '',
+        branch: ShopOwnerData.branch || '',
+        location: ShopOwnerData.location || '',
+        email: ShopOwnerData.email || '',
+      }));
+    });
+  }, [user]);
+
+
 
   const handleChange = (field) => (event) => {
     setShopOwner({ ...shopOwner, [field]: event.target.value });
   };
 
-  const handleSave = () => {
-    // Add logic to save the updated profile details
-    // This can involve making an API call to update the user's information
-    // For now, let's just log the updated profile details
-    console.log('Updated Shop Owner Profile:', shopOwner);
-    navigate('/shopownerprofile',{ state: { user } });
+  const handleSave = (e) => {
+    e.preventDefault();
+    
+    let updatedShop = {
+      username:user,
+      password: shopOwner.password,
+      role: shopOwner.role,
+      shop_name: shopOwner.shop_name,
+      contact: shopOwner.contact,
+      branch: shopOwner.branch,
+      location: shopOwner.location,
+      email: shopOwner.email,
+      
   };
+
+  console.log('updatedShop =>' + JSON.stringify(updatedShop));
+
+  ShopOwnerRegisterService.updateShopOwnerByUserName(updatedShop)
+  .then((res) => {
+    console.log('Server response:', res);
+    navigate('/shopownerprofile',{ state: { user } });
+  })
+  .catch((error) => {
+    console.error('Error from server:', error);
+  });
+};
+   
 
   return (
     <div style={{ padding: '20px' }}>
@@ -66,8 +106,8 @@ const UpdateShopOwnerProfile = () => {
 
              <TextField
                
-               value={shopOwner.shopName}
-               onChange={handleChange('shopname')}
+               value={shopOwner.shop_name}
+               onChange={handleChange('shop_name')}
              />
              </>
            } />
