@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.Login;
+import com.shop.model.UserRole;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.LoginService;
 import com.shop.service.SmsService;
@@ -72,7 +73,7 @@ public class LoginController {
         // Extract username and password from the request
         String username = login.getUsername();
         String password = login.getPassword();
-        String role = login.getRole();
+        UserRole role = login.getRole();
 
         // Check if the user exists
         
