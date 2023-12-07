@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import com.shop.model.Item;
 import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ItemRepo;
 
+import jakarta.validation.Valid;
+
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
@@ -34,8 +37,9 @@ public class ItemController {
     }
 	
 	@PostMapping("/addItems")
-    public Item addItem(@RequestBody Item item) {
-        return itemRepo.save(item);
+    public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
+		Item newItem = itemRepo.save(item);
+        return new ResponseEntity<Item>(newItem,HttpStatus.CREATED);
     }
 	
 	 @GetMapping("/getItems/{id}")

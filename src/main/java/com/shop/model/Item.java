@@ -17,6 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "item")
@@ -31,6 +32,7 @@ public class Item {
 	private String name;
 
 	// @NotBlank(message = "this column must be filled!")
+	@NotNull(message = "should not be empty!")
 	@Column(name = "price")
 	private float price;
 

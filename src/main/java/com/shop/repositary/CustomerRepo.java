@@ -1,5 +1,7 @@
 package com.shop.repositary;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +11,5 @@ import com.shop.model.Customer;
 public interface CustomerRepo extends JpaRepository<Customer, Integer>{
 
 	
-	
+	public Optional<Customer> findCustomerByUsername(String username);
 }
