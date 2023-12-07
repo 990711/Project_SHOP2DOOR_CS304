@@ -13,7 +13,7 @@ import {
 
   const Login= ()=>{
 
-    const [role, setRole] = useState("Customer");
+    const [role, setRole] = useState("CUSTOMER");
 
     const userRef = useRef();
     const errRef = useRef();
@@ -62,7 +62,7 @@ import {
 
             //const accessToken = response?.data?.accessToken;
             console.log({ user, pwd, role});
-            console.log(response?.data.user.username);
+            console.log(response?.data.username);
             console.log(response?.data);
             console.log(user); 
 
@@ -71,23 +71,23 @@ import {
             setPwd('');
             setSuccess(true);
            */
-            setUser(response?.data.user.username); // Assuming response.data contains user information
+            setUser(response?.data.username); // Assuming response.data contains user information
 
 
             switch (role) {
-                case "Customer":
-                    navigate("/customermainlayout");
+                case "CUSTOMER":
+                    navigate("/customermainlayout/dashboard");
                     break;
-                case "Shop Owner":
+                case "SHOP_OWNER":
                     navigate("/", { state: { user } });
                     break;
-                case "Supplier":
+                case "FOOD_SUPPLIER":
                     navigate("");
                     break;
-                case "Delivery Rider":
+                case "DELIVERY_RIDER":
                     navigate("");
                     break;
-                case "Restaurant Owner":
+                case "RESTAURANT":
                     navigate("");
                     break;
                 default:
@@ -179,11 +179,11 @@ import {
                             required
                             
                         >
-                            <option value="Customer">Customer</option>
-                            <option value="Shop Owner">Shop Owner</option>
-                            <option value="Supplier">Supplier</option>
-                            <option value="Delivery Rider">Delivery Rider</option>
-                            <option value="Restaurant Owner">Restaurant Owner</option>
+                            <option value="CUSTOMER">Customer</option>
+                            <option value="SHOP_OWNER">Shop Owner</option>
+                            <option value="FOOD_SUPPLIER">Supplier</option>
+                            <option value="DELIVERY_RIDER">Delivery Rider</option>
+                            <option value="RESTAURANT">Restaurant Owner</option>
 
                                                     
                         </select>
