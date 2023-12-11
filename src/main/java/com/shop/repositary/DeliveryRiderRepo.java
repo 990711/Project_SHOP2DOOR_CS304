@@ -10,5 +10,7 @@ import com.shop.model.DeliveryRider;
 @Repository
 public interface DeliveryRiderRepo extends JpaRepository<DeliveryRider, Integer>{
 
-	public Optional<DeliveryRider> findDeliveryRiderByUsername(String username);
+	Optional<DeliveryRider> findByUsername(String username);
+	
+
 }

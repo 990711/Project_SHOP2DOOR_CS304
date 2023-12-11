@@ -10,6 +10,6 @@ import com.shop.model.Customer;
 @Repository
 public interface CustomerRepo extends JpaRepository<Customer, Integer>{
 
+	Optional<Customer> findByUsername(String username);
 	
-	public Optional<Customer> findCustomerByUsername(String username);
 }

@@ -18,11 +18,8 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "DeliveryRider")
-public class DeliveryRider extends Login {
-
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int user_id;
+public class DeliveryRider extends Login{
+	
 
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "name")

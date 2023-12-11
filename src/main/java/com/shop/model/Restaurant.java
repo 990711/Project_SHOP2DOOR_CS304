@@ -13,10 +13,6 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Restaurant")
 public class Restaurant extends Login{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int user_id;
-	
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "name")
 	private String name;
@@ -50,13 +46,7 @@ public class Restaurant extends Login{
 		this.email = email;
 	}
 
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+	
 
 	public String getName() {
 		return name;

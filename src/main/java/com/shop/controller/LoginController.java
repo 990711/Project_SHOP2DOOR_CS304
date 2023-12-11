@@ -1,6 +1,8 @@
 package com.shop.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.Login;
+import com.shop.model.UserRole;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.LoginService;
 import com.shop.service.SmsService;
@@ -42,7 +45,7 @@ public class LoginController {
 	// Get users
 	@GetMapping("/LoginDetails")
 
-	public List<Login> getAllRiders() {
+	public List<Login> getAllUsers() {
 //		smsservice.sendSMS("+94714064457", "this is the message");
 
 
@@ -50,7 +53,7 @@ public class LoginController {
 	}
 
 	// Add User
-	@PostMapping("/LoginDetails")
+	@PostMapping("/Login") // not use in URL
 	public ResponseEntity<Login> addUser(@Valid @RequestBody Login user) {
 		
 		Login savedLogin = service.createLogin(user);
@@ -58,21 +61,30 @@ public class LoginController {
 	}
 	
 	
-	@DeleteMapping("/LoginDetails/{id}")
+	/*@DeleteMapping("/LoginDetails/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable int id){
-		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("Rider does not exist with id "+id));
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setDeleted(true);
+		loginRepo.save(login);
+		String msg = "User successfully deleted!";
+		return ResponseEntity.ok(msg);
+	}*/
+	
+	@DeleteMapping("/LoginDetails/{username}")
+	public ResponseEntity<String> deleteUser(@PathVariable String username){
+		Login login = loginRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFound("User does not exist with username "+username));
 		login.setDeleted(true);
 		loginRepo.save(login);
 		String msg = "User successfully deleted!";
 		return ResponseEntity.ok(msg);
 	}
 	
-	@PostMapping("/Login")
+	/*@PostMapping("/Login")
     public ResponseEntity<String> handleLogin(@RequestBody Login login) {
         // Extract username and password from the request
         String username = login.getUsername();
         String password = login.getPassword();
-        String role = login.getRole();
+        UserRole role = login.getRole();
 
         // Check if the user exists
         
@@ -102,11 +114,63 @@ public class LoginController {
             return ResponseEntity.status(401).body("User not found");
         }
 	
+    }*/
+	
+	@PostMapping("/LoginDetails") // Login
+    public ResponseEntity<Object> handleLogin(@RequestBody Login login) {
+        // Extract username and password from the request
+        String username = login.getUsername();
+        String password = login.getPassword();
+        UserRole role = login.getRole();
+
+        // Check if the user exists
+        
+        Optional<Login> existingUser = loginRepo.findByUsername(username);
+        
+        if (existingUser.isPresent()) {
+        	
+        	if(existingUser.get().isDeleted()) {
+        		return ResponseEntity.status(401).body("Cannot Login! User has been deleted!");
+        	}else if(existingUser.get().isBlocked()) {
+        		return ResponseEntity.status(401).body("Cannot Login! User has been blocked!");
+        	}else {
+        		if(existingUser.get().getPassword().equals(password))
+            	{
+            		if(existingUser.get().getRole().equals(role))
+            		{
+            			existingUser.get().setActive(true);
+            			loginRepo.save(existingUser.get());
+            			
+            			Map<String, Object> responseData = new HashMap<>();
+                        responseData.put("status", "success");
+                        responseData.put("user", existingUser.get());
+                        return ResponseEntity.ok(responseData);
+            		}
+            		else {
+                        // Authentication failed
+                        // Return a ResponseEntity indicating failure
+                        return ResponseEntity.status(401).body("Role mismatch");
+                    }
+            	}else {
+                    // Authentication failed
+                    // Return a ResponseEntity indicating failure
+                    return ResponseEntity.status(401).body("Password mismatch");
+                }
+        	}
+        	
+        	
+        }
+        else {
+            // Authentication failed
+            // Return a ResponseEntity indicating failure
+            return ResponseEntity.status(401).body("User not found");
+        }
+	
     }
 	
 	
 	// Create user rest api
-    @PostMapping("/checkUsername")
+    @PostMapping("/checkUsername") // not use here
     public ResponseEntity<Login> createuser(@RequestBody Login login) {
         // Check for duplicate usernames
     	Optional<Login> existingUser = loginRepo.findByUsername(login.getUsername());
@@ -125,15 +189,40 @@ public class LoginController {
         
     }
     
-    @PutMapping("/Logout/{id}")
+    /*@PutMapping("/LoginDetails/{id}") // Logout By ID
 	public ResponseEntity<String> Logout(@PathVariable int id){
-		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("Rider does not exist with id "+id));
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setActive(false);
+		loginRepo.save(login);
+		String msg = "User successfully logged out!";
+		return ResponseEntity.ok(msg);
+	}*/
+    
+    @PutMapping("/LoginDetails/{username}") // Logout By username
+	public ResponseEntity<String> Logout(@PathVariable String username){
+		Login login = loginRepo.findByUsername(username).orElseThrow(()-> new ResourceNotFound("User does not exist with username "+username));
 		login.setActive(false);
 		loginRepo.save(login);
 		String msg = "User successfully logged out!";
 		return ResponseEntity.ok(msg);
 	}
     
+    @PutMapping("/LoginDetailsBlock/{id}") // block a user By ID
+	public ResponseEntity<String> blockUser(@PathVariable int id){
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setBlocked(true);
+		loginRepo.save(login);
+		String msg = "User Blocked!";
+		return ResponseEntity.ok(msg);
+    }
     
+    @PutMapping("/LoginDetailsUnblock/{id}") // block a user By ID
+	public ResponseEntity<String> unblockUser(@PathVariable int id){
+		Login login = loginRepo.findById(id).orElseThrow(()-> new ResourceNotFound("User does not exist with id "+id));
+		login.setBlocked(false);
+		loginRepo.save(login);
+		String msg = "User Unblocked!";
+		return ResponseEntity.ok(msg);
+    }
 
 }

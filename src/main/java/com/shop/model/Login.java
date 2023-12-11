@@ -1,7 +1,10 @@
 package com.shop.model;
 
 import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +23,16 @@ public class Login {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
 
+	public int getUser_id() {
+		return user_id;
+	}
+
+
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "username")
 	private String username;
@@ -31,8 +44,13 @@ public class Login {
 
 
 
-	@NotBlank(message = "must be select!")
-	private String Role;
+//	@NotBlank(message = "must be select!")
+//	private String Role;
+	
+	@Enumerated(EnumType.STRING)
+	//@NotBlank(message = "must be select!")
+    @Column(name = "role")
+    private UserRole Role;
 	
 	@Column(name = "active")
 	private boolean active = true;
@@ -46,12 +64,10 @@ public class Login {
 	public Login() {
 
 	}
-	
-	
 
-	public Login(@NotBlank(message = "this column must be filled!") String username,
+public Login(@NotBlank(message = "this column must be filled!") String username,
 			@NotBlank(message = "this column must be filled!") @Size(min = 8, message = "password must be greater than 8 charactors!") String password,
-			@NotBlank(message = "must be select!") String role, boolean active, boolean blocked, boolean deleted) {
+			@NotBlank(message = "must be select!") UserRole role, boolean active, boolean blocked, boolean deleted) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -63,17 +79,29 @@ public class Login {
 
 
 
-	public String getRole() {
-		return Role;
-	}
-
-	public void setRole(String role) {
-		Role = role;
-	}
+//	public String getRole() {
+//		return Role;
+//	}
+//
+//	public void setRole(String role) {
+//		Role = role;
+//	}
 
 	public String getUsername() {
 		return username;
 	}
+
+	public UserRole getRole() {
+		return Role;
+	}
+
+
+
+	public void setRole(UserRole role) {
+		Role = role;
+	}
+
+
 
 	public void setUsername(String username) {
 		this.username = username;

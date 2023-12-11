@@ -31,28 +31,29 @@ public class ItemController {
 	@Autowired
     private ItemRepo itemRepo;
 	
-	@GetMapping("/getItems")
+	@GetMapping("/Item")
     public List<Item> getAllItems() {
         return itemRepo.findAll();
     }
 	
+
 	@PostMapping("/addItems")
     public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
 		Item newItem = itemRepo.save(item);
         return new ResponseEntity<Item>(newItem,HttpStatus.CREATED);
     }
 	
-	 @GetMapping("/getItems/{id}")
+	 @GetMapping("/Item/{id}") // Item ID
 	    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
 	    	Item item = itemRepo.findById(id)
-	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
+	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + id));
 	        return ResponseEntity.ok(item);
 	 }
 	 
-	 @PutMapping("/UpdateItems/{id}")
-	    public ResponseEntity<Item> updateItem(@PathVariable Long id, @RequestBody Item newItem) {
+	 @PutMapping("/Item/{id}")
+	    public ResponseEntity<Item> updateItem(@PathVariable Long id,@Valid @RequestBody Item newItem) {
 	    	Item item = itemRepo.findById(id)
-	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
+	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + id));
 	        
 	    	item.setName(newItem.getName());
 	    	item.setPrice(newItem.getPrice());
@@ -62,6 +63,7 @@ public class ItemController {
 	    	item.setQuantity(newItem.getQuantity());
 	    	item.setImage(newItem.getImage());
 	    	item.setCategory(newItem.getCategory());
+	    	item.setReorder_point(newItem.getReorder_point());
 	        
 	        Item updatedItem = itemRepo.save(item);
 	        return ResponseEntity.ok(updatedItem);
@@ -70,7 +72,7 @@ public class ItemController {
 	 @DeleteMapping("/deleteItem/{id}")
 	    public ResponseEntity<Map<String, Boolean>> deleteItem(@PathVariable Long id) {
 		 Item item = itemRepo.findById(id)
-	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
+	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + id));
 		 
 	        itemRepo.delete(item);
 	        Map<String, Boolean> response = new HashMap<>();
@@ -79,12 +81,12 @@ public class ItemController {
 	    }
 	 
 	 
-	 @GetMapping("/getItemsByCategory/{category}")
+	 @GetMapping("/ItemByCategory/{category}")
 	 public List<Item> getItemByCategory(@PathVariable String category){
 		 return itemRepo.findAllByCategory(category);
 	 }
 	 
-	 @GetMapping("/Item/{id}")
+	 @GetMapping("/ItemByShop/{id}")
 	 public List<Item> getItemByShopId(@PathVariable Long id){
 		 return itemRepo.getItemsByShopId(id);
 	 }
