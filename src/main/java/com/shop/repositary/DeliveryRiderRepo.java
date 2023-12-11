@@ -12,4 +12,5 @@ public interface DeliveryRiderRepo extends JpaRepository<DeliveryRider, Integer>
 
 	Optional<DeliveryRider> findByUsername(String username);
 	
+
 }
