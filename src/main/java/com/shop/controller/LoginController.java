@@ -116,7 +116,7 @@ public class LoginController {
 	
     }*/
 	
-	@PostMapping("/LoginDetails") // Login
+	@PutMapping("/LoginDetails") // Login
     public ResponseEntity<Object> handleLogin(@RequestBody Login login) {
         // Extract username and password from the request
         String username = login.getUsername();
