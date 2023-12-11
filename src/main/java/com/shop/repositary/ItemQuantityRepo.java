@@ -7,6 +7,6 @@ import com.shop.model.ItemQuantity;
 import com.shop.model.ItemQuantityKey;
 
 @Repository
-public interface ItemQuantityRepo extends JpaRepository<ItemQuantity, ItemQuantityKey>{
+public interface ItemQuantityRepo extends JpaRepository<ItemQuantity, ItemQuantityKey> {
 
 }

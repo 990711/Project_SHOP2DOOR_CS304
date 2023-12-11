@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
@@ -68,8 +67,13 @@ public class OrderController {
 			return ResponseEntity.ok("order not found with id " + id);
 		}
 		
-		repo.deleteById(id);
+		Order order = repo.findById(id).orElseThrow();
+		
+		order.setDeleted(true);
+		order = repo.save(order);
+		
 		return ResponseEntity.ok("Order deleted with id " + id);
 	}
 
+	
 }
