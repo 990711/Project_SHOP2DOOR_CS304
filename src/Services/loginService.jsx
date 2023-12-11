@@ -23,7 +23,7 @@ class loginService{
     
     
     createUserLogin(user){
-        return axios.post(USER_LOGIN_API_BASE_URL_logindetails, user);
+        return axios.post(USER_LOGIN_API_BASE_URL, user);
     }
 
 

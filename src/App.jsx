@@ -46,6 +46,14 @@ import CustomerCategories from './Pages/Customer/CustomerCategory';
 import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
 import ProtectedRoute from './Pages/Authentication/ProtectedRoute';
 
+//import AddJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/AddJobPosting';
+
+import DeliveryRider_MainLayout from './Pages/DeliveryRider/DeliveryRider_MainLayout';
+import DeliveryRider_Dashboard from './Pages/DeliveryRider/DeliveryRider_Dashboard';
+import DeliveryRiderProfile from './Pages/DeliveryRider/DeliveryRiderProfile';
+import UpdateDeliveryRiderProfile from './Pages/DeliveryRider/UpdateDeliveryRiderProfile';
+
+
 
 
 
@@ -107,6 +115,17 @@ function App() {
             <Route path="/shopownerprofile" element = {<ShopOwnerProfile/>}></Route>
             <Route path="/updateshopownerprofile/:username" element = {<UpdateShopOwnerProfile/>}></Route>
 
+        </Route>
+
+
+        <Route path = "/deliveryrider_mainlayout" element = {<ProtectedRoute ><DeliveryRider_MainLayout /></ProtectedRoute>}>
+            <Route index element={<Dashboard/>}/>
+            <Route path="/deliveryrider_mainlayout/deliveryrider_dashboard" element={<DeliveryRider_Dashboard />} />
+            <Route path="/deliveryrider_mainlayout/deliveryriderprofile" element={<DeliveryRiderProfile />} />
+            <Route path="/deliveryrider_mainlayout/updatedeliveryriderprofile" element={<UpdateDeliveryRiderProfile />} />
+
+            
+            
         </Route>
 
 
