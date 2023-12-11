@@ -30,28 +30,12 @@ public class Item {
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "name")
 	private String name;
-	
-	public int getReorder_point() {
-		return reorder_point;
-	}
 
-	public void setReorder_point(int reorder_point) {
-		this.reorder_point = reorder_point;
-	}
-
-	public Set<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
-	//@NotBlank(message = "this column must be filled!")
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "price")
 	private float price;
-	
-	//@NotBlank(message = "this column must be filled!")
+
+	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "brand")
 	private String brand;
 
@@ -131,30 +115,6 @@ public class Item {
 		this.shopOwner = shopOwner;
 	}
 
-	public Item() {
-		
-	}
-	
-	
-
-	
-	public Item(@NotBlank(message = "this column must be filled!") String name, float price, String brand,
-			String description, float discount_percentage, int quantity, int reorder_point, String image,
-			String category, ShopOwner shopOwner, Set<Order> orders) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.brand = brand;
-		this.description = description;
-		this.discount_percentage = discount_percentage;
-		this.quantity = quantity;
-		this.reorder_point = reorder_point;
-		this.image = image;
-		this.category = category;
-		this.shopOwner = shopOwner;
-		this.orders = orders;
-	}
-
 	public Long getItem_id() {
 		return item_id;
 	}
@@ -227,5 +187,4 @@ public class Item {
 		this.orderQuantity = orderQuantity;
 	}
 
-	
 }

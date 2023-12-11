@@ -23,16 +23,6 @@ public class Login {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
 
-	public int getUser_id() {
-		return user_id;
-	}
-
-
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "username")
 	private String username;
