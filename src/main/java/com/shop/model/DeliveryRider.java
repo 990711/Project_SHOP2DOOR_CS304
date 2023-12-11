@@ -20,26 +20,42 @@ import jakarta.validation.constraints.Size;
 @Table(name = "DeliveryRider")
 public class DeliveryRider extends Login{
 	
+
 	@NotBlank(message = "this column must be filled!")
 	@Column(name = "name")
 	private String name;
-	
+
 	@NotBlank(message = "this column must be filled!")
 	@Size(max = 10, message = "Phone no must be 10 characters")
 	@Column(name = "contact")
 	private String contact;
-	
+
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="rider")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rider")
 	private List<Order> orders = new ArrayList<>();
-	
-	
+
+	@Column(name = "e-mail")
+	private String email;
+
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "area of pref")
+	private String area_of_pref;
+
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "license no")
+	private String license;
+
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "vehicle type")
+	private String vehicle_type;
+
+	@NotBlank(message = "this column must be filled!")
+	@Column(name = "vehicle no")
+	private String vehicle_no;
+
 	public DeliveryRider() {
-		
+
 	}
-
-	
-
 
 	public DeliveryRider(@NotBlank(message = "this column must be filled!") String name,
 			@NotBlank(message = "this column must be filled!") @Size(max = 10, message = "Phone no must be 10 characters") String contact,
@@ -58,22 +74,13 @@ public class DeliveryRider extends Login{
 		this.vehicle_no = vehicle_no;
 	}
 
-
-
-
 	public List<Order> getOrders() {
 		return orders;
 	}
 
-
-
-
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
-
-
-
 
 	public String getName() {
 		return name;
@@ -131,25 +138,4 @@ public class DeliveryRider extends Login{
 		this.vehicle_no = vehicle_no;
 	}
 
-	@Column(name = "e-mail")
-	private String email;
-	
-	@NotBlank(message = "this column must be filled!")
-	@Column(name = "area of pref.")
-	private String area_of_pref;
-	
-	@NotBlank(message = "this column must be filled!")
-	@Column(name = "license no")
-	private String license;
-	
-	@NotBlank(message = "this column must be filled!")
-	@Column(name = "vehicle type")
-	private String vehicle_type;
-	
-	@NotBlank(message = "this column must be filled!")
-	@Column(name = "vehicle no")
-	private String vehicle_no;
-	
-	
-	
 }

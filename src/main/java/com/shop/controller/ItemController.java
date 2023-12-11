@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,9 +36,11 @@ public class ItemController {
         return itemRepo.findAll();
     }
 	
-	@PostMapping("/Item")
-    public Item addItem(@Valid @RequestBody Item item) {
-        return itemRepo.save(item);
+
+	@PostMapping("/addItems")
+    public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
+		Item newItem = itemRepo.save(item);
+        return new ResponseEntity<Item>(newItem,HttpStatus.CREATED);
     }
 	
 	 @GetMapping("/Item/{id}") // Item ID

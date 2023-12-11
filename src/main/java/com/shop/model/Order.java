@@ -14,10 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -36,14 +34,19 @@ public class Order {
 
 	@Column
 	private String description;
-	
+
 	@Column
 	private float Total;
-	
 
 	@Column
 	private Time delivery_time;
-	
+
+	@Column
+	private String action;
+
+	@Column
+	private boolean deleted = false;
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
@@ -53,30 +56,49 @@ public class Order {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "delivery_id")
 	private DeliveryRider rider;
-	
-	@ManyToMany()
-	@JoinTable(name="order_items",
-				joinColumns = @JoinColumn(name="order_id"),
-				inverseJoinColumns = @JoinColumn(name="item_id"))
-	private Set<Item> items = new HashSet<>();
-	
-	
+
+//	@ManyToMany()
+//	@JoinTable(name="order_items",
+//				joinColumns = @JoinColumn(name="order_id"),
+//				inverseJoinColumns = @JoinColumn(name="item_id"))
+//	private Set<Item> items = new HashSet<>();
+
+	@OneToMany(mappedBy = "order")
+	private Set<ItemQuantity> itemQuantity = new HashSet<ItemQuantity>();
+
 	public Order() {
 		super();
 	}
-	
-	
+
+	public Order(long order_id, Date date, Time time, String description, float total, Time delivery_time,
+			Customer customer, DeliveryRider rider, Set<ItemQuantity> itemQuantity) {
+		super();
+		this.order_id = order_id;
+		this.date = date;
+		this.time = time;
+		this.description = description;
+		Total = total;
+		this.delivery_time = delivery_time;
+		this.customer = customer;
+		this.rider = rider;
+		this.itemQuantity = itemQuantity;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public Time getDelivery_time() {
 		return delivery_time;
 	}
 
-
-
 	public void setDelivery_time(Time delivery_time) {
 		this.delivery_time = delivery_time;
 	}
-	
 
 	public float getTotal() {
 		return Total;
@@ -110,13 +132,44 @@ public class Order {
 		this.time = time;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public DeliveryRider getRider() {
+		return rider;
+	}
+
+	public void setRider(DeliveryRider rider) {
+		this.rider = rider;
+	}
+
+	public Set<ItemQuantity> getItemQuantity() {
+		return itemQuantity;
+	}
+
+	public void setItemQuantity(Set<ItemQuantity> itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 
 }
