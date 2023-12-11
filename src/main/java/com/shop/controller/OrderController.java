@@ -42,7 +42,7 @@ public class OrderController {
 	@PostMapping("order/{username}")
 	public ResponseEntity<Order> createOrder(@PathVariable String username, @RequestBody Order newOrder) {
 
-		Customer thecustomer = customerRepo.findCustomerByUsername(username)
+		Customer thecustomer = customerRepo.findByUsername(username)
 				.orElseThrow(() -> new ResourceNotFound("customer not found!" + username));
 		Order order = newOrder;
 		order.setCustomer(thecustomer);
@@ -55,7 +55,7 @@ public class OrderController {
 
 		Order theOrder = repo.findById(order).orElseThrow(() -> new ResourceNotFound("order not found " + order));
 		theOrder.setRider(
-				riderRepo.findDeliveryRiderByUsername(rider).orElseThrow(() -> new ResourceNotFound("rider not found " + rider)));
+				riderRepo.findByUsername(rider).orElseThrow(() -> new ResourceNotFound("rider not found " + rider)));
 		theOrder = repo.save(theOrder);
 		return ResponseEntity.ok("Rider accepted!");
 	}
