@@ -13,7 +13,7 @@ import { useLocation } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
-const ProductListing = () => {
+const InventoryTracking = () => {
   const location = useLocation();
   const user = location.state?.user;
   const navigate = useNavigate();
@@ -31,14 +31,12 @@ const ProductListing = () => {
   const deleteProduct = (id) => {
     ShopOwner_ProductService.deleteProduct(id).then((res) => {
       if (res.status === 200) {
-        // Update the state with the new list of products after successful deletion
         setProducts(products.filter((product) => product.item_id !== id));
       } else {
         console.error('Failed to delete the product.');
       }
     });
   };
-  
 
   const CreateProduct = () => {
     navigate('/CreateProduct',{ state: { user } });
@@ -66,7 +64,6 @@ const ProductListing = () => {
       setIsModalOpen(false);
       setSelectedProduct(null);
       deleteProduct(selectedProduct?.item_id);
-      
     } else {
       setIsModalOpen(false);
       setSelectedProduct(null);
@@ -76,8 +73,7 @@ const ProductListing = () => {
   const handleUpdate = () => {
     console.log('Selected product for update:', selectedProduct);
     if (selectedProduct && selectedProduct.item_id) {
-      navigate(`/UpdateProduct/${selectedProduct.item_id}`,{ state: { user,category: selectedProduct.category } });
-    
+      navigate(`/UpdateProduct/${selectedProduct.item_id}`,{ state: { user } });
     } else {
       console.error('Selected product or ID is undefined.');
     }
@@ -85,22 +81,20 @@ const ProductListing = () => {
 
   return (
     <div>
-      <div className="title">Product Management</div>
+      <div className="title">Inventory</div>
 
-      <div style={{ display: 'flex', alignItems: 'center', marginLeft: '2px' }}>
-        <button style={{ width: '250px' }} onClick={CreateProduct}>
-          Add Product
-        </button>
-        <div style={{ flexGrow: 1, margin: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '2px' }}>
+        <div style={{ margin: '20px', width: '75%' }}>
           <input
             type="text"
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ width: '75%' }}
+            style={{ width: '100%' }}
           />
         </div>
       </div>
+
 
       <TableContainer component={Paper} className="TableContainer">
         <Table aria-label="simple table" className="Table">
@@ -109,29 +103,24 @@ const ProductListing = () => {
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Name
               </TableCell>
-              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
-                Image
-              </TableCell>
+              
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Brand
               </TableCell>
-              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
-                Description
-              </TableCell>
+              
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Category
               </TableCell>
-              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
-                Price
-              </TableCell>
+              
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Quantity
               </TableCell>
+              
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
-                Discount Price
+                Reorder Point
               </TableCell>
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
-                Discount Percentage
+                Low Stock Alert
               </TableCell>
             </TableRow>
           </TableHead>
@@ -139,21 +128,19 @@ const ProductListing = () => {
             {filteredProducts.map((product, index) => (
               <TableRow
                 key={product.id || index}
-                className="TableRow"
-                onClick={() => {
-                  console.log('Clicked product:', product);
-                  handleRowClick(product);
-                }}
+                className={`TableRow ${product.quantity < product.reorderPoint ? 'low-stock' : ''}`}
+                onClick={() => handleRowClick(product)}
               >
                 <TableCell>{product.name}</TableCell>
-                <TableCell>{product.image}</TableCell>
                 <TableCell>{product.brand}</TableCell>
-                <TableCell>{product.description}</TableCell>
                 <TableCell>{product.category}</TableCell>
-                <TableCell>{product.price}</TableCell>
                 <TableCell>{product.quantity}</TableCell>
-                <TableCell>{product.discountPrice}</TableCell>
-                <TableCell>{product.discount_percentage}</TableCell>
+                <TableCell>{product.reorderPoint}</TableCell>
+                <TableCell>
+                  {product.quantity < product.reorderPoint && (
+                    <span className="low-stock-alert">Low Stock</span>
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -179,23 +166,20 @@ const ProductListing = () => {
         <div>
           <p>Name: {selectedProduct?.name}</p>
           <p>Brand: {selectedProduct?.brand}</p>
-          <p>Description: {selectedProduct?.description}</p>
           <p>Category: {selectedProduct?.category}</p>
-          <p>Price: {selectedProduct?.price}</p>
           <p>Quantity: {selectedProduct?.quantity}</p>
-          <p>Discount Price: {selectedProduct?.discountPrice}</p>
-          <p>Discount Percentage: {selectedProduct?.discountPercentage}</p>
+          <p>Quantity: {selectedProduct?.reorderPoint}</p>
 
-          <div className="button-container">
+          <div className="button-container" style={{ display: 'flex', justifyContent: 'center' }}>
             <button style={{ marginRight: '10px' }} onClick={handleUpdate}>
               Update
             </button>
-            <button onClick={deleteModal}>Delete</button>
           </div>
+
         </div>
       </Modal>
     </div>
   );
 };
 
-export default ProductListing;
+export default InventoryTracking;

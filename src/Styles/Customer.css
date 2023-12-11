@@ -1,0 +1,315 @@
+/* Container styles */
+.container {
+  margin: 20px;
+}
+
+/* Title styles */
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #4caf50; /* Change the color to your preference */
+  text-align: center;
+  text-transform: uppercase;
+
+  margin-bottom: 20px;
+}
+
+.title button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: #4caf50; /* You can adjust the color to your preference */
+  outline: none;
+}
+
+.title input {
+  width: 75%;
+  /* Add any additional styling for the input if needed */
+}
+
+.title button:hover {
+  color: rgb(16, 15, 15); /* Adjust the color for the hover state */
+  outline: none;
+  text-decoration: none;
+}
+
+.title button:active {
+  color: rgb(13, 67, 13); /* Adjust the color for the active (clicked) state */
+  outline: none;
+  text-decoration: none;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* Label styles */
+label {
+  margin-top: 10px;
+}
+
+/* Input styles */
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+/* Button container styles */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Button styles */
+button {
+  padding: 10px;
+  width: 48%;
+  cursor: pointer;
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block;
+  font-size: 16px; /* Set font size */
+  transition-duration: 0.4s; /* Smooth transition on hover */
+}
+
+/* Button hover styles */
+button:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid #4caf50;
+}
+
+/* Table container styles */
+.TableContainer {
+  margin-top: 20px;
+}
+
+/* Table styles */
+.Table {
+  min-width: 650px; /* Set a minimum width for the table */
+}
+
+/* Table header styles */
+.TableHead {
+  background-color: #f2f2f2; /* Light gray background for the header */
+}
+
+/* Table cell styles */
+.TableCell {
+  font-weight: bold; /* Make the text in cells bold */
+}
+
+/* Table row hover effect */
+.TableRow:hover {
+  background-color: #e0e0e0; /* Light gray background on hover */
+  cursor: pointer;
+}
+
+/* Header items */
+.customer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
+  height: 80px;
+}
+
+.customer-header-name {
+  width: 20%;
+  line-height: 40px;
+  color: #0e6d04;
+}
+
+.customer-header-name:hover {
+  cursor: pointer;
+}
+.customer-header-search {
+  width: 50%;
+  line-height: 40px;
+  font-size: 1.3em !important;
+  border: 2px solid #ccc !important;
+  outline: none;
+  border-radius: 30px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+.customer-header-icons {
+  font-size: 40px !important;
+  transition: color 0.4s; /* Add a smooth transition effect for color changes */
+  cursor: pointer;
+  color: #757575;
+  line-height: 40px;
+}
+
+.customer-header-icons:hover {
+  color: #292929;
+  cursor: pointer;
+}
+
+
+/* Customer Side Panel */
+.sidePanel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px; /* Adjust the width to make the buttons wider */
+  height: 100%;
+  /* background: #083d03; */
+  background: #ffffff;
+  color: #000000;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+}
+
+.sidePanel a {
+  display: flex; /* Display the icon and text in a row */
+  align-items: center; /* Center the content vertically */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-decoration: none;
+  color: #757575 !important;
+  border-radius: 5px;
+}
+
+.sidePanel a .fa-icon {
+  margin-right: 8px; /* Increase the margin for more space */
+}
+
+.content {
+  padding-left: 12%; /* Adjust this value to match the width of your sidePanel */
+}
+
+.sidePanel a.active {
+  /* background-color: #34A853; */
+  background-color: #757575;
+  color: #ffffff !important;
+}
+
+/* Icons style */
+.sidePanel a .fa-icon {
+  width: 25px; /* Adjust the icon's width */
+  font-size: 1.5em; /* Adjust the icon's size */
+}
+
+.dashboard-search {
+  width: 75%;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsive grid */
+  margin-top: 20px;
+}
+
+.shop-box {
+  height: 160px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 0px 0px 20px 10px;
+  text-align: center;
+  color: black;
+}
+
+.shop-box h4 {
+  font-size: medium;
+  padding: 0;
+}
+
+.shop-box p {
+  font-size: small;
+}
+
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
+
+.shop-box-img {
+  height: 90px;
+  width: 180px;
+  margin-top: 10px;
+}
+
+/* View tabs */
+.shop-view-tabs {
+  margin-top: 20px;
+}
+
+/* Items box */
+.shop-view-tabs-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(400px, 1fr)
+  ); /* Responsive grid */
+  margin-top: 20px;
+}
+
+.item-box {
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 0px 0px 20px 10px;
+  padding: 15px;
+  text-align: left;
+  color: black;
+  position: relative;
+}
+
+.single {
+  width: 45%;
+}
+
+.multiple {
+  width: 90%;
+}
+
+.item-box:hover {
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.original-price {
+  color: #555; /* Example color for original price */
+  text-decoration: line-through; /* Example: strike through the original price */
+}
+.discounted-price {
+  font-weight: bold;
+}
+
+.discount-percentage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: green; /* Green background color */
+  color: white; /* White text color */
+  padding: 5px; /* Add padding for better visibility */
+}
