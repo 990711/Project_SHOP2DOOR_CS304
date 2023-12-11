@@ -55,6 +55,8 @@ import {
                 role: role,
             });
 
+           
+
             
             console.log(response?.data);
             //console.log(response?.accessToken);
@@ -76,6 +78,7 @@ import {
 
             switch (role) {
                 case "Customer":
+                    console.log({ user});
                     navigate("/customermainlayout");
                     break;
                 case "Shop Owner":
@@ -96,6 +99,9 @@ import {
     
 
         } catch (err) {
+        
+            console.error('Error:', err);
+
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 401) {

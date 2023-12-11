@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8080/api/v1/checkUsername";
 const USER_LOGIN_API_BASE_URL = "http://localhost:8080/api/v1/Login";
+const USER_LOGIN_API_BASE_URL_logindetails = "http://localhost:8080/api/v1/LoginDetails";
 
 class loginService{
     getUsers(){
@@ -22,7 +23,7 @@ class loginService{
     
     
     createUserLogin(user){
-        return axios.post(USER_LOGIN_API_BASE_URL, user);
+        return axios.post(USER_LOGIN_API_BASE_URL_logindetails, user);
     }
 
 
