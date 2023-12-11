@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.shop.model.DeliveryRider;
 
 @Repository
-public interface DeliveryRiderRepo extends JpaRepository<DeliveryRider, Integer>{
+public interface DeliveryRiderRepo extends JpaRepository<DeliveryRider, Integer> {
 
 	Optional<DeliveryRider> findByUsername(String username);
-	
 
 }
