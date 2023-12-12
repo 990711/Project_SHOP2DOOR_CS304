@@ -1,6 +1,9 @@
 package com.shop.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,4 +68,26 @@ public class ItemQuantityController {
 
 		return ResponseEntity.ok("item deleted from the cart!");
 	}
+	
+//	@GetMapping("itemquantity/{id}")
+//	public List<Object> findItemsByOrderID(@PathVariable long id) {
+//		return repo.findItemsByOrderID(id);
+//	}
+	
+	@GetMapping("itemquantity/{id}")
+	public List<Map<String, Object>> findItemsByOrderID(@PathVariable long id) {
+	    List<Object[]> resultList = repo.findItemsByOrderID(id);
+	    List<Map<String, Object>> outputList = new ArrayList<>();
+
+	    for (Object[] result : resultList) {
+	        Map<String, Object> resultMap = new HashMap<>();
+	        resultMap.put("item_id", result[0]);
+	        resultMap.put("quantity", result[1]);
+	        // Add more key-value pairs for other columns if needed
+	        outputList.add(resultMap);
+	    }
+
+	    return outputList;
+	}
+	
 }
