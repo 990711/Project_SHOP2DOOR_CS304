@@ -35,6 +35,9 @@ public class ItemQuantityController {
 
 	@Autowired
 	ItemRepo itemRepo;
+	
+	@Autowired
+	ItemController item;
 
 	@GetMapping("itemquantity")
 	public List<ItemQuantity> itemQuantity() {
@@ -88,6 +91,27 @@ public class ItemQuantityController {
 	    }
 
 	    return outputList;
+	}
+	
+	@GetMapping("OrderTotal/{id}")
+	public float getOrderTotal(@PathVariable long id) {
+		float totalBill = 0;
+	    List<Map<String, Object>> itemList = findItemsByOrderID(id);
+
+	    // Iterate through the list of maps
+	    for (Map<String, Object> itemMap : itemList) {
+	        // Accessing values using keys
+	        Object itemId = itemMap.get("item_id");
+	        Object quantity = itemMap.get("quantity");
+
+	        float item_price = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
+	        
+	        float item_price_total = item_price*Integer.parseInt(quantity.toString());
+	        
+	        totalBill += item_price_total;
+	    }
+
+	    return totalBill;
 	}
 	
 }

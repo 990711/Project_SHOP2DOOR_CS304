@@ -93,10 +93,10 @@ public class ItemController {
 	 }
 	 
 	 @GetMapping("ItemPrice/{id}")
-		public List<Map<String, Object>> findItemPriceByItemID(@PathVariable long id) {
+		public float findItemPriceByItemID(@PathVariable long id) {
 		 
-		 	float price;
-		 	float discount_price;
+		 	float price = 0;
+		 	float discount_price = 0;
 		 	
 		    List<Object[]> resultList = itemRepo.getItemPriceByItemId(id);
 		    List<Map<String, Object>> outputList = new ArrayList<>();
@@ -114,11 +114,9 @@ public class ItemController {
 		        
 		        outputList.add(resultMap);
 		        
-		        discount_price = 0;
-		        price = 0;
 		    }
 
-		    return outputList;
+		    return price;
 		}
 		
 		
