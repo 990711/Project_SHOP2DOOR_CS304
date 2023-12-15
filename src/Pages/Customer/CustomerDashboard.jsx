@@ -27,6 +27,7 @@ const CustomerDashboard = () => {
       });
   }, []);
 
+  // Filter shops by search term
   const filteredShops = shops.filter((shop) =>
     shop.shop_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -36,7 +37,6 @@ const CustomerDashboard = () => {
       <div className="customer-header">
         <h1
           className="customer-header-name"
-          // onClick={() => navigate("/customermainlayout/dashboard")}
         >
           SHOP2DOOR
         </h1>
