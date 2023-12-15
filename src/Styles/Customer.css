@@ -291,7 +291,7 @@ a:active {
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 1;
-  pointer-events: none; /* Prevent the overlay from blocking clicks */
+  pointer-events: none !important; /* Prevent the overlay from blocking clicks */
 }
 
 .single {
@@ -386,9 +386,20 @@ a:active {
   background-color: #ccc;
   color: #666;
   border-color: #ccc;
+  pointer-events: none;
 }
 
-.item-box.disabled {
-  opacity: 0.6;
-  pointer-events: none; /* Disable hover and click events for the entire box */
+.disabled-item-box {
+  pointer-events: none;
+}
+
+.out-of-stock-label {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
+  z-index: 2; /* Ensure the label appears on top of the other content */
 }

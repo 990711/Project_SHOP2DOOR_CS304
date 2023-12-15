@@ -5,7 +5,7 @@ const ItemBox = ({ item, itemsCount }) => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
-  const discountPercentage = item.discount_percentage || 0;
+  const discountPercentage = item.quantity === 0 ? 0 : (item.discount_percentage || 0);
   const discountedPrice = item.price - (item.price * discountPercentage) / 100;
   const itemBoxClass = itemsCount > 1 ? "item-box multiple" : "item-box single";
 
@@ -17,7 +17,8 @@ const ItemBox = ({ item, itemsCount }) => {
   };
 
   return (
-    <div className={`${itemBoxClass} ${item.quantity === 0 ? 'overlay' : ''}`} disabled={item.quantity === 0}>
+    <div className={`${itemBoxClass} ${item.quantity === 0 ? 'overlay disabled-item-box' : ''}`}>
+      {item.quantity === 0 && <div className="out-of-stock-label">Out of Stock</div>}
       <h4>{item.name}</h4>
       {discountPercentage > 0 ? (
         <>
