@@ -282,6 +282,18 @@ a:active {
   position: relative;
 }
 
+.item-box.overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  pointer-events: none; /* Prevent the overlay from blocking clicks */
+}
+
 .single {
   width: 45%;
 }
@@ -368,4 +380,15 @@ a:active {
 .cart-btn:hover {
   cursor: pointer;
   border-color: rgb(236, 107, 2);
+}
+
+.item-box button:disabled {
+  background-color: #ccc;
+  color: #666;
+  border-color: #ccc;
+}
+
+.item-box.disabled {
+  opacity: 0.6;
+  pointer-events: none; /* Disable hover and click events for the entire box */
 }

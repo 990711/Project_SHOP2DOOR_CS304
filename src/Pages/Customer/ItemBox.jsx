@@ -11,19 +11,20 @@ const ItemBox = ({ item, itemsCount }) => {
 
   const handleConfirm = (_quantity) => {
     setQuantity(_quantity);
-    // Perform the action with the selected quantity
     console.log(`Confirmed with quantity: ${quantity}`);
 
     addToCart({ ...item, quantity: _quantity });
   };
 
   return (
-    <div className={itemBoxClass}>
+    <div className={`${itemBoxClass} ${item.quantity === 0 ? 'overlay' : ''}`} disabled={item.quantity === 0}>
       <h4>{item.name}</h4>
       {discountPercentage > 0 ? (
         <>
           <p>
-            <span className="original-price">LKR {item.price.toFixed(2)}</span>{" "}
+            <span className="original-price">
+              LKR {item.price.toFixed(2)}
+            </span>{" "}
             <span className="discounted-price">
               LKR {discountedPrice.toFixed(2)}
             </span>
@@ -33,7 +34,7 @@ const ItemBox = ({ item, itemsCount }) => {
       ) : (
         <p>LKR {item.price.toFixed(2)}</p>
       )}
-      <button className="cart-btn" onClick={() => handleConfirm(quantity)}>Add to Cart</button>
+      <button className="cart-btn" onClick={() => handleConfirm(quantity)} disabled={item.quantity === 0}>Add to Cart</button>
     </div>
   );
 };
