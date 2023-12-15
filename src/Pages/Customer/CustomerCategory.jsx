@@ -33,6 +33,7 @@ const CustomerViewShop = () => {
     setItemsByCategory(separateItemsIntoCategories(Items));
   }, [Items]);
 
+  // Get categories from items
   const getCategories = (data) => {
     let categories = [...new Set(data.map((item) => item.category))];
     return categories;
