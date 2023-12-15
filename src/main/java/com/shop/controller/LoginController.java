@@ -121,7 +121,7 @@ public class LoginController {
         // Extract username and password from the request
         String username = login.getUsername();
         String password = login.getPassword();
-        UserRole role = login.getRole();
+        String role = login.getRole();
 
         // Check if the user exists
         
