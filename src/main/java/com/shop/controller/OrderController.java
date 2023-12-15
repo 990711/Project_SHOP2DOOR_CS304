@@ -59,23 +59,30 @@ public class OrderController {
 		theOrder = repo.save(theOrder);
 		return ResponseEntity.ok("Rider accepted!");
 	}
-	
+
 	@DeleteMapping("orderdelete/{id}")
-	public ResponseEntity<String> deleteOrder(@PathVariable long id){
-		
+	public ResponseEntity<String> deleteOrder(@PathVariable long id) {
+
 		if (!repo.existsById(id)) {
 			return ResponseEntity.ok("order not found with id " + id);
 		}
-		
+
 		Order order = repo.findById(id).orElseThrow();
-		
+
 		order.setDeleted(true);
 		order = repo.save(order);
-		
+
 		return ResponseEntity.ok("Order deleted with id " + id);
 	}
 	
 	
 
-	
+	@PutMapping("orderStatus/{id}")
+	public ResponseEntity<Order> updateAction(@PathVariable long id, @RequestBody Order order) {
+
+		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
+		existingOrder.setAction(order.getAction());
+		existingOrder = repo.save(existingOrder);
+		return new ResponseEntity<Order>(existingOrder, HttpStatus.CREATED);
+	}
 }

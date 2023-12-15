@@ -23,6 +23,7 @@ import com.shop.model.Order;
 import com.shop.repositary.CustomerRepo;
 import com.shop.repositary.LoginRepo;
 import com.shop.service.CustomerService;
+import com.shop.service.SmsService;
 
 import jakarta.validation.Valid;
 
@@ -40,6 +41,9 @@ public class CustomerController {
 	@Autowired
 	private LoginRepo loginRepo;
 	
+	@Autowired
+	private SmsService whatsapp;
+	
 	// Add Customer
 		@PostMapping("/CustomerDetails")
 		public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
@@ -51,6 +55,7 @@ public class CustomerController {
 				return ResponseEntity.status(401).body("Please find another username..");
 	    	}else {
 	    		Customer savedCustomer = service.createCustomer(customer);
+//	    		whatsapp.sendSMS("+94"+savedCustomer.getPhone(), "wellcome "+ savedCustomer.getName() +" to shpop2door... You have successfully sign in.");
 	    		return ResponseEntity.ok("Registration successful!");
 	    	}
 			
