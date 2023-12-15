@@ -160,7 +160,6 @@ button:hover {
   cursor: pointer;
 }
 
-
 /* Customer Side Panel */
 .sidePanel {
   position: fixed;
@@ -356,21 +355,17 @@ a:active {
   box-sizing: border-box;
 }
 
-.custom-confirm-alert button {
-  padding: 10px;
-  margin: 0 5px;
+.cart-btn {
+  position: absolute;
+  width: auto;
+  bottom: 5px;
+  right: 5px;
+  font-size: 14px;
+  padding: 5px 10px;
+  background-color: rgb(236, 107, 2);
+}
+
+.cart-btn:hover {
   cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  font-size: 1em;
-}
-
-.custom-confirm-alert .btn-yes {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.custom-confirm-alert .btn-no {
-  background-color: #dc3545;
-  color: #fff;
+  border-color: rgb(236, 107, 2);
 }

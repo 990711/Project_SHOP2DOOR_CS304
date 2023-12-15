@@ -9,20 +9,12 @@ const ItemBox = ({ item, itemsCount }) => {
   const discountedPrice = item.price - (item.price * discountPercentage) / 100;
   const itemBoxClass = itemsCount > 1 ? "item-box multiple" : "item-box single";
 
-  const openPopup = () => setPopupIsOpen(true);
-  const closePopup = () => setPopupIsOpen(false);
-
   const handleConfirm = (_quantity) => {
     setQuantity(_quantity);
     // Perform the action with the selected quantity
     console.log(`Confirmed with quantity: ${quantity}`);
 
     addToCart({ ...item, quantity: _quantity });
-  };
-
-  const handleCancel = () => {
-    // Handle cancellation
-    closePopup();
   };
 
   return (
@@ -41,6 +33,7 @@ const ItemBox = ({ item, itemsCount }) => {
       ) : (
         <p>LKR {item.price.toFixed(2)}</p>
       )}
+      <button className="cart-btn" onClick={() => handleConfirm(quantity)}>Add to Cart</button>
     </div>
   );
 };
