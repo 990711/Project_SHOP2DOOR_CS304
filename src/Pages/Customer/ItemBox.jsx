@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useCart } from "./CartContext";
 
 const ItemBox = ({ item, itemsCount }) => {
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+
   const discountPercentage = item.discount_percentage || 0;
-
-  // Calculate the discounted price
   const discountedPrice = item.price - (item.price * discountPercentage) / 100;
-
-  // Use different classes for single and multiple items. To adjust the width of the item box.
   const itemBoxClass = itemsCount > 1 ? "item-box multiple" : "item-box single";
+
+  const openPopup = () => setPopupIsOpen(true);
+  const closePopup = () => setPopupIsOpen(false);
+
+  const handleConfirm = (_quantity) => {
+    setQuantity(_quantity);
+    // Perform the action with the selected quantity
+    console.log(`Confirmed with quantity: ${quantity}`);
+
+    addToCart({ ...item, quantity: _quantity });
+  };
+
+  const handleCancel = () => {
+    // Handle cancellation
+    closePopup();
+  };
 
   return (
     <div className={itemBoxClass}>
@@ -16,7 +32,9 @@ const ItemBox = ({ item, itemsCount }) => {
         <>
           <p>
             <span className="original-price">LKR {item.price.toFixed(2)}</span>{" "}
-            <span className="discounted-price">LKR {discountedPrice.toFixed(2)}</span>
+            <span className="discounted-price">
+              LKR {discountedPrice.toFixed(2)}
+            </span>
           </p>
           <p className="discount-percentage">{discountPercentage}% off</p>
         </>
@@ -28,4 +46,3 @@ const ItemBox = ({ item, itemsCount }) => {
 };
 
 export default ItemBox;
-

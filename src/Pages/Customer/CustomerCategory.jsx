@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ItemsServices from "../../Services/ItemsService";
+import ShopOwner_ServicesForCustomers from "../../Services/ShopOwner/ShopOwner_ServicesForCustomers";
 import "../../styles/Customer.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -19,7 +19,7 @@ const CustomerViewShop = () => {
   const [itemsByCategory, setItemsByCategory] = useState({});
 
   useEffect(() => {
-    ItemsServices.GetAllItems()
+    ShopOwner_ServicesForCustomers.GetAllItems()
       .then((response) => {
         setItems(response.data);
       })
@@ -83,7 +83,7 @@ const CustomerViewShop = () => {
                   Array.isArray(itemsByCategory[category].items) &&
                   itemsByCategory[category].items.map((item) => (
                     <ItemBox
-                      key={item.id}
+                      key={item.item_id}
                       item={item}
                       itemsCount={itemsByCategory[category].count}
                     />
