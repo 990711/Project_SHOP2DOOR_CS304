@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const PRODUCT_API_BASE_URL = "http://localhost:8080/api/v1/Items";
+const PRODUCT_API_BASE_URL = "http://localhost:8080/api/v1/Item";
 
 class ShopOwner_ProductService{
     getProducts(){
