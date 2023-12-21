@@ -37,10 +37,10 @@ public class Login {
 //	@NotBlank(message = "must be select!")
 //	private String Role;
 	
-	@Enumerated(EnumType.STRING)
-	//@NotBlank(message = "must be select!")
+	//@Enumerated(EnumType.STRING)
+	@NotBlank(message = "must be select!")
     @Column(name = "role")
-    private UserRole Role;
+    private String Role;
 	
 	@Column(name = "active")
 	private boolean active = true;
@@ -55,9 +55,13 @@ public class Login {
 
 	}
 
+	
+
+
+
 public Login(@NotBlank(message = "this column must be filled!") String username,
 			@NotBlank(message = "this column must be filled!") @Size(min = 8, message = "password must be greater than 8 charactors!") String password,
-			@NotBlank(message = "must be select!") UserRole role, boolean active, boolean blocked, boolean deleted) {
+			@NotBlank(message = "must be select!") String role, boolean active, boolean blocked, boolean deleted) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -66,6 +70,8 @@ public Login(@NotBlank(message = "this column must be filled!") String username,
 		this.blocked = blocked;
 		this.deleted = deleted;
 	}
+
+
 
 
 
@@ -81,15 +87,21 @@ public Login(@NotBlank(message = "this column must be filled!") String username,
 		return username;
 	}
 
-	public UserRole getRole() {
+	
+
+	public String getRole() {
 		return Role;
 	}
 
 
 
-	public void setRole(UserRole role) {
+
+
+	public void setRole(String role) {
 		Role = role;
 	}
+
+
 
 
 
