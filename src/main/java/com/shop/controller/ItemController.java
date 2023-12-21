@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +91,34 @@ public class ItemController {
 	 public List<Item> getItemByShopId(@PathVariable Long id){
 		 return itemRepo.getItemsByShopId(id);
 	 }
+	 
+	 @GetMapping("ItemPrice/{id}")
+		public float findItemPriceByItemID(@PathVariable long id) {
+		 
+		 	float price = 0;
+		 	float discount_price = 0;
+		 	
+		    List<Object[]> resultList = itemRepo.getItemPriceByItemId(id);
+		    List<Map<String, Object>> outputList = new ArrayList<>();
+
+		    for (Object[] result : resultList) {
+		        Map<String, Object> resultMap = new HashMap<>();
+		        resultMap.put("item_id", result[0]);
+		        resultMap.put("price", result[1]);
+		        resultMap.put("discount_percentage", result[2]);
+		        
+		        discount_price = Float.parseFloat(result[1].toString())*Float.parseFloat(result[2].toString());
+		        price = Float.parseFloat(result[1].toString())-discount_price;
+		        
+		        resultMap.put("Price_with_discount", price);
+		        
+		        outputList.add(resultMap);
+		        
+		    }
+
+		    return price;
+		}
+		
 		
 	
 }

@@ -1,6 +1,9 @@
 package com.shop.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,9 @@ public class ItemQuantityController {
 
 	@Autowired
 	ItemRepo itemRepo;
+	
+	@Autowired
+	ItemController item;
 
 	@GetMapping("itemquantity")
 	public List<ItemQuantity> itemQuantity() {
@@ -65,4 +71,47 @@ public class ItemQuantityController {
 
 		return ResponseEntity.ok("item deleted from the cart!");
 	}
+	
+//	@GetMapping("itemquantity/{id}")
+//	public List<Object> findItemsByOrderID(@PathVariable long id) {
+//		return repo.findItemsByOrderID(id);
+//	}
+	
+	@GetMapping("itemquantity/{id}")
+	public List<Map<String, Object>> findItemsByOrderID(@PathVariable long id) {
+	    List<Object[]> resultList = repo.findItemsByOrderID(id);
+	    List<Map<String, Object>> outputList = new ArrayList<>();
+
+	    for (Object[] result : resultList) {
+	        Map<String, Object> resultMap = new HashMap<>();
+	        resultMap.put("item_id", result[0]);
+	        resultMap.put("quantity", result[1]);
+	        // Add more key-value pairs for other columns if needed
+	        outputList.add(resultMap);
+	    }
+
+	    return outputList;
+	}
+	
+	@GetMapping("OrderTotal/{id}")
+	public float getOrderTotal(@PathVariable long id) {
+		float totalBill = 0;
+	    List<Map<String, Object>> itemList = findItemsByOrderID(id);
+
+	    // Iterate through the list of maps
+	    for (Map<String, Object> itemMap : itemList) {
+	        // Accessing values using keys
+	        Object itemId = itemMap.get("item_id");
+	        Object quantity = itemMap.get("quantity");
+
+	        float item_price = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
+	        
+	        float item_price_total = item_price*Integer.parseInt(quantity.toString());
+	        
+	        totalBill += item_price_total;
+	    }
+
+	    return totalBill;
+	}
+	
 }
