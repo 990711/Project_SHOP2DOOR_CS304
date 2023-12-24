@@ -104,4 +104,10 @@ public class DeliveryRiderController {
 			String msg = "Delivery Rider successfully deleted!";
 			return ResponseEntity.ok(msg);
 		}
+		
+		@GetMapping("deliveryriderorders/{username}")
+		public List<Order> getOrders(@PathVariable String username) {
+			DeliveryRider rider =  deliveryRiderRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + "not found!"));
+			return rider.getOrders();
+		}
 }

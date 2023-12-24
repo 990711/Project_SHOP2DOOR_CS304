@@ -35,7 +35,7 @@ public class ItemQuantityController {
 
 	@Autowired
 	ItemRepo itemRepo;
-	
+
 	@Autowired
 	ItemController item;
 
@@ -56,6 +56,8 @@ public class ItemQuantityController {
 		itemQ.setItem(itemRepo.findById(item).orElseThrow(() -> new ResourceNotFound("item not found!!" + item)));
 		itemQ.setOrder(orderRepo.findById(order).orElseThrow(() -> new ResourceNotFound("item not found!!" + order)));
 		itemQ.setQuantity(newItemQ.getQuantity());
+		itemQ.setShop_id(itemRepo.findById(item)
+				.orElseThrow(() -> new ResourceNotFound("item not found with id " + item)).getShopOwner().getUser_id());
 		itemQ = repo.save(itemQ);
 		return new ResponseEntity<ItemQuantity>(itemQ, HttpStatus.CREATED);
 	}
@@ -71,47 +73,47 @@ public class ItemQuantityController {
 
 		return ResponseEntity.ok("item deleted from the cart!");
 	}
-	
+
 //	@GetMapping("itemquantity/{id}")
 //	public List<Object> findItemsByOrderID(@PathVariable long id) {
 //		return repo.findItemsByOrderID(id);
 //	}
-	
+
 	@GetMapping("itemquantity/{id}")
 	public List<Map<String, Object>> findItemsByOrderID(@PathVariable long id) {
-	    List<Object[]> resultList = repo.findItemsByOrderID(id);
-	    List<Map<String, Object>> outputList = new ArrayList<>();
+		List<Object[]> resultList = repo.findItemsByOrderID(id);
+		List<Map<String, Object>> outputList = new ArrayList<>();
 
-	    for (Object[] result : resultList) {
-	        Map<String, Object> resultMap = new HashMap<>();
-	        resultMap.put("item_id", result[0]);
-	        resultMap.put("quantity", result[1]);
-	        // Add more key-value pairs for other columns if needed
-	        outputList.add(resultMap);
-	    }
+		for (Object[] result : resultList) {
+			Map<String, Object> resultMap = new HashMap<>();
+			resultMap.put("item_id", result[0]);
+			resultMap.put("quantity", result[1]);
+			// Add more key-value pairs for other columns if needed
+			outputList.add(resultMap);
+		}
 
-	    return outputList;
+		return outputList;
 	}
-	
+
 	@GetMapping("OrderTotal/{id}")
 	public float getOrderTotal(@PathVariable long id) {
 		float totalBill = 0;
-	    List<Map<String, Object>> itemList = findItemsByOrderID(id);
+		List<Map<String, Object>> itemList = findItemsByOrderID(id);
 
-	    // Iterate through the list of maps
-	    for (Map<String, Object> itemMap : itemList) {
-	        // Accessing values using keys
-	        Object itemId = itemMap.get("item_id");
-	        Object quantity = itemMap.get("quantity");
+		// Iterate through the list of maps
+		for (Map<String, Object> itemMap : itemList) {
+			// Accessing values using keys
+			Object itemId = itemMap.get("item_id");
+			Object quantity = itemMap.get("quantity");
 
-	        float item_price = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
-	        
-	        float item_price_total = item_price*Integer.parseInt(quantity.toString());
-	        
-	        totalBill += item_price_total;
-	    }
+			float item_price = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
 
-	    return totalBill;
+			float item_price_total = item_price * Integer.parseInt(quantity.toString());
+
+			totalBill += item_price_total;
+		}
+
+		return totalBill;
 	}
-	
+
 }
