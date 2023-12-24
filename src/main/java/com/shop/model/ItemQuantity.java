@@ -28,6 +28,8 @@ public class ItemQuantity {
 
 	private int quantity;
 
+	private int shop_id;
+
 	public ItemQuantity() {
 		super();
 	}
@@ -70,5 +72,13 @@ public class ItemQuantity {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public int getShop_id() {
+		return shop_id;
+	}
+
+	public void setShop_id(int shop_id) {
+		this.shop_id = shop_id;
 	}
 }
