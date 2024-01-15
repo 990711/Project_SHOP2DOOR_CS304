@@ -8,6 +8,7 @@ import {
   faEnvelope,
   faQuestionCircle,
   faCog,
+  faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
 const SidePanel = () => {
@@ -41,6 +42,16 @@ const SidePanel = () => {
       >
         <FontAwesomeIcon icon={faList} className="fa-icon" /> Categories
       </Link>
+
+      <Link
+        to="/customermainlayout/cart"
+        className={
+          location.pathname === "/customermainlayout/cart" ? "active" : ""
+        }
+      >
+        <FontAwesomeIcon icon={faShoppingCart} className="fa-icon" /> Shopping Cart
+      </Link>
+
       <Link to="/" className={location.pathname === "/" ? "active" : ""}>
         <FontAwesomeIcon icon={faEnvelope} className="fa-icon" /> Message
       </Link>
