@@ -149,7 +149,7 @@ button:hover {
 
 .customer-header-icons {
   font-size: 40px !important;
-  transition: color 0.4s; /* Add a smooth transition effect for color changes */
+  transition: color 0.4s;
   cursor: pointer;
   color: #757575;
   line-height: 40px;
@@ -402,4 +402,58 @@ a:active {
   font-weight: bold;
   padding: 5px;
   z-index: 2; /* Ensure the label appears on top of the other content */
+}
+
+
+.confirm-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.hidden-popup {
+  display: none;
+}
+
+.confirm-popup-content {
+  text-align: center;
+}
+
+.confirm-popup-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.confirm-popup-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-popup-cancel-button {
+  flex: 1;
+  margin-right: 5px;
+  padding: 8px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-popup-confirm-button {
+  flex: 1;
+  margin-left: 5px;
+  padding: 8px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

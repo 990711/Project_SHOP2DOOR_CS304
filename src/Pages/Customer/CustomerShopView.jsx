@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import ShopOwner_ServicesForCustomers from "../../Services/ShopOwner/ShopOwner_ServicesForCustomers";
 import "../../styles/Customer.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ItemBox from "./ItemBox";
+import CartPage from "./CartPage";
 
 import Modal from "react-modal";
 Modal.setAppElement("#root");
@@ -59,8 +60,9 @@ const CustomerViewShop = () => {
     <div>
       <div className="customer-header">
         <h1 className="customer-header-name">SHOP2DOOR</h1>
-        <ShoppingCartIcon className="customer-header-icons" />
-        
+        <Link to="/customermainlayout/cart" className="customer-header-icons">
+          <ShoppingCartIcon className="customer-header-icons" />
+        </Link>
       </div>
       <div className="customer-shop-view-header">
         <h2>{shop_name + " - " + branch}</h2>
@@ -87,7 +89,6 @@ const CustomerViewShop = () => {
                       itemsCount={itemsByCategory[category].count}
                     />
                   ))}
-
               </div>
             </TabPanel>
           ))}

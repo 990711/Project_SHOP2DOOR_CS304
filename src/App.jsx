@@ -42,6 +42,7 @@ import CustomerOrders from './Pages/Customer/CustomerOrders';
 
 import CustomerCategories from './Pages/Customer/CustomerCategory';
 import { CartProvider } from "./Pages/Customer/CartContext";
+import CartPage from "./Pages/Customer/CartPage.jsx";
 
 
 import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
@@ -71,6 +72,7 @@ function App() {
             <Route path="/customermainlayout/shop/:shop_name/:branch/:ShopCode" element={<CustomerViewShop />} />
             <Route path="/customermainlayout/categories" element={<CustomerCategories />} />
             <Route path="/customermainlayout/orders" element={<CustomerOrders />} />
+            <Route path="/customermainlayout/cart" element={<CartPage />} />
           </Route>
 
 

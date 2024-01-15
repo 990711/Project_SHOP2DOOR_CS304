@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ShopOwnerRegisterService from "../../Services/ShopOwnerRegisterService";
 import "../../styles/Customer.css";
 import ShopBox from "./ShopBox";
@@ -35,11 +35,7 @@ const CustomerDashboard = () => {
   return (
     <div>
       <div className="customer-header">
-        <h1
-          className="customer-header-name"
-        >
-          SHOP2DOOR
-        </h1>
+        <h1 className="customer-header-name">SHOP2DOOR</h1>
         <input
           type="text"
           placeholder="Search..."
@@ -47,7 +43,9 @@ const CustomerDashboard = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="customer-header-search"
         />
-        <ShoppingCartIcon className="customer-header-icons" />
+        <Link to="/customermainlayout/cart" className="customer-header-icons">
+          <ShoppingCartIcon className= "customer-header-icons" />
+        </Link>
       </div>
 
       <div style={{ flexGrow: 1, margin: "20px" }}>

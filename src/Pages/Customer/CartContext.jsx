@@ -1,49 +1,31 @@
-import React, { createContext, useContext, useReducer } from "react";
+// CartContext.js
+import React, { createContext, useContext, useState } from "react";
 
-// Initial state for the cart
-const initialCartState = {
-  items: [],
-};
-
-// Action types
-const ADD_TO_CART = "ADD_TO_CART";
-
-// Reducer function
-const cartReducer = (state, action) => {
-  switch (action.type) {
-    case ADD_TO_CART:
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      };
-    default:
-      return state;
-  }
-};
-
-// Create context
 const CartContext = createContext();
 
-// Create context provider
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialCartState);
+  const [cartItems, setCartItems] = useState([]);
 
-  // Add a function to dispatch actions (e.g., addToCart)
   const addToCart = (item) => {
-    dispatch({
-      type: ADD_TO_CART,
-      payload: item,
-    });
+    setCartItems((prevCartItems) => [...prevCartItems, item]);
+    console.log(`Added to cart: ${item.name} ${item.quantity}`);
+  };
+
+  const removeCartItem = (itemId) => {
+    setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== itemId));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
   };
 
   return (
-    <CartContext.Provider value={{ cart: state, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeCartItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-// Custom hook to consume the cart context
 export const useCart = () => {
   return useContext(CartContext);
 };
