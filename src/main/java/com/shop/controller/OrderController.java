@@ -46,6 +46,7 @@ public class OrderController {
 				.orElseThrow(() -> new ResourceNotFound("customer not found!" + username));
 		Order order = newOrder;
 		order.setCustomer(thecustomer);
+		order.setAction("Shopping cart stage");
 		order = repo.save(order);
 		return new ResponseEntity<Order>(order, HttpStatus.CREATED);
 	}
@@ -82,6 +83,15 @@ public class OrderController {
 
 		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
 		existingOrder.setAction(order.getAction());
+		existingOrder = repo.save(existingOrder);
+		return new ResponseEntity<Order>(existingOrder, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("orderAction/{id}")
+	public ResponseEntity<Order> updateActionByString(@PathVariable long id, @RequestBody String action) {
+
+		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
+		existingOrder.setAction(action);
 		existingOrder = repo.save(existingOrder);
 		return new ResponseEntity<Order>(existingOrder, HttpStatus.CREATED);
 	}
