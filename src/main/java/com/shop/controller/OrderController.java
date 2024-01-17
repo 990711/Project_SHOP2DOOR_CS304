@@ -72,8 +72,20 @@ public class OrderController {
 		Order theOrder = repo.findById(order).orElseThrow(() -> new ResourceNotFound("order not found " + order));
 		theOrder.setRider(
 				riderRepo.findByUsername(rider).orElseThrow(() -> new ResourceNotFound("rider not found " + rider)));
+		theOrder.setAction("Rider accepted");
 		theOrder = repo.save(theOrder);
 		return ResponseEntity.ok("Rider accepted!");
+	}
+	
+	@PutMapping("SetDeliveryTime/{order}")
+	public ResponseEntity<String> SetDeliveryTimeByRider(@PathVariable long order) {
+		LocalTime currentTime = LocalTime.now();
+		
+		Order theOrder = repo.findById(order).orElseThrow(() -> new ResourceNotFound("order not found " + order));
+		theOrder.setDelivery_time(currentTime);
+		theOrder.setAction("Successfully Delivered!");
+		repo.save(theOrder);
+		return ResponseEntity.ok("Successfully delivered the order!");
 	}
 
 	@DeleteMapping("orderdelete/{id}")
@@ -118,7 +130,7 @@ public class OrderController {
 		LocalTime currentTime = LocalTime.now();
 		
 		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
-		existingOrder.setAction("Confirmed order");
+		existingOrder.setAction("Confirmed and waiting for a rider");
 		existingOrder.setTotal(existingOrder.getTotal()+200); // fixed delivery charge = 200
 		existingOrder.setDate(currentDate);
 		existingOrder.setTime(currentTime);
