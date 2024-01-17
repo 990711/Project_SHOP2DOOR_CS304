@@ -1,9 +1,14 @@
 package com.shop.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.Customer;
+import com.shop.model.Item;
 import com.shop.model.Order;
 import com.shop.repositary.CustomerRepo;
 import com.shop.repositary.DeliveryRiderRepo;
+import com.shop.repositary.ItemQuantityRepo;
+import com.shop.repositary.ItemRepo;
 import com.shop.repositary.OrderRepo;
 
 @RestController
@@ -33,7 +41,14 @@ public class OrderController {
 
 	@Autowired
 	private DeliveryRiderRepo riderRepo;
+	
+	@Autowired
+	private ItemQuantityRepo itemQuantityRepo;
+	
 
+	@Autowired
+	private ItemRepo itemRepo;
+	
 	@GetMapping("order")
 	public List<Order> getOrders() {
 		return repo.findAll();
@@ -94,5 +109,41 @@ public class OrderController {
 		existingOrder.setAction(action);
 		existingOrder = repo.save(existingOrder);
 		return new ResponseEntity<Order>(existingOrder, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("orderConfirm/{id}")
+	public ResponseEntity<Order> confirmOrder(@PathVariable long id){
+		
+		LocalDate currentDate = LocalDate.now();
+		LocalTime currentTime = LocalTime.now();
+		
+		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
+		existingOrder.setAction("Confirmed order");
+		existingOrder.setTotal(existingOrder.getTotal()+200); // fixed delivery charge = 200
+		existingOrder.setDate(currentDate);
+		existingOrder.setTime(currentTime);
+		
+		repo.save(existingOrder);
+		
+		List<Object[]> itemList = itemQuantityRepo.findItemsByOrderID(id);
+
+		// Iterate through the list of maps
+		for (Object[] itemMap : itemList) {
+			// Accessing values using keys
+			long itemId = (long) itemMap[0];
+			int quantity = (int) itemMap[1];
+
+			//int item_stock = itemRepo.getItemQuantityByItemId(itemId);
+			
+			Item item = itemRepo.findById(itemId)
+	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + id));
+			
+			item.setQuantity(item.getQuantity()-quantity);
+			itemRepo.save(item);
+
+			
+		}
+		
+		return new ResponseEntity<Order>(existingOrder,HttpStatus.CREATED);
 	}
 }
