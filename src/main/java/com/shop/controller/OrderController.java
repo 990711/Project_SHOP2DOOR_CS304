@@ -54,12 +54,24 @@ public class OrderController {
 		return repo.findAll();
 	}
 
-	@PostMapping("order/{username}")
+	/*@PostMapping("order/{username}")
 	public ResponseEntity<Order> createOrder(@PathVariable String username, @RequestBody Order newOrder) {
 
 		Customer thecustomer = customerRepo.findByUsername(username)
 				.orElseThrow(() -> new ResourceNotFound("customer not found!" + username));
 		Order order = newOrder;
+		order.setCustomer(thecustomer);
+		order.setAction("Shopping cart stage");
+		order = repo.save(order);
+		return new ResponseEntity<Order>(order, HttpStatus.CREATED);
+	}*/
+	
+	@PostMapping("order/{username}")
+	public ResponseEntity<Order> createOrder(@PathVariable String username) {
+
+		Customer thecustomer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound("customer not found!" + username));
+		Order order = new Order();
 		order.setCustomer(thecustomer);
 		order.setAction("Shopping cart stage");
 		order = repo.save(order);
