@@ -2,6 +2,8 @@ package com.shop.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,10 +29,10 @@ public class Order {
 	private long order_id;
 
 	@Column
-	private Date date;
+	private LocalDate date;
 
 	@Column
-	private Time time;
+	private LocalTime time;
 
 	@Column
 	private String description;
@@ -39,7 +41,7 @@ public class Order {
 	private float Total;
 
 	@Column
-	private Time delivery_time;
+	private LocalTime delivery_time;
 
 	@Column
 	private String action;
@@ -70,7 +72,7 @@ public class Order {
 		super();
 	}
 
-	public Order(long order_id, Date date, Time time, String description, float total, Time delivery_time,
+	public Order(long order_id, LocalDate date, LocalTime time, String description, float total, LocalTime delivery_time,
 			Customer customer, DeliveryRider rider, Set<ItemQuantity> itemQuantity) {
 		super();
 		this.order_id = order_id;
@@ -92,11 +94,11 @@ public class Order {
 		this.deleted = deleted;
 	}
 
-	public Time getDelivery_time() {
+	public LocalTime getDelivery_time() {
 		return delivery_time;
 	}
 
-	public void setDelivery_time(Time delivery_time) {
+	public void setDelivery_time(LocalTime delivery_time) {
 		this.delivery_time = delivery_time;
 	}
 
@@ -116,20 +118,20 @@ public class Order {
 		this.order_id = order_id;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDate currentDate) {
+		this.date = currentDate;
 	}
 
-	public Time getTime() {
+	public LocalTime getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
-		this.time = time;
+	public void setTime(LocalTime currentTime) {
+		this.time = currentTime;
 	}
 
 	public String getDescription() {

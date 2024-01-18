@@ -44,7 +44,7 @@ public class CustomerController {
 	@Autowired
 	private SmsService whatsapp;
 
-	// Add Customer
+	// add Customer
 	@PostMapping("/CustomerDetails")
 	public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
 

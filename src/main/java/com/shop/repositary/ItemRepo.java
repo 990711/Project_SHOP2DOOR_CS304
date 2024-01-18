@@ -19,5 +19,8 @@ public interface ItemRepo extends JpaRepository<Item, Long>{
 	
 	@Query(value = "SELECT item_id,price,discount_percentage FROM item WHERE item_id = :id", nativeQuery = true)
 	List<Object[]> getItemPriceByItemId(@Param("id") Long id);
+	
+	@Query(value = "SELECT quantity FROM item WHERE item_id = :id", nativeQuery = true)
+	int getItemQuantityByItemId(@Param("id") Long id);
 
 }

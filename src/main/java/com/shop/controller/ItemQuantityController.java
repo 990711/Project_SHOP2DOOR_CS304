@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.ItemQuantity;
 import com.shop.model.ItemQuantityKey;
+import com.shop.model.Order;
 import com.shop.repositary.ItemQuantityRepo;
 import com.shop.repositary.ItemRepo;
 import com.shop.repositary.OrderRepo;
@@ -59,19 +61,58 @@ public class ItemQuantityController {
 		itemQ.setShop_id(itemRepo.findById(item)
 				.orElseThrow(() -> new ResourceNotFound("item not found with id " + item)).getShopOwner().getUser_id());
 		itemQ = repo.save(itemQ);
+		
+		float total = getOrderTotal(order);
+		Order theOrder = orderRepo.findById(order).orElseThrow(() -> new ResourceNotFound("order not found " + order));
+		theOrder.setTotal(total);
+		orderRepo.save(theOrder);
+		
 		return new ResponseEntity<ItemQuantity>(itemQ, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("itemquantity")
-	public ResponseEntity<String> delete(ItemQuantityKey id) {
+	public ResponseEntity<String> delete(@RequestBody ItemQuantityKey id) {
 
 		if (!repo.existsById(id)) {
 			return ResponseEntity.ok("item does not found!");
 		}
 
 		repo.deleteById(id);
+		
+		float total = getOrderTotal(id.getOrderId());
+		Order theOrder = orderRepo.findById(id.getOrderId()).orElseThrow(() -> new ResourceNotFound("order not found " + id.getOrderId()));
+		theOrder.setTotal(total);
+		orderRepo.save(theOrder);
 
 		return ResponseEntity.ok("item deleted from the cart!");
+	}
+	
+	@PutMapping("itemquantityIncrease")
+	public ResponseEntity<String> increaseQuantity(@RequestBody ItemQuantityKey id) {
+		ItemQuantity itemQ = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order/item not found " + id));
+		itemQ.setQuantity(itemQ.getQuantity()+ 1);
+		repo.save(itemQ);
+		
+		float total = getOrderTotal(id.getOrderId());
+		Order theOrder = orderRepo.findById(id.getOrderId()).orElseThrow(() -> new ResourceNotFound("order not found " + id.getOrderId()));
+		theOrder.setTotal(total);
+		orderRepo.save(theOrder);
+		
+		return ResponseEntity.ok("Item quantity increased..");
+	}
+	
+	@PutMapping("itemquantityDecrease")
+	public ResponseEntity<String> decreaseQuantity(@RequestBody ItemQuantityKey id) {
+		ItemQuantity itemQ = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order/item not found " + id));
+		itemQ.setQuantity(itemQ.getQuantity()- 1);
+		repo.save(itemQ);
+		
+		float total = getOrderTotal(id.getOrderId());
+		Order theOrder = orderRepo.findById(id.getOrderId()).orElseThrow(() -> new ResourceNotFound("order not found " + id.getOrderId()));
+		theOrder.setTotal(total);
+		orderRepo.save(theOrder);
+		
+		return ResponseEntity.ok("Item quantity decreased..");
 	}
 
 //	@GetMapping("itemquantity/{id}")
