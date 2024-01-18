@@ -87,7 +87,7 @@ public class ShopOwnerController {
 		
 	
 		@PutMapping("/ShopOwnerItem/{id}")
-		public ResponseEntity<String> updateItemList(@PathVariable Long id, @RequestBody Item newItem){
+		public ResponseEntity<String> updateItemList(@PathVariable int id, @RequestBody Item newItem){
 			ShopOwner shop = shopOwnerRepo.findById(id)
 	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
 			
@@ -107,7 +107,7 @@ public class ShopOwnerController {
 		}
 	
 		@PutMapping("/ShopOwnerJob/{id}")
-		public ResponseEntity<String> updateJobs(@PathVariable Long id, @RequestBody ShopOwnerJob newJob){
+		public ResponseEntity<String> updateJobs(@PathVariable int id, @RequestBody ShopOwnerJob newJob){
 			ShopOwner shop = shopOwnerRepo.findById(id)
 	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
 			
