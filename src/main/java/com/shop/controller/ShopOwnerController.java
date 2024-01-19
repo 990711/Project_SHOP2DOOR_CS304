@@ -161,12 +161,6 @@ public class ShopOwnerController {
 		return ResponseEntity.ok(msg);
 	}
 
-//		@GetMapping("ShopOwnerOrderDetails/{shopId}")
-//		public ResponseEntity<List<ShopOwnerItemDetailsResults>> shopOwnerOrderDetails(@PathVariable int shopId){
-//			List<ShopOwnerItemDetailsResults> items = itemQuantityRepo.findItemsByShopOwnerID(shopId);
-//			return new ResponseEntity<List<ShopOwnerItemDetailsResults>>(items, HttpStatus.OK);
-//		}
-
 	@GetMapping("ShopOwnerOrderDetails/{shopId}")
 	public ResponseEntity<List<Map<String, Object>>> shopOwnerOrderDetails(@PathVariable int shopId) {
 		List<Map<String, Object>> items = itemQuantityRepo.findItemsByShopOwnerID(shopId);
