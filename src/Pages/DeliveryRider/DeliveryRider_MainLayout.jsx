@@ -19,6 +19,9 @@ import {
   Help as HelpIcon,
   Settings as SettingsIcon,
   ExitToApp as ExitToAppIcon,
+  HourglassEmpty as PendingDeliveriesIcon,
+  CheckCircle as CompletedDeliveriesIcon,
+  ThumbUp as AcceptedDeliveriesIcon,
 } from '@mui/icons-material';
 //import "../../styles/ShopOwner.css"; // Import your custom styles
 import { useLocation } from 'react-router-dom';
@@ -54,6 +57,7 @@ const DeliveryRider_MainLayout = () => {
     console.log('Left Sidebar Item clicked:', route);
     // Implement your logic for handling left sidebar item clicks
     // You can navigate to the corresponding route if needed
+    navigate(route, { state: { user } });
   };
 
   const handleRightItemClick = (index, route) => {
@@ -93,10 +97,12 @@ const DeliveryRider_MainLayout = () => {
         {/* List of items in the left sidebar */}
         <List>
           {[
-            { text: 'Dashboard', icon: <DashboardIcon />, route: '/' },
-            { text: 'Deliveries', icon: <TwoWheelerIcon />, route: '/deliveries' },
-            {/* Add any additional items specific to the delivery rider layout */}
-          ].map((item, index) => (
+            { text: 'Dashboard', icon: <DashboardIcon />},
+            { text: 'Pending Deliveries', icon: <PendingDeliveriesIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_pending_deliveries' },
+            { text: 'Completed Deliveries', icon: <CompletedDeliveriesIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_completed_deliveries' },
+            { text: 'Accepted Deliveries', icon: <AcceptedDeliveriesIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_accepted_deliveries' },
+            // Add any additional items specific to the delivery rider layout
+           ].map((item, index) => (
             <React.Fragment key={index}>
               <ListItem button onClick={() => handleLeftItemClick(index, item.route)}>
                 <ListItemIcon>{item.icon}</ListItemIcon>

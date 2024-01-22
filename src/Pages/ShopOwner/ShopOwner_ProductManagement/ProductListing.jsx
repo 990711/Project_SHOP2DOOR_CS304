@@ -184,7 +184,7 @@ const ProductListing = () => {
           <p>Price: {selectedProduct?.price}</p>
           <p>Quantity: {selectedProduct?.quantity}</p>
           <p>Discount Price: {selectedProduct?.discountPrice}</p>
-          <p>Discount Percentage: {selectedProduct?.discountPercentage}</p>
+          <p>Discount Percentage: {selectedProduct?.discount_percentage}</p>
 
           <div className="button-container">
             <button style={{ marginRight: '10px' }} onClick={handleUpdate}>

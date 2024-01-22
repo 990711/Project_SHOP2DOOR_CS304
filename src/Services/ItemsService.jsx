@@ -8,7 +8,7 @@ class ItemsServices {
     }
 
     GetAllItems() {
-        return axios.get(SHOP_OWNER_API_BASE_URL + '/Items');
+        return axios.get(SHOP_OWNER_API_BASE_URL + '/Item');
     }
 }
 

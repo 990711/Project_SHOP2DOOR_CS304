@@ -52,6 +52,9 @@ import DeliveryRider_MainLayout from './Pages/DeliveryRider/DeliveryRider_MainLa
 import DeliveryRider_Dashboard from './Pages/DeliveryRider/DeliveryRider_Dashboard';
 import DeliveryRiderProfile from './Pages/DeliveryRider/DeliveryRiderProfile';
 import UpdateDeliveryRiderProfile from './Pages/DeliveryRider/UpdateDeliveryRiderProfile';
+import DeliveryRider_accepted_deliveries from './Pages/DeliveryRider/DeliveryRider_accepted_deliveries';
+import DeliveryRider_completed_deliveries from './Pages/DeliveryRider/DeliveryRider_completed_deliveries';
+import DeliveryRider_pending_deliveries from './Pages/DeliveryRider/DeliveryRider_pending_deliveries';
 
 
 
@@ -123,6 +126,9 @@ function App() {
             <Route path="/deliveryrider_mainlayout/deliveryrider_dashboard" element={<DeliveryRider_Dashboard />} />
             <Route path="/deliveryrider_mainlayout/deliveryriderprofile" element={<DeliveryRiderProfile />} />
             <Route path="/deliveryrider_mainlayout/updatedeliveryriderprofile" element={<UpdateDeliveryRiderProfile />} />
+            <Route path="/deliveryrider_mainlayout/DeliveryRider_accepted_deliveries" element={<DeliveryRider_accepted_deliveries />} />
+            <Route path="/deliveryrider_mainlayout/DeliveryRider_completed_deliveries" element={<DeliveryRider_completed_deliveries />} />
+            <Route path="/deliveryrider_mainlayout/DeliveryRider_pending_deliveries" element={<DeliveryRider_pending_deliveries />} />
 
             
             
