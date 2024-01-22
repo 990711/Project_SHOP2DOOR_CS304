@@ -457,3 +457,65 @@ a:active {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-total {
+  margin-left: 20px;
+}
+
+button {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.cart-page {
+  display: flex;
+}
+
+.cart-items {
+  width: 65%;
+  padding: 20px;
+  background-color: #fcfcfc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 5%;
+}
+
+.order-summary {
+  width: 30%;
+  padding: 20px;
+  background-color: #fcfcfc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
