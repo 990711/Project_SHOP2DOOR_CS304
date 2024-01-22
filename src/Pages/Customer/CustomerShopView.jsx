@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ItemBox from "./ItemBox";
-import CartPage from "./CartPage";
+import { useUser } from './UserContext';
 
 import Modal from "react-modal";
 Modal.setAppElement("#root");
@@ -20,6 +20,7 @@ const CustomerViewShop = () => {
   const [Items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [itemsByCategory, setItemsByCategory] = useState({});
+  const { state } = useUser();
 
   useEffect(() => {
     ShopOwner_ServicesForCustomers.GetItemsByShopID(ShopId)
@@ -34,6 +35,7 @@ const CustomerViewShop = () => {
   useEffect(() => {
     setCategories(getCategories(Items));
     setItemsByCategory(separateItemsIntoCategories(Items));
+    console.log(state.username);
   }, [Items]);
 
   const getCategories = (data) => {

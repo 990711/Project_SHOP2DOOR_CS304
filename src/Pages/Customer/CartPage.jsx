@@ -1,5 +1,4 @@
 import React from "react";
-import { useCart } from "./CartContext";
 import CartItem from "./CartItem";
 
 const CartPage = () => {

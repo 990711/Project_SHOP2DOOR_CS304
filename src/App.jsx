@@ -41,7 +41,7 @@ import CustomerDashboard from './Pages/Customer/CustomerDashboard';
 import CustomerOrders from './Pages/Customer/CustomerOrders';
 
 import CustomerCategories from './Pages/Customer/CustomerCategory';
-import { CartProvider } from "./Pages/Customer/CartContext";
+import { UserProvider } from './Pages/Customer/UserContext';
 import CartPage from "./Pages/Customer/CartPage.jsx";
 
 
@@ -64,7 +64,7 @@ function App() {
       <Header />
 
 
-        <CartProvider>
+        <UserProvider>
         <Routes>
           <Route path="/customermainlayout" element={<CustomerMainLayout />}>
             <Route index element={<CustomerDashboard/>}/>
@@ -129,7 +129,7 @@ function App() {
 
 
         </Routes>
-        </CartProvider>
+        </UserProvider>
       </Router>
     </div>
   );

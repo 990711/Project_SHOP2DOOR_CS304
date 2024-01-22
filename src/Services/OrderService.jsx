@@ -8,6 +8,10 @@ class OrderService{
 
     }
 
+    createNewOrder(username) {
+        return axios.post(ORDER_API_BASE_URL + '/' + username);
+    }
+
     createOrders(order){
         return axios.post(ORDER_API_BASE_URL, order);
     }

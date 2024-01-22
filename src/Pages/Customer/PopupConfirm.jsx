@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useCart } from "./CartContext";
 
 const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -12,7 +10,7 @@ const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
 
   const handleConfirm = () => {
     item.quantity = quantity;
-    addToCart({ ...item});
+
     onConfirm();
   };
 
