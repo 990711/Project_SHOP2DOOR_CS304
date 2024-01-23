@@ -29,17 +29,8 @@ const CustomerDashboard = () => {
       .catch((error) => {
         console.error("Error fetching shops:", error);
       });
-  }, []);
 
-  useEffect(() => {
-    OrderService.createNewOrder(state.username)
-      .then((response) => {
-        console.log(response.data.order_id);
-        dispatch({ type: 'ADD_ORDER_ID', payload: { orderID: response.data.order_id } });
-      })
-      .catch((error) => {
-        console.error("Error fetching shops:", error);
-      });
+      console.log(state.orderID);
   }, []);
 
   // Filter shops by search term

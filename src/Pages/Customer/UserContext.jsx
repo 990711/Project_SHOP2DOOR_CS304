@@ -16,6 +16,7 @@ const userReducer = (state, action) => {
         ...state,
         userID: action.payload.userID,
         username: action.payload.username,
+        orderID: action.payload.orderID,
       };
     case 'LOGOUT':
       return initialState;

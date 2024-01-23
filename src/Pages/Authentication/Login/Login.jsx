@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import loginService from "../../../Services/loginService";
 //import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../Customer/UserContext';
+import OrderService from "../../../Services/OrderService";
 
 import {
     Drawer,
@@ -41,10 +42,6 @@ import {
         setErrMsg('');
     }, [user, pwd])
 
-
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -78,7 +75,13 @@ import {
             switch (role) {
                 case "Customer":
                     // Dispatch the login action
-                    dispatch({ type: 'LOGIN', payload: { userID: response?.data.user_id, username: response?.data.username } });
+                    try {
+                        const orderResponse = await OrderService.createNewOrder(response?.data.username);
+                        console.log(orderResponse?.data);
+                        dispatch({ type: 'LOGIN', payload: { userID: response?.data.user_id, username: response?.data.username, orderID: orderResponse?.data.order_id } });
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
                     navigate("/customermainlayout");
                     break;
                 case "Shop Owner":
