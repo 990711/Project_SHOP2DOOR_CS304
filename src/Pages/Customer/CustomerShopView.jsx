@@ -35,7 +35,6 @@ const CustomerViewShop = () => {
   useEffect(() => {
     setCategories(getCategories(Items));
     setItemsByCategory(separateItemsIntoCategories(Items));
-    console.log(state.username);
   }, [Items]);
 
   const getCategories = (data) => {

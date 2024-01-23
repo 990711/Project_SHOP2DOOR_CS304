@@ -378,8 +378,8 @@ a:active {
 }
 
 .cart-btn:hover {
+  color: #fff;
   cursor: pointer;
-  border-color: rgb(236, 107, 2);
 }
 
 .item-box button:disabled {
@@ -493,18 +493,6 @@ button {
   margin-right: 5%;
 }
 
-.order-summary {
-  width: 30%;
-  padding: 20px;
-  background-color: #fcfcfc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.order-summary h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
 button {
   padding: 10px;
   margin-top: 10px;
@@ -518,4 +506,116 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+}
+
+.item-quantity p {
+  margin: 0;
+  display: inline; /* Add this to make the <p> inline */
+}
+
+.cartItemBtn {
+  font-size: 16px;
+  padding: 0; /* Set padding to 0 */
+  margin: 0 5px;
+  color: rgb(120, 120, 120);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.cartItemBtn:hover {
+  background: none;
+  border: none;
+}
+
+.cartDeleteBtn {
+  color: rgb(255, 118, 118);
+}
+
+.cartDeleteBtn:hover {
+  background: none;
+  border: none;
+  color: red !important;
+}
+
+.item-details,
+.item-quantity,
+.item-total,
+.item-remove {
+  width: 25%; /* Set the width for each section */
+  box-sizing: border-box;
+}
+
+.cart-item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.item-total {
+  text-align: right;
+}
+
+.item-quantity::before {
+  content: "Quantity:";
+  margin-right: 5px;
+}
+
+.item-quantity {
+  display: flex;
+  text-align: right;
+}
+
+.item-quantity button {
+  margin-left: auto; /* Align buttons to the right */
+}
+
+.quantity-section {
+  width: 15%;
+}
+.buttons-section {
+  width: 85%;
+}
+
+.buttons-section {
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: right !important;
+}
+
+.order-summary {
+  width: 30%;
+  padding: 20px;
+  background-color: #fcfcfc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  height: fit-content;
+}
+
+.order-summary h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.order-summary p {
+  font-size: 18px;
+}
+
+.order-summary-label {
+  display: inline-block;
+  width: 80%;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.order-summary-value {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+  font-weight: bold;
 }

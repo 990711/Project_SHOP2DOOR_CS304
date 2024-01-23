@@ -1,16 +1,28 @@
 import React, { useState } from "react";
+import ItemQuantityService from "../../Services/ItemQuantityService";
+import { useUser } from "./UserContext";
+
 
 const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [orderQuantity, setQuantity] = useState(1);
+  const { state } = useUser();
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuantity(value);
   };
 
-  const handleConfirm = () => {
-    item.quantity = quantity;
+  const handleConfirm = async () => {
+    console.log("Confirming...");
+    item.quantity = orderQuantity;
+    try {
+      const response = await ItemQuantityService.addNewItemQuantity(state.orderID, item.item_id, 
+        {"quantity": orderQuantity});
 
+      console.log(response?.data);
+    } catch (error) {
+      console.error("Error adding item quantity:", error);
+    }
     onConfirm();
   };
 
@@ -22,7 +34,7 @@ const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
         <h2>Enter quantity:</h2>
         <input
           type="number"
-          value={quantity}
+          value={orderQuantity}
           onChange={handleInputChange}
           min="1"
           max={item.quantity}
