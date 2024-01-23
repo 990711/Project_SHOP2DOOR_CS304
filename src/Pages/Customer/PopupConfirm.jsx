@@ -16,7 +16,7 @@ const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
     console.log("Confirming...");
     item.quantity = orderQuantity;
     try {
-      const response = await ItemQuantityService.addNewItemQuantity(state.orderID, item.item_id, 
+      const response = await ItemQuantityService.addNewItemQuantity(state.CustomerOrderID, item.item_id, 
         {"quantity": orderQuantity});
 
       console.log(response?.data);

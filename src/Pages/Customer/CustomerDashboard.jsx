@@ -30,7 +30,7 @@ const CustomerDashboard = () => {
         console.error("Error fetching shops:", error);
       });
 
-      console.log(state.orderID);
+      console.log(state.CustomerOrderID);
   }, []);
 
   // Filter shops by search term

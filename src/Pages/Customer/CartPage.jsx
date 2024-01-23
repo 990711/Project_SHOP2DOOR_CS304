@@ -8,11 +8,12 @@ const CartPage = () => {
   const { state } = useUser();
   const [cartItems, setCartItems] = useState([]);
   const [order, setOrder] = useState([]);
+  const [ deletedItemID, setDeletedItemID ] = useState(null);
 
   const additionalDiscount = 0;
 
   useEffect(() => {
-    ItemQuantityService.getOrderItemQuantities(state.orderID)
+    ItemQuantityService.getOrderItemQuantities(state.CustomerOrderID)
       .then((response) => {
         setCartItems(response.data);
         console.log(response.data);
@@ -20,10 +21,10 @@ const CartPage = () => {
       .catch((error) => {
         console.error("Error fetching cart items:", error);
       });
-  }, []);
+  }, [deletedItemID]);
 
   useEffect(() => {
-    OrderService.getOrderById(state.orderID)
+    OrderService.getOrderById(state.CustomerOrderID)
       .then((foundOrder) => {
         if (foundOrder) {
           setOrder(foundOrder);
@@ -35,7 +36,7 @@ const CartPage = () => {
       .catch((error) => {
         console.error("Error handling the order:", error);
       });
-  }, []);
+  }, [deletedItemID]);
 
   console.log(cartItems);
 
@@ -45,8 +46,16 @@ const CartPage = () => {
     updateCartItemQuantity(itemId, newQuantity);
   };
 
-  const removeCartItem = (removeItemID) => {
-    console.log(removeItemID);
+  const removeCartItem = async (removeItemID) => {
+    try {
+      const response = await ItemQuantityService.deleteItemQuantity(removeItemID, state.CustomerOrderID);
+      console.log(response?.data);
+
+      // Change this so that the items updates realtime
+      setDeletedItemID(removeItemID);
+    } catch (error) {
+      console.error("Error removing item quantity:", error);
+    }
   };
 
   const clearCart = () => {};

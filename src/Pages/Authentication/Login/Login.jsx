@@ -78,7 +78,7 @@ import {
                     try {
                         const orderResponse = await OrderService.createNewOrder(response?.data.username);
                         console.log(orderResponse?.data);
-                        dispatch({ type: 'LOGIN', payload: { userID: response?.data.user_id, username: response?.data.username, orderID: orderResponse?.data.order_id } });
+                        dispatch({ type: 'LOGIN', payload: { userID: response?.data.user_id, username: response?.data.username, CustomerOrderID: orderResponse?.data.order_id } });
                     } catch (error) {
                         console.error('Error:', error);
                     }

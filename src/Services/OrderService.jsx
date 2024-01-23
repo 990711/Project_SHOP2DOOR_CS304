@@ -15,17 +15,16 @@ class OrderService {
     return axios.post(ORDER_API_BASE_URL, order);
   }
 
-  getOrderById(orderId) {
-    return axios
-      .get(ORDER_API_BASE_URL)
-      .then((response) => {
-        const order = response.data.find((order) => order.order_id === orderId);
-        return order || null; // Return the found order or null if not found
-      })
-      .catch((error) => {
-        console.error("Error fetching order:", error);
-        throw error; // Rethrow the error for handling in the calling code
-      });
+  async getOrderById(orderId) {
+    try {
+          const response = await axios
+              .get(ORDER_API_BASE_URL);
+          const order = response.data.find((order_1) => order_1.order_id === orderId);
+          return order || null;
+      } catch (error) {
+          console.error("Error fetching order:", error);
+          throw error; // Rethrow the error for handling in the calling code
+      }
   }
 
   updateOrder(order) {

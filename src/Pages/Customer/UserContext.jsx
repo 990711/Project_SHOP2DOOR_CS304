@@ -4,7 +4,7 @@ import { createContext, useContext, useReducer } from 'react';
 const initialState = {
   userID: null,
   username: null,
-  orderID: null,
+  CustomerOrderID: null,
 };
 
 const UserContext = createContext();
@@ -16,14 +16,14 @@ const userReducer = (state, action) => {
         ...state,
         userID: action.payload.userID,
         username: action.payload.username,
-        orderID: action.payload.orderID,
+        CustomerOrderID: action.payload.CustomerOrderID,
       };
     case 'LOGOUT':
       return initialState;
     case 'ADD_ORDER_ID':
       return {
         ...state,
-        orderID: action.payload.orderID,
+        CustomerOrderID: action.payload.CustomerOrderID,
       };
     default:
       return state;
