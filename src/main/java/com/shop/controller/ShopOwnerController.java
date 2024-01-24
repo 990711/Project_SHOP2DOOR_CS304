@@ -161,6 +161,7 @@ public class ShopOwnerController {
 		return ResponseEntity.ok(msg);
 	}
 
+	//provide all the orders which are belongs to a particular shop owner
 	@GetMapping("ShopOwnerOrderDetails/{shopId}")
 	public ResponseEntity<List<Map<String, Object>>> shopOwnerOrderDetails(@PathVariable int shopId) {
 		List<Map<String, Object>> items = itemQuantityRepo.findItemsByShopOwnerID(shopId);
