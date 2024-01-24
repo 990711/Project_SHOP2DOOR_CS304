@@ -38,7 +38,7 @@ public class ItemController {
     }
 	
 
-	@PostMapping("/addItems")
+	@PostMapping("/Item")
     public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
 		Item newItem = itemRepo.save(item);
         return new ResponseEntity<Item>(newItem,HttpStatus.CREATED);
