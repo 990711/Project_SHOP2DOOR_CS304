@@ -70,6 +70,21 @@ const DeliveryRider_MainLayout = () => {
     }
   };
 
+  const handleLogout = async () => {
+    // Perform any necessary logout actions on the server side
+  
+    // Clear authentication data on the client side
+    // Example: Clearing a user session
+    // This might vary based on your authentication mechanism
+    // For example, if using a session:
+    
+   
+  
+    // Navigate to the login page
+    navigate('/login', { replace: true });
+  };
+  
+
 
   return (
     <div style={{ display: 'flex' }}>

@@ -10,23 +10,49 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Modal from 'react-modal';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+
 
 Modal.setAppElement('#root');
 
 const ProductListing = () => {
   const location = useLocation();
   const user = location.state?.user;
+  console.log('User:', user);
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+ 
+
+  // ... rest of the component
+
+
+
   useEffect(() => {
-    ShopOwner_ProductService.getProducts().then((res) => {
+    console.log(user);
+    ShopOwner_ProductService.getProductByShopUserName(user).then((res) => {
       setProducts(res.data);
     });
   }, []);
+  
+  
+/*
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await ShopOwner_ProductService.getProductByShopUserName(user);
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, [user]);
+*/
 
   const deleteProduct = (id) => {
     ShopOwner_ProductService.deleteProduct(id).then((res) => {

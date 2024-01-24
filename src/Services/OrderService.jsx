@@ -4,10 +4,9 @@ const ORDER_API_BASE_URL = "http://localhost:8080/api/v1/order";
 
 class OrderService{
     getOrders(){
-        return axios.get(ORDER_API_BASE_URL);
+        return axios.get(`http://localhost:8080/api/v1/ShopOwnerOrderDetails/${ShopUserName}`);
 
     }
-
     createOrders(order){
         return axios.post(ORDER_API_BASE_URL, order);
     }

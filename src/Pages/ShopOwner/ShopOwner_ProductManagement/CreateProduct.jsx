@@ -25,12 +25,24 @@ const CreateProduct = () => {
       
     });
   
-    const saveProduct = (e) => {
+    const saveProduct = async (e) => {
       e.preventDefault();
   
-      ShopOwner_ProductService.createProduct(product).then((res) => {
-        navigate('/productlisting',{ state: { user } });
-      });
+      try {
+        // Basic input validation, you can add more checks based on your requirements
+        if (!product.name || !product.price || !product.quantity) {
+          alert('Please fill in the required fields.');
+          return;
+        }
+  
+        const response = await ShopOwner_ProductService.createProduct(user, product);
+  
+        console.log('Product created:', response.data);
+        navigate('/productlisting', { state: { user } });
+      } catch (error) {
+        console.error('Error creating product:', error.message);
+        // Handle the error, e.g., display an error message to the user
+      }
     };
   
     const cancel = () => {

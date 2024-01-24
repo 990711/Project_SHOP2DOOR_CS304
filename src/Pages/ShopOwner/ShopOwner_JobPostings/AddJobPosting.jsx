@@ -18,7 +18,7 @@ const AddJobPosting = () => {
   const saveJobPosting = (e) => {
     e.preventDefault();
 
-    ShopOwner_JobPostingsService.createJobPostings(jobPosting).then((res) => {
+    ShopOwner_JobPostingsService.createJobPostings(user, jobPosting).then((res) => {
       navigate('/jobListing',{ state: { user } });
     });
   };
