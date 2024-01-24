@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -138,6 +139,16 @@ public class CustomerController {
 		customer.setAppliedJobs(jobs);
 		customerRepo.save(customer);
 		return ResponseEntity.ok("Removed the Application from the job.");
+	}
+
+	// show all the jobs that a particular customer applied
+	@GetMapping("AppliedJobs/{username}")
+	public ResponseEntity<Set<ShopOwnerJob>> appliedJobs(@PathVariable String username) {
+
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
+		Set<ShopOwnerJob> appliedjobs = customer.getAppliedJobs();
+		return new ResponseEntity<Set<ShopOwnerJob>>(appliedjobs, HttpStatus.OK);
 	}
 
 }
