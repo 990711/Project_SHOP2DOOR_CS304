@@ -213,16 +213,16 @@ const DeliveryRider_accepted_deliveries = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {deliveries.map((order, index) => (
+            {deliveries.map((order_id, index) => (
               <TableRow
-                key={order.order_id || index}
+                key={order_id || index}
                 className="TableRow"
                 onClick={() => {
-                  console.log('Clicked delivery:', order.order_id);
-                  handleRowClick(order.order_id);
+                  console.log('Clicked delivery:', order_id);
+                  handleRowClick(order_id);
                 }}
               >
-                <TableCell>{order.order_id}</TableCell>
+                <TableCell>{order_id}</TableCell>
               </TableRow>
             ))}
           </TableBody>

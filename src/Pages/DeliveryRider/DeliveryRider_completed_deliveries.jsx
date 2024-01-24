@@ -27,13 +27,13 @@ const DeliveryRider_completed_deliveries = () => {
 
 
   useEffect(() => {
-    if (user) {
-      DeliveryService.getAcceptedDeliveries(user).then((res) => {
+    
+      DeliveryService.getCompletedDeliveries(user).then((res) => {
         console.log('API Response:', res.data);
         setDeliveries(res.data);
       });
-    }
-  }, [user]);
+    
+  }, []);
 
   const fetchCustomerDetails = async (orderId) => {
     try {
@@ -176,16 +176,16 @@ const DeliveryRider_completed_deliveries = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {deliveries.map((order, index) => (
+            {deliveries.map((order_id, index) => (
               <TableRow
-                key={order.order_id || index}
+                key={order_id || index}
                 className="TableRow"
                 onClick={() => {
-                  console.log('Clicked delivery:', order.order_id);
-                  handleRowClick(order.order_id);
+                  console.log('Clicked delivery:', order_id);
+                  handleRowClick(order_id);
                 }}
               >
-                <TableCell>{order.order_id}</TableCell>
+                <TableCell>{order_id}</TableCell>
               </TableRow>
             ))}
           </TableBody>

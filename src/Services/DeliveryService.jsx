@@ -17,12 +17,12 @@ class DeliveryService {
         return axios.get(DELIVERY_API_BASE_URL);
     }
 
-    getCompletedDeliveries() {
-        return axios.get(`http://localhost:8080/api/v1/deliveryriderorders/${rider_username}`);
+    getCompletedDeliveries(rider_username) {
+        return axios.get(`http://localhost:8080/api/v1/viewCompletedOrders/${rider_username}`);
     }
    
     getAcceptedDeliveries(rider_username) {
-        return axios.get(`http://localhost:8080/api/v1/deliveryriderorders/${rider_username}`);
+        return axios.get(`http://localhost:8080/api/v1/viewAcceptedOrders/${rider_username}`);
     }
 
     putaccept_order(selectedDelivery,rider_username) {
