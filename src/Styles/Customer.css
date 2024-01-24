@@ -521,6 +521,7 @@ button:hover {
 
 .cartItemBtn {
   font-size: 16px;
+  font-weight: bolder;
   padding: 0; /* Set padding to 0 */
   margin: 0 5px;
   color: rgb(120, 120, 120);
@@ -532,6 +533,8 @@ button:hover {
 .cartItemBtn:hover {
   background: none;
   border: none;
+  color: #000000;
+  font-weight: bolder;
 }
 
 .cartDeleteBtn {

@@ -5,28 +5,38 @@ import { faPlus, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityIncrease, onQuantityDecrease }) => {
   const [item, setItem] = useState([]);
-
-  var quantity = itemQuantity;
-
-  const handleQuantityIncrease = () => {
-    onQuantityIncrease(singleCartItem.item_id);
-  };
-
-  const handleQuantityDecrease = () => {
-    onQuantityDecrease(singleCartItem.item_id);
-  };
+  const [maxQuantity, setMaxQuantity] = useState(0);
+  const [minQuantity, setMinQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(itemQuantity);
 
   useEffect(() => {
     ItemsService.GetItemById(singleCartItem.item_id)
       .then(response => {
         setItem(response.data);
         console.log(response.data);
+        setMaxQuantity(response.data.quantity);
+        // Set minQuantity based on your logic, for now, it's set to 1
+        setMinQuantity(1);
       })
       .catch(error => {
         console.error("Error fetching cart items:", error);
       });
   }, []);
-  
+
+  const handleQuantityIncrease = () => {
+    if (quantity < maxQuantity) {
+      setQuantity(quantity + 1);
+      onQuantityIncrease(singleCartItem.item_id);
+    }
+  };
+
+  const handleQuantityDecrease = () => {
+    if (quantity > minQuantity) {
+      setQuantity(quantity - 1);
+      onQuantityDecrease(singleCartItem.item_id);
+    }
+  };
+
   const discountPercentage = item.quantity === 0 ? 0 : item.discount_percentage || 0;
   const discountedPrice = item.price - (item.price * discountPercentage) / 100;
   const total = (quantity * discountedPrice).toFixed(2);
@@ -34,17 +44,25 @@ const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityIncrease, 
   return (
     <div className="cart-item">
       <div className="item-details">
-        <p className="cart-item-name" >{item.name}</p>
+        <p className="cart-item-name">{item.name}</p>
       </div>
       <div className="item-quantity">
         <div className="quantity-section">
           <p>{quantity}</p>
         </div>
         <div className="buttons-section">
-          <button className="cartItemBtn" onClick={() => handleQuantityIncrease()}>
+          <button
+            className="cartItemBtn"
+            onClick={handleQuantityIncrease}
+            disabled={quantity === maxQuantity}
+          >
             <FontAwesomeIcon icon={faPlus} />
           </button>
-          <button className="cartItemBtn" onClick={() => handleQuantityDecrease()}>
+          <button
+            className="cartItemBtn"
+            onClick={handleQuantityDecrease}
+            disabled={quantity === minQuantity}
+          >
             <FontAwesomeIcon icon={faMinus} />
           </button>
         </div>
@@ -54,7 +72,7 @@ const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityIncrease, 
       </div>
       <div>
         <button className="cartItemBtn cartDeleteBtn" onClick={() => onRemove(singleCartItem.item_id)}>
-        <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
     </div>
