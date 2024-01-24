@@ -667,11 +667,20 @@ button:hover {
 }
 
 .waiting-svg-icon {
-  width: 200px;
+  height: 100px;
   color: #0a5602;
 }
 
 .order-status h4 {
   font-size: 18px;
   text-align: center;
+}
+
+.alert-svg-icon {
+  height: 100px;
+  color: #b60101;
+}
+
+.confirm-svg-icon {
+  height: 100px;
 }

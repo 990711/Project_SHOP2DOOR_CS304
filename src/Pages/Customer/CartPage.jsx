@@ -4,6 +4,8 @@ import ItemQuantityService from "../../Services/ItemQuantityService";
 import OrderService from "../../Services/OrderService";
 import { useUser } from "./UserContext";
 import animation from "../../assets/waiting_animation.svg";
+import alert_svg from "../../assets/alert.svg";
+import order_accept_svg from "../../assets/orderAccept.svg";
 
 const CartPage = () => {
   const { state } = useUser();
@@ -190,6 +192,37 @@ const CartPage = () => {
                 />
               </div>
               <h4>Waiting for a rider to accept your order</h4>
+            </div>
+          </div>
+        )}
+        {orderStatus === "Order failed" && (
+          <div className="order-status">
+            <h2>Status</h2>
+            <div className="waiting-panel-show">
+              <div className="waiting">
+                <img
+                  src={alert_svg}
+                  alt="alert"
+                  className="alert-svg-icon"
+                />
+              </div>
+              <h4>No any riders nearby.</h4>
+              <h4>Try again shortly!</h4>
+            </div>
+          </div>
+        )}
+        {orderStatus === "Rider accepted" && (
+          <div className="order-status">
+            <h2>Status</h2>
+            <div className="waiting-panel-show">
+              <div className="waiting">
+                <img
+                  src={order_accept_svg}
+                  alt="alert"
+                  className="confirm-svg-icon"
+                />
+              </div>
+              <h4>Your order is on the way.</h4>
             </div>
           </div>
         )}
