@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.shop.model.ShopOwner;
 
 @Repository
-public interface ShopOwnerRepo extends JpaRepository<ShopOwner, Long>{
+public interface ShopOwnerRepo extends JpaRepository<ShopOwner, Integer>{
 
 //	@Query(value = "SELECT shop_name,location,email,branch,contact FROM shop_owner", nativeQuery = true)
 //	List<Object> getAllShops();

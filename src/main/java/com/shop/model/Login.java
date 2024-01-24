@@ -18,7 +18,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Login")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Login {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
@@ -32,48 +32,38 @@ public class Login {
 	@Column(name = "password")
 	private String password;
 
-
-
 //	@NotBlank(message = "must be select!")
 //	private String Role;
-	
-	//@Enumerated(EnumType.STRING)
+
+	// @Enumerated(EnumType.STRING)
 	@NotBlank(message = "must be select!")
-    @Column(name = "role")
-    private String Role;
-	
+	@Column(name = "role")
+	private String Role;
+
 	@Column(name = "active")
 	private boolean active = true;
-	
+
 	@Column(name = "blocked")
 	private boolean blocked = false;
-	
+
 	@Column(name = "deleted")
 	private boolean deleted = false;
-	
+
 	public Login() {
 
 	}
 
-	
-
-
-
-public Login(@NotBlank(message = "this column must be filled!") String username,
+	public Login(@NotBlank(message = "this column must be filled!") String username,
 			@NotBlank(message = "this column must be filled!") @Size(min = 8, message = "password must be greater than 8 charactors!") String password,
 			@NotBlank(message = "must be select!") String role, boolean active, boolean blocked, boolean deleted) {
 		super();
 		this.username = username;
 		this.password = password;
-		Role = role;
+		this.Role = role;
 		this.active = active;
 		this.blocked = blocked;
 		this.deleted = deleted;
 	}
-
-
-
-
 
 //	public String getRole() {
 //		return Role;
@@ -87,23 +77,13 @@ public Login(@NotBlank(message = "this column must be filled!") String username,
 		return username;
 	}
 
-	
-
 	public String getRole() {
-		return Role;
+		return this.Role;
 	}
-
-
-
-
 
 	public void setRole(String role) {
-		Role = role;
+		this.Role = role;
 	}
-
-
-
-
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -141,20 +121,12 @@ public Login(@NotBlank(message = "this column must be filled!") String username,
 		this.deleted = deleted;
 	}
 
-
-
 	public int getUser_id() {
 		return user_id;
 	}
 
-
-
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	
-	
-	
-	
 
 }

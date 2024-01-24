@@ -21,6 +21,7 @@ import com.shop.exception.ResourceNotFound;
 import com.shop.model.Item;
 import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ItemRepo;
+import com.shop.repositary.LoginRepo;
 
 import jakarta.validation.Valid;
 
@@ -31,6 +32,9 @@ public class ItemController {
 
 	@Autowired
     private ItemRepo itemRepo;
+	
+	@Autowired
+    private LoginRepo loginRepo;
 	
 	@GetMapping("/Item")
     public List<Item> getAllItems() {
@@ -87,8 +91,15 @@ public class ItemController {
 		 return itemRepo.findAllByCategory(category);
 	 }
 	 
-	 @GetMapping("/ItemByShop/{id}")
+	 /*@GetMapping("/ItemByShop/{id}")
 	 public List<Item> getItemByShopId(@PathVariable Long id){
+		 return itemRepo.getItemsByShopId(id);
+	 }*/
+	 
+	 @GetMapping("/ItemByShop/{username}")
+	 public List<Item> getItemByShop(@PathVariable String username){
+		 Long id = loginRepo.getShopIdByUsername(username);
+		 
 		 return itemRepo.getItemsByShopId(id);
 	 }
 	 
