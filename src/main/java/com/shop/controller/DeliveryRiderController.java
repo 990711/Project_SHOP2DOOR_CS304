@@ -142,4 +142,23 @@ public class DeliveryRiderController {
 			orderController.updateDeliveryTime(orderId);
 			return ResponseEntity.ok("Successfully completed the order !");
 		}
+		
+		@GetMapping("viewAcceptedOrders/{username}")
+		public ResponseEntity<List<Long>> viewAcceptedOrders(@PathVariable String username){
+			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
+	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));
+			
+			List<Long> orderList = orderRepo.viewAcceptedOrders(rider.getUser_id());
+			return ResponseEntity.ok(orderList);
+		}
+		
+		@GetMapping("viewCompletedOrders/{username}")
+		public ResponseEntity<List<Long>> viewCompletedOrders(@PathVariable String username){
+			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
+	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));
+			
+			List<Long> orderList = orderRepo.viewCompletedOrders(rider.getUser_id());
+			return ResponseEntity.ok(orderList);
+		}
+		
 }

@@ -209,4 +209,23 @@ public class ShopOwnerController {
 		List<Map<String, Object>> items = itemQuantityRepo.findItemsByShopOwnerID(shopId);
 		return new ResponseEntity<List<Map<String, Object>>>(items, HttpStatus.OK);
 	}
+	
+	@GetMapping("getPendingOrders/{username}")
+	public ResponseEntity<List<Long>> getPendingOrders(@PathVariable String username){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		List<Long> orderList = shopOwnerRepo.getPendingOrders(shop.getUser_id());
+		return ResponseEntity.ok(orderList);
+	}
+	
+	@GetMapping("getPendingOrderItems/{username}/{orderId}")
+	public ResponseEntity<List<Object>> getPendingOrderItems(@PathVariable String username,@PathVariable Long orderId){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		List<Object> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(),orderId);
+		return ResponseEntity.ok(itemList);
+	}
+	
 }
