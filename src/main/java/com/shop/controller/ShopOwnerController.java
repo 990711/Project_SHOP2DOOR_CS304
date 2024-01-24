@@ -124,7 +124,7 @@ public class ShopOwnerController {
 		shopOwnerJobRepo.save(newJob);
 		shopOwnerRepo.save(shop);
 
-		return ResponseEntity.ok("Successfully added item..");
+		return ResponseEntity.ok("Successfully Posted the job.");
 	}
 
 	@GetMapping("/ShopOwnerDetails/{username}")
