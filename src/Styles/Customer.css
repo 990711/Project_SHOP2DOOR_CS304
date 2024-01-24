@@ -740,3 +740,10 @@ button:hover {
   width: fit-content;
   margin-right: 10px;
 }
+
+.logout-btn-panel {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 5px; /* Add margin for spacing */
+}

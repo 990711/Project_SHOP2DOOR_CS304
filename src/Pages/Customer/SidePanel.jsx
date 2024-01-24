@@ -10,6 +10,7 @@ import {
   faCog,
   faUser,
   faShoppingCart,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const SidePanel = () => {
@@ -70,6 +71,12 @@ const SidePanel = () => {
       >
         <FontAwesomeIcon icon={faUser} className="fa-icon" /> Profile
       </Link>
+      <div className="logout-btn-panel">
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+          <FontAwesomeIcon icon={faSignOutAlt} className="fa-icon" />
+          Logout
+        </Link>
+      </div>
     </div>
   );
 };
