@@ -91,12 +91,12 @@ public class ItemController {
 		 return itemRepo.findAllByCategory(category);
 	 }
 	 
-	 /*@GetMapping("/ItemByShop/{id}")
+	 @GetMapping("/ItemByShopId/{id}")
 	 public List<Item> getItemByShopId(@PathVariable Long id){
 		 return itemRepo.getItemsByShopId(id);
-	 }*/
+	 }
 	 
-	 @GetMapping("/ItemByShop/{username}")
+	 @GetMapping("/ItemByShopUsername/{username}")
 	 public List<Item> getItemByShop(@PathVariable String username){
 		 Long id = loginRepo.getShopIdByUsername(username);
 		 

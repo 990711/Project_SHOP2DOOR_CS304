@@ -89,7 +89,7 @@ public class ShopOwnerController {
 //	        return shopOwnerRepo.findAll();
 //	    }
 
-	@PutMapping("/ShopOwnerItem/{id}")
+	/*@PutMapping("/ShopOwnerItem/{id}")
 	public ResponseEntity<String> updateItemList(@PathVariable int id, @RequestBody Item newItem) {
 		ShopOwner shop = shopOwnerRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
@@ -106,9 +106,29 @@ public class ShopOwnerController {
 		shopOwnerRepo.save(shop);
 
 		return ResponseEntity.ok("Successfully added item..");
+	}*/
+	
+	@PutMapping("/ShopOwnerItem/{username}")
+	public ResponseEntity<String> updateItemList(@PathVariable String username, @RequestBody Item newItem){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		//Item item = new Item()
+		
+		shop.getItems().add(newItem);
+		
+		newItem.setShopOwner(shop);
+		
+		//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+		
+		
+		itemRepo.save(newItem);
+		shopOwnerRepo.save(shop);
+		
+		return ResponseEntity.ok("Successfully added item..");
 	}
 
-	@PutMapping("/ShopOwnerJob/{id}")
+	/*@PutMapping("/ShopOwnerJob/{id}")
 	public ResponseEntity<String> updateJobs(@PathVariable int id, @RequestBody ShopOwnerJob newJob) {
 		ShopOwner shop = shopOwnerRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
@@ -125,7 +145,29 @@ public class ShopOwnerController {
 		shopOwnerRepo.save(shop);
 
 		return ResponseEntity.ok("Successfully Posted the job.");
+	}*/
+	
+	@PutMapping("/ShopOwnerJob/{username}")
+	public ResponseEntity<String> updateJobs(@PathVariable String username, @RequestBody ShopOwnerJob newJob){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		//Item item = new Item()
+		
+		shop.getJobs().add(newJob);
+		
+		newJob.setShop(shop);
+		
+		//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+		
+		
+		shopOwnerJobRepo.save(newJob);
+		shopOwnerRepo.save(shop);
+		
+		return ResponseEntity.ok("Successfully added item..");
 	}
+	
+	
 
 	@GetMapping("/ShopOwnerDetails/{username}")
 	public ResponseEntity<ShopOwner> getShopByUsername(@PathVariable String username) {

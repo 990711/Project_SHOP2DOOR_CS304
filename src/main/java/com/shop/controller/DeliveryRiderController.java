@@ -111,7 +111,7 @@ public class DeliveryRiderController {
 		
 		@GetMapping("deliveryriderorders/{username}")
 		public List<Order> getOrders(@PathVariable String username) {
-			DeliveryRider rider =  deliveryRiderRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + "not found!"));
+			DeliveryRider rider =  deliveryRiderRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + " not found!"));
 			return rider.getOrders();
 		}
 		

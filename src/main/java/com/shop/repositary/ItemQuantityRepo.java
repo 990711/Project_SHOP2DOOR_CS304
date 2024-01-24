@@ -17,6 +17,6 @@ public interface ItemQuantityRepo extends JpaRepository<ItemQuantity, ItemQuanti
 	@Query(value = "SELECT item_id,quantity FROM item_quantity WHERE order_id = :id", nativeQuery = true)
 	List<Object[]> findItemsByOrderID(@Param("id") long id);
 
-	@Query(value = "SELECT iq.order_id,iq.quantity,itm.name,itm.brand,dr.name FROM shop.item_quantity iq INNER JOIN shop.item itm ON iq.shop_id = itm.shop_id  INNER JOIN shop.orders odr ON iq.order_id = odr.order_id INNER JOIN shop.delivery_rider dr ON odr.delivery_id = dr.user_id WHERE iq.shop_id = :id AND odr.action = \"Rider accepted\"", nativeQuery = true)
+	@Query(value = "SELECT iq.order_id,iq.quantity,itm.name,itm.brand,dr.name FROM cs_304_group_project.item_quantity iq INNER JOIN cs_304_group_project.item itm ON iq.shop_id = itm.shop_id  INNER JOIN cs_304_group_project.orders odr ON iq.order_id = odr.order_id INNER JOIN cs_304_group_project.delivery_rider dr ON odr.delivery_id = dr.user_id WHERE iq.shop_id = :id AND odr.action = \"Rider accepted\"", nativeQuery = true)
 	List<Map<String, Object>> findItemsByShopOwnerID(@Param("id") int id);
 }
