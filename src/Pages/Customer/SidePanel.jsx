@@ -8,6 +8,7 @@ import {
   faEnvelope,
   faQuestionCircle,
   faCog,
+  faUser,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -38,7 +39,9 @@ const SidePanel = () => {
 
       <Link
         to="/customermainlayout/categories"
-        className={location.pathname === "/customermainlayout/categories" ? "active" : ""}
+        className={
+          location.pathname === "/customermainlayout/categories" ? "active" : ""
+        }
       >
         <FontAwesomeIcon icon={faList} className="fa-icon" /> Categories
       </Link>
@@ -49,19 +52,24 @@ const SidePanel = () => {
           location.pathname === "/customermainlayout/cart" ? "active" : ""
         }
       >
-        <FontAwesomeIcon icon={faShoppingCart} className="fa-icon" /> Shopping Cart
+        <FontAwesomeIcon icon={faShoppingCart} className="fa-icon" /> Shopping
+        Cart
       </Link>
 
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+      <Link to="#" className={location.pathname === "/" ? "active" : ""}>
         <FontAwesomeIcon icon={faEnvelope} className="fa-icon" /> Message
       </Link>
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+      <Link to="#" className={location.pathname === "/" ? "active" : ""}>
         <FontAwesomeIcon icon={faQuestionCircle} className="fa-icon" /> Help
       </Link>
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
-        <FontAwesomeIcon icon={faCog} className="fa-icon" /> Settings
+      <Link
+        to="/customermainlayout/profile"
+        className={
+          location.pathname === "/customermainlayout/profile" ? "active" : ""
+        }
+      >
+        <FontAwesomeIcon icon={faUser} className="fa-icon" /> Profile
       </Link>
-      {/* Add more links for other pages */}
     </div>
   );
 };

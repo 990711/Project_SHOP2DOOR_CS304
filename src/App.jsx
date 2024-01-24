@@ -43,7 +43,7 @@ import CustomerOrders from './Pages/Customer/CustomerOrders';
 import CustomerCategories from './Pages/Customer/CustomerCategory';
 import { UserProvider } from './Pages/Customer/UserContext';
 import CartPage from "./Pages/Customer/CartPage.jsx";
-
+import CustomerProfile from "./Pages/Customer/CustomerProfile.jsx";
 
 import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
 import ProtectedRoute from './Pages/Authentication/ProtectedRoute';
@@ -73,6 +73,7 @@ function App() {
             <Route path="/customermainlayout/categories" element={<CustomerCategories />} />
             <Route path="/customermainlayout/orders" element={<CustomerOrders />} />
             <Route path="/customermainlayout/cart" element={<CartPage />} />
+            <Route path="/customermainlayout/profile" element={<CustomerProfile />} />
           </Route>
 
 

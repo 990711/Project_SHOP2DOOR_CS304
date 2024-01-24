@@ -31,6 +31,7 @@ const CustomerDashboard = () => {
       });
 
       console.log(state.CustomerOrderID);
+      console.log(state.username);
   }, []);
 
   // Filter shops by search term
