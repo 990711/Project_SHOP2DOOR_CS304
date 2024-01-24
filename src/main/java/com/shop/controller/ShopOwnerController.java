@@ -86,10 +86,30 @@ public class ShopOwnerController {
 //	    }
 		
 	
-		@PutMapping("/ShopOwnerItem/{id}")
+		/*@PutMapping("/ShopOwnerItem/{id}")
 		public ResponseEntity<String> updateItemList(@PathVariable Long id, @RequestBody Item newItem){
 			ShopOwner shop = shopOwnerRepo.findById(id)
-	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
+	                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with id: " + id));
+			
+			//Item item = new Item()
+			
+			shop.getItems().add(newItem);
+			
+			newItem.setShopOwner(shop);
+			
+			//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+			
+			
+			itemRepo.save(newItem);
+			shopOwnerRepo.save(shop);
+			
+			return ResponseEntity.ok("Successfully added item..");
+		}*/
+		
+		@PutMapping("/ShopOwnerItem/{username}")
+		public ResponseEntity<String> updateItemList(@PathVariable String username, @RequestBody Item newItem){
+			ShopOwner shop = shopOwnerRepo.findByUsername(username)
+	                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
 			
 			//Item item = new Item()
 			
@@ -106,10 +126,30 @@ public class ShopOwnerController {
 			return ResponseEntity.ok("Successfully added item..");
 		}
 	
-		@PutMapping("/ShopOwnerJob/{id}")
+		/*@PutMapping("/ShopOwnerJob/{id}")
 		public ResponseEntity<String> updateJobs(@PathVariable Long id, @RequestBody ShopOwnerJob newJob){
 			ShopOwner shop = shopOwnerRepo.findById(id)
 	                .orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
+			
+			//Item item = new Item()
+			
+			shop.getJobs().add(newJob);
+			
+			newJob.setShop(shop);
+			
+			//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+			
+			
+			shopOwnerJobRepo.save(newJob);
+			shopOwnerRepo.save(shop);
+			
+			return ResponseEntity.ok("Successfully added item..");
+		}*/
+		
+		@PutMapping("/ShopOwnerJob/{username}")
+		public ResponseEntity<String> updateJobs(@PathVariable String username, @RequestBody ShopOwnerJob newJob){
+			ShopOwner shop = shopOwnerRepo.findByUsername(username)
+	                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
 			
 			//Item item = new Item()
 			
