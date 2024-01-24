@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
-import com.shop.model.Item;
 import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ShopOwnerJobRepo;
 
