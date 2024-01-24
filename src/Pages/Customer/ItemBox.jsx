@@ -3,8 +3,7 @@ import ConfirmPopup from "./PopupConfirm";
 
 const ItemBox = ({ item, itemsCount }) => {
 
-  const discountPercentage =
-    item.quantity === 0 ? 0 : item.discount_percentage || 0;
+  const discountPercentage = item.quantity === 0 ? 0 : (item.discount_percentage * 100) || 0;
   const discountedPrice = item.price - (item.price * discountPercentage) / 100;
   const itemBoxClass = itemsCount > 1 ? "item-box multiple" : "item-box single";
   const [isConfirmationOpen, setConfirmationOpen] = useState(false);
