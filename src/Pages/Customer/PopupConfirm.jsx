@@ -29,6 +29,7 @@ const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
   const popupClassName = isOpen ? "confirm-popup" : "hidden-popup";
 
   return (
+    <div className={isOpen ? "popup-container" : "hidden-popup"}>
     <div className={popupClassName}>
       <div className={"confirm-popup-content"}>
         <h2>Enter quantity:</h2>
@@ -53,6 +54,7 @@ const ConfirmPopup = ({ isOpen, onCancel, onConfirm, item }) => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

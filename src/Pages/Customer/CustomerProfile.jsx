@@ -4,6 +4,7 @@ import "../../styles/Customer.css";
 import { useUser } from "./UserContext";
 import CustomerRegisterService from "../../Services/CustomerRegisterService";
 import profile_icon from "../../assets/profile_icon.png";
+import Popup from "./PopupMessage";
 
 const CustomerProfile = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const CustomerProfile = () => {
     role: "",
   });
   const [isUpdated, setIsUpdated] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     CustomerRegisterService.getCustomerByUserName(state.username)
@@ -49,9 +51,14 @@ const CustomerProfile = () => {
       );
       console.log("Response:", response?.data);
       setIsUpdated(!isUpdated);
+      setShowPopup(true);
     } catch (error) {
       console.error("Error updating:", error);
     }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -135,6 +142,12 @@ const CustomerProfile = () => {
           </div>
         </form>
       </div>
+      {showPopup && (
+        <Popup
+          message="Profile updated successfully!"
+          onClose={handlePopupClose}
+        />
+      )}
     </div>
   );
 };
