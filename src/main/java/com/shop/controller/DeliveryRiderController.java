@@ -44,6 +44,9 @@ public class DeliveryRiderController {
 	@Autowired
 	private OrderRepo orderRepo;
 	
+	@Autowired
+	private OrderController orderController;
+	
 	
 //		@PostMapping("/DeliveryRiderDetails")
 //		public ResponseEntity<DeliveryRider> addDeliveryRider(@Valid @RequestBody DeliveryRider deliveryRider) {
@@ -131,5 +134,12 @@ public class DeliveryRiderController {
 		public ResponseEntity<List<Object>> viewShopDetails(@PathVariable Long orderId){
 			List<Object> shop = orderRepo.viewShopDetails(orderId);
 			return ResponseEntity.ok(shop);
+		}
+		
+		@PutMapping("completeOrder/{orderId}")
+		public ResponseEntity<String> completeOrder(@PathVariable Long orderId){
+			orderController.updateActionByString(orderId, "Order Completed");
+			orderController.updateDeliveryTime(orderId);
+			return ResponseEntity.ok("Successfully completed the order !");
 		}
 }
