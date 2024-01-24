@@ -2,9 +2,9 @@ package com.shop.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
 import com.shop.model.Customer;
-import com.shop.model.Item;
 import com.shop.model.Login;
-import com.shop.model.Order;
+import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.CustomerRepo;
 import com.shop.repositary.LoginRepo;
+import com.shop.repositary.ShopOwnerJobRepo;
 import com.shop.service.CustomerService;
 import com.shop.service.SmsService;
 
@@ -43,6 +43,9 @@ public class CustomerController {
 
 	@Autowired
 	private SmsService whatsapp;
+
+	@Autowired
+	private ShopOwnerJobRepo jopRepo;
 
 	// add Customer
 	@PostMapping("/CustomerDetails")
@@ -105,4 +108,18 @@ public class CustomerController {
 		return ResponseEntity.ok(msg);
 	}
 
+	// customer apply for the job
+	@PostMapping("CustomerAddJob/{username}/{jobid}")
+	public ResponseEntity<String> customerJobApplication(@PathVariable long jobid, @PathVariable String username) {
+
+		ShopOwnerJob job = jopRepo.findById(jobid)
+				.orElseThrow(() -> new ResourceNotFound("job with id " + jobid + " not found!!"));
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
+		Set<ShopOwnerJob> jobs = customer.getAppliedJobs();
+		jobs.add(job);
+		customer.setAppliedJobs(jobs);
+		customerRepo.save(customer);
+		return ResponseEntity.ok("Applied to the job");
+	}
 }
