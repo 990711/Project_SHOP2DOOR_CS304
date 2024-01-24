@@ -122,4 +122,21 @@ public class CustomerController {
 		customerRepo.save(customer);
 		return ResponseEntity.ok("Applied to the job");
 	}
+
+	/*
+	 * // customer remove application for the job
+	 * 
+	 * @PostMapping("CustomerRemoveJob/{username}/{jobid}") public
+	 * ResponseEntity<String> customerJobApplicationRemove(@PathVariable long jobid,
+	 * 
+	 * @PathVariable String username) {
+	 * 
+	 * ShopOwnerJob job = jopRepo.findById(jobid) .orElseThrow(() -> new
+	 * ResourceNotFound("job with id " + jobid + " not found!!")); Customer customer
+	 * = customerRepo.findByUsername(username) .orElseThrow(() -> new
+	 * ResourceNotFound(username + " not found!")); Set<ShopOwnerJob> jobs =
+	 * customer.getAppliedJobs(); jobs.remove(job); customer.setAppliedJobs(jobs);
+	 * customerRepo.save(customer); return
+	 * ResponseEntity.ok("Removed the Application from the job."); }
+	 */
 }
