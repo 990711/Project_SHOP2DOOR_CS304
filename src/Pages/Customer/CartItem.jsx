@@ -38,7 +38,7 @@ const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityIncrease, 
   };
 
   const discountPercentage = item.quantity === 0 ? 0 : item.discount_percentage || 0;
-  const discountedPrice = item.price - (item.price * discountPercentage) / 100;
+  const discountedPrice = item.price - (item.price * discountPercentage);
   const total = (quantity * discountedPrice).toFixed(2);
 
   return (

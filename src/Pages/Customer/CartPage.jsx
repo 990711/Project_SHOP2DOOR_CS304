@@ -10,10 +10,11 @@ import order_accept_svg from "../../assets/orderAccept.svg";
 const CartPage = () => {
   const { state } = useUser();
   const [cartItems, setCartItems] = useState([]);
-  const [order, setOrder] = useState([]);
+  const [ order, setOrder ] = useState([]);
   const [deletedItemID, setDeletedItemID] = useState(null);
   const [updateItemCount, setUpdateItemCount] = useState(true);
   const [ orderStatus, setOrderStatus ] = useState("");
+  const [ orderTotal, setOrderTotal ] = useState(0);
 
   const additionalDiscount = 0;
 
@@ -33,6 +34,7 @@ const CartPage = () => {
       .then((foundOrder) => {
         if (foundOrder) {
           setOrder(foundOrder);
+          setOrderTotal((foundOrder.total).toFixed(2));
           console.log("Found order:", foundOrder);
         } else {
           console.log("Order not found.");
@@ -167,11 +169,11 @@ const CartPage = () => {
           <div className="order-summary">
             <h2>Order Summary</h2>
             <p className="order-summary-label">Total:</p>
-            <p className="order-summary-value">{order.total}</p>
+            <p className="order-summary-value">{orderTotal}</p>
             <p className="order-summary-label">Promotion Discount:</p>
-            <p className="order-summary-value">{additionalDiscount}</p>
+            <p className="order-summary-value">{additionalDiscount.toFixed(2)}</p>
             <p className="order-summary-label">Net Total:</p>
-            <p className="order-summary-value">{order.total}</p>
+            <p className="order-summary-value">{orderTotal}</p>
             <div className="shopping-cart-btn-panel">
               <button className="shopping-btn" onClick={confirmOrder}>
                 Confirm Order
