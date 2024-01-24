@@ -70,11 +70,12 @@ public class ItemQuantityController {
 		return new ResponseEntity<ItemQuantity>(itemQ, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("itemquantity")
-	public ResponseEntity<String> delete(@RequestBody ItemQuantityKey id) {
-
+	@DeleteMapping("itemquantity/{orderId}/{itemId}")
+	public ResponseEntity<String> delete(@PathVariable Long orderId, @PathVariable Long itemId) {
+		ItemQuantityKey id = new ItemQuantityKey(orderId,itemId);
+		
 		if (!repo.existsById(id)) {
-			return ResponseEntity.ok("item does not found!");
+			return ResponseEntity.ok("Not found!");
 		}
 
 		repo.deleteById(id);
@@ -85,10 +86,13 @@ public class ItemQuantityController {
 		orderRepo.save(theOrder);
 
 		return ResponseEntity.ok("item deleted from the cart!");
+		
 	}
 	
-	@PutMapping("itemquantityIncrease")
-	public ResponseEntity<String> increaseQuantity(@RequestBody ItemQuantityKey id) {
+	@PutMapping("itemquantityIncrease/{orderId}/{itemId}")
+	public ResponseEntity<String> increaseQuantity(@PathVariable Long orderId, @PathVariable Long itemId) {
+		ItemQuantityKey id = new ItemQuantityKey(orderId,itemId);
+		
 		ItemQuantity itemQ = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order/item not found " + id));
 		itemQ.setQuantity(itemQ.getQuantity()+ 1);
 		repo.save(itemQ);
@@ -101,8 +105,10 @@ public class ItemQuantityController {
 		return ResponseEntity.ok("Item quantity increased..");
 	}
 	
-	@PutMapping("itemquantityDecrease")
-	public ResponseEntity<String> decreaseQuantity(@RequestBody ItemQuantityKey id) {
+	@PutMapping("itemquantityDecrease/{orderId}/{itemId}")
+	public ResponseEntity<String> decreaseQuantity(@PathVariable Long orderId, @PathVariable Long itemId) {
+		ItemQuantityKey id = new ItemQuantityKey(orderId,itemId);
+		
 		ItemQuantity itemQ = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order/item not found " + id));
 		itemQ.setQuantity(itemQ.getQuantity()- 1);
 		repo.save(itemQ);
