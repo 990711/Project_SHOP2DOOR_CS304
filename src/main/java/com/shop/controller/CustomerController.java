@@ -27,6 +27,7 @@ import com.shop.service.CustomerService;
 import com.shop.service.SmsService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -46,7 +47,7 @@ public class CustomerController {
 	private SmsService whatsapp;
 
 	@Autowired
-	private ShopOwnerJobRepo jopRepo;
+	private ShopOwnerJobRepo jobRepo;
 
 	// add Customer
 	@PostMapping("/CustomerDetails")
@@ -113,7 +114,7 @@ public class CustomerController {
 	@PostMapping("CustomerAddJob/{username}/{jobid}")
 	public ResponseEntity<String> customerJobApplication(@PathVariable long jobid, @PathVariable String username) {
 
-		ShopOwnerJob job = jopRepo.findById(jobid)
+		ShopOwnerJob job = jobRepo.findById(jobid)
 				.orElseThrow(() -> new ResourceNotFound("job with id " + jobid + " not found!!"));
 		Customer customer = customerRepo.findByUsername(username)
 				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
@@ -125,12 +126,11 @@ public class CustomerController {
 	}
 
 	// customer remove application for the job
-
 	@PostMapping("CustomerRemoveJob/{username}/{jobid}")
 	public ResponseEntity<String> customerJobApplicationRemove(@PathVariable long jobid,
 			@PathVariable String username) {
 
-		ShopOwnerJob job = jopRepo.findById(jobid)
+		ShopOwnerJob job = jobRepo.findById(jobid)
 				.orElseThrow(() -> new ResourceNotFound("job with id " + jobid + " not found!!"));
 		Customer customer = customerRepo.findByUsername(username)
 				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
@@ -149,6 +149,14 @@ public class CustomerController {
 				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
 		Set<ShopOwnerJob> appliedjobs = customer.getAppliedJobs();
 		return new ResponseEntity<Set<ShopOwnerJob>>(appliedjobs, HttpStatus.OK);
+	}
+
+	// show all the active jobs
+	@GetMapping("ActiveJobs")
+	public ResponseEntity<Set<ShopOwnerJob>> getActiveJobs(@RequestParam String param) {
+
+		Set<ShopOwnerJob> openjobs = jobRepo.getOpenJobs();
+		return new ResponseEntity<Set<ShopOwnerJob>>(openjobs, HttpStatus.OK);
 	}
 
 }
