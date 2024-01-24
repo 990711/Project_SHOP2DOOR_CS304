@@ -167,7 +167,7 @@ public class LoginController {
 	
 	
 	// Create user rest api
-    @PostMapping("/checkUsername") // not use here
+    /*@PostMapping("/checkUsername") // not use here
     public ResponseEntity<Login> createuser(@RequestBody Login login) {
         // Check for duplicate usernames
     	Optional<Login> existingUser = loginRepo.findByUsername(login.getUsername());
@@ -184,7 +184,7 @@ public class LoginController {
     	    return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     	}
         
-    }
+    }*/
     
     /*@PutMapping("/LoginDetails/{id}") // Logout By ID
 	public ResponseEntity<String> Logout(@PathVariable int id){

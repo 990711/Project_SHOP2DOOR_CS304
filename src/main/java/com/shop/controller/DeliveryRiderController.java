@@ -22,6 +22,7 @@ import com.shop.model.Login;
 import com.shop.model.Order;
 import com.shop.repositary.DeliveryRiderRepo;
 import com.shop.repositary.LoginRepo;
+import com.shop.repositary.OrderRepo;
 import com.shop.service.DeliveryRiderService;
 
 import jakarta.validation.Valid;
@@ -39,6 +40,9 @@ public class DeliveryRiderController {
 	
 	@Autowired
 	private LoginRepo loginRepo;
+	
+	@Autowired
+	private OrderRepo orderRepo;
 	
 	
 //		@PostMapping("/DeliveryRiderDetails")
@@ -103,5 +107,29 @@ public class DeliveryRiderController {
 			deliveryRiderRepo.save(rider);
 			String msg = "Delivery Rider successfully deleted!";
 			return ResponseEntity.ok(msg);
+		}
+		
+		@GetMapping("deliveryriderorders/{username}")
+		public List<Order> getOrders(@PathVariable String username) {
+			DeliveryRider rider =  deliveryRiderRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + "not found!"));
+			return rider.getOrders();
+		}
+		
+		@GetMapping("viewWaitingOrders")
+		public ResponseEntity<List<Long>> viewWaitingOrders(){
+			List<Long> orderList = orderRepo.viewWaitingOrders();
+			return ResponseEntity.ok(orderList);
+		}
+		
+		@GetMapping("viewCustomerDetails/{orderId}")
+		public ResponseEntity<Object> viewCustomerDetails(@PathVariable Long orderId){
+			Object customer = orderRepo.viewCustomerDetails(orderId);
+			return ResponseEntity.ok(customer);
+		}
+		
+		@GetMapping("viewShopDetails/{orderId}")
+		public ResponseEntity<List<Object>> viewShopDetails(@PathVariable Long orderId){
+			List<Object> shop = orderRepo.viewShopDetails(orderId);
+			return ResponseEntity.ok(shop);
 		}
 }

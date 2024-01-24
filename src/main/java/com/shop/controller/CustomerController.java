@@ -37,69 +37,72 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService service;
-	
+
 	@Autowired
 	private LoginRepo loginRepo;
-	
+
 	@Autowired
 	private SmsService whatsapp;
-	
-	// Add Customer
-		@PostMapping("/CustomerDetails")
-		public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
 
-			Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
-			//Optional<Customer> existingUser = customerRepo.findByUsername(customer.getUsername());
-			
-			if (existingUser.isPresent()) {
-				return ResponseEntity.status(401).body("Please find another username..");
-	    	}else {
-	    		Customer savedCustomer = service.createCustomer(customer);
-//	    		whatsapp.sendSMS("+94"+savedCustomer.getPhone(), "wellcome "+ savedCustomer.getName() +" to shpop2door... You have successfully sign in.");
-	    		return ResponseEntity.ok("Registration successful!");
-	    	}
-			
-			//Customer savedCustomer = service.createCustomer(customer);
-			//return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
+	// add Customer
+	@PostMapping("/CustomerDetails")
+	public ResponseEntity<String> addCustomer(@Valid @RequestBody Customer customer) {
+
+		Optional<Login> existingUser = loginRepo.findByUsername(customer.getUsername());
+		// Optional<Customer> existingUser =
+		// customerRepo.findByUsername(customer.getUsername());
+
+		if (existingUser.isPresent()) {
+			return ResponseEntity.status(401).body("Please find another username..");
+		} else {
+			Customer savedCustomer = service.createCustomer(customer);
+//			whatsapp.sendSMS("+94" + savedCustomer.getPhone(),
+//					"wellcome " + savedCustomer.getName() + " to shpop2door... You have successfully sign in.");
+			return ResponseEntity.ok("Registration successful!");
 		}
-		
-		@GetMapping("/CustomerDetails")
-		public List<Customer> getCustomers() {
-			return customerRepo.findAll();
-		}
-		
-		@GetMapping("/CustomerDetails/{username}")
-	    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable String username) {
-	    	Customer customer = customerRepo.findByUsername(username)
-	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
-	        return ResponseEntity.ok(customer);
-	 }
-		
-		@PutMapping("/CustomerDetails/{username}")
-	    public ResponseEntity<Customer> updateCustomerByUsername(@PathVariable String username,@Valid @RequestBody Customer newCustomer) {
-	    	Customer customer = customerRepo.findByUsername(username)
-	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
-	        
-	    	customer.setAddress(newCustomer.getAddress());
-	    	customer.setEmail(newCustomer.getEmail());
-	    	customer.setName(newCustomer.getName());
-	    	//customer.setPassword(newCustomer.getPassword());
-	    	customer.setPhone(newCustomer.getPhone());
-	    	//customer.setUsername(newCustomer.getUsername());
-	        
-	        Customer updatedCustomer = customerRepo.save(customer);
-	        return ResponseEntity.ok(updatedCustomer);
-	    }
-		
-		@DeleteMapping("/CustomerDetails/{username}")
-		public ResponseEntity<String> deleteCustomer(@PathVariable String username){
-			Customer customer = customerRepo.findByUsername(username)
-	                .orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
-	        
-			customer.setDeleted(true);
-			customerRepo.save(customer);
-			String msg = "Customer successfully deleted!";
-			return ResponseEntity.ok(msg);
-		}
-	
+
+		// Customer savedCustomer = service.createCustomer(customer);
+		// return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
+	}
+
+	@GetMapping("/CustomerDetails")
+	public List<Customer> getCustomers() {
+		return customerRepo.findAll();
+	}
+
+	@GetMapping("/CustomerDetails/{username}")
+	public ResponseEntity<Customer> getCustomerByUsername(@PathVariable String username) {
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
+		return ResponseEntity.ok(customer);
+	}
+
+	@PutMapping("/CustomerDetails/{username}")
+	public ResponseEntity<Customer> updateCustomerByUsername(@PathVariable String username,
+			@Valid @RequestBody Customer newCustomer) {
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
+
+		customer.setAddress(newCustomer.getAddress());
+		customer.setEmail(newCustomer.getEmail());
+		customer.setName(newCustomer.getName());
+		// customer.setPassword(newCustomer.getPassword());
+		customer.setPhone(newCustomer.getPhone());
+		// customer.setUsername(newCustomer.getUsername());
+
+		Customer updatedCustomer = customerRepo.save(customer);
+		return ResponseEntity.ok(updatedCustomer);
+	}
+
+	@DeleteMapping("/CustomerDetails/{username}")
+	public ResponseEntity<String> deleteCustomer(@PathVariable String username) {
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound("Customer not found with username: " + username));
+
+		customer.setDeleted(true);
+		customerRepo.save(customer);
+		String msg = "Customer successfully deleted!";
+		return ResponseEntity.ok(msg);
+	}
+
 }
