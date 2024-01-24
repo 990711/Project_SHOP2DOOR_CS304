@@ -30,15 +30,6 @@ const SidePanel = () => {
         <FontAwesomeIcon icon={faHome} className="fa-icon" /> Dashboard
       </Link>
       <Link
-        to="/customermainlayout/orders"
-        className={
-          location.pathname === "/customermainlayout/orders" ? "active" : ""
-        }
-      >
-        <FontAwesomeIcon icon={faClipboardList} className="fa-icon" /> Orders
-      </Link>
-
-      <Link
         to="/customermainlayout/categories"
         className={
           location.pathname === "/customermainlayout/categories" ? "active" : ""
@@ -55,6 +46,10 @@ const SidePanel = () => {
       >
         <FontAwesomeIcon icon={faShoppingCart} className="fa-icon" /> Shopping
         Cart
+      </Link>
+
+      <Link to="#" className={location.pathname === "/" ? "active" : ""}>
+        <FontAwesomeIcon icon={faClipboardList} className="fa-icon" /> Orders
       </Link>
 
       <Link to="#" className={location.pathname === "/" ? "active" : ""}>
