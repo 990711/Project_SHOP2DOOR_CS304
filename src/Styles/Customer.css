@@ -71,25 +71,25 @@ input {
 
 /* Button styles */
 button {
-  padding: 10px;
-  width: 48%;
+  width: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 18px;
+  background-color: #0e6d04;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  background-color: #4caf50; /* Green background color */
-  color: white; /* White text color */
-  border: none; /* Remove border */
-  border-radius: 4px; /* Rounded corners */
-  text-align: center; /* Center text */
-  text-decoration: none; /* Remove underline */
-  display: inline-block;
-  font-size: 16px; /* Set font size */
   transition-duration: 0.4s; /* Smooth transition on hover */
 }
 
 /* Button hover styles */
 button:hover {
-  background-color: white;
-  color: black;
-  border: 1px solid #4caf50;
+  background-color: #0a5602;
+  color: white;
+  border: none;
 }
 
 /* Table container styles */
@@ -486,6 +486,7 @@ button {
 }
 
 .cart-items {
+  height: fit-content;
   width: 65%;
   padding: 20px;
   background-color: #fcfcfc;
@@ -587,16 +588,24 @@ button:hover {
   vertical-align: middle;
   text-align: right !important;
 }
+.order-summary-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
 
 .order-summary {
-  width: 30%;
+  position: relative;
+  width: 100%;
   padding: 20px;
   background-color: #fcfcfc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: left;
   height: fit-content;
+  margin-bottom: 30px;
 }
 
+.order-status h2,
 .order-summary h2 {
   text-align: center;
   margin-bottom: 10px;
@@ -618,4 +627,51 @@ button:hover {
   width: 20%;
   text-align: right;
   font-weight: bold;
+}
+
+.order-status {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  background-color: #fcfcfc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  height: fit-content;
+  margin-bottom: 30px;
+}
+
+.shopping-cart-btn-panel {
+  text-align: right;
+}
+
+.shopping-btn {
+  width: auto;
+  font-size: 18px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.shopping-btn:hover {
+  background-color: #0a5602;
+  color: white;
+  border: none;
+}
+
+.waiting {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.waiting-svg-icon {
+  width: 200px;
+  color: #0a5602;
+}
+
+.order-status h4 {
+  font-size: 18px;
+  text-align: center;
 }

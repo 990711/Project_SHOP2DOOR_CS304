@@ -17,6 +17,14 @@ class ItemQuantityService {
   deleteItemQuantity(itemID, orderID) {
     return axios.delete(ORDER_API_BASE_URL + "/" + orderID + "/" + itemID);
   }
+
+  incrementItemQuantity(itemID, orderID) {
+    return axios.put(ORDER_API_BASE_URL + "Increase/" + orderID + "/" + itemID);
+  }
+
+  decrementItemQuantity(itemID, orderID) {
+    return axios.put(ORDER_API_BASE_URL + "Decrease/" + orderID + "/" + itemID);
+  }
 }
 
 export default new ItemQuantityService();

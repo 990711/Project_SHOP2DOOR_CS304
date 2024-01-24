@@ -34,5 +34,9 @@ class OrderService {
   deleteOrder(orderId) {
     return axios.delete(ORDER_API_BASE_URL + "/" + orderId);
   }
+
+  confirmOrder(orderId) {
+    return axios.put(ORDER_API_BASE_URL + "Confirm/" + orderId);
+  }
 }
 export default new OrderService();

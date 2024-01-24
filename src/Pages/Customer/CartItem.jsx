@@ -3,15 +3,17 @@ import ItemsService from "../../Services/ItemsService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityChange }) => {
+const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityIncrease, onQuantityDecrease }) => {
   const [item, setItem] = useState([]);
 
   var quantity = itemQuantity;
 
-  const handleQuantityChange = (newQuantity) => {
-    // Call the parent component's callback to update the quantity
-    quantity = newQuantity;
-    console.log(quantity);
+  const handleQuantityIncrease = () => {
+    onQuantityIncrease(singleCartItem.item_id);
+  };
+
+  const handleQuantityDecrease = () => {
+    onQuantityDecrease(singleCartItem.item_id);
   };
 
   useEffect(() => {
@@ -39,11 +41,11 @@ const CartItem = ({ singleCartItem, itemQuantity, onRemove, onQuantityChange }) 
           <p>{quantity}</p>
         </div>
         <div className="buttons-section">
-          <button className="cartItemBtn" onClick={() => handleQuantityChange(quantity - 1)}>
-            <FontAwesomeIcon icon={faMinus} />
-          </button>
-          <button className="cartItemBtn" onClick={() => handleQuantityChange(quantity + 1)}>
+          <button className="cartItemBtn" onClick={() => handleQuantityIncrease()}>
             <FontAwesomeIcon icon={faPlus} />
+          </button>
+          <button className="cartItemBtn" onClick={() => handleQuantityDecrease()}>
+            <FontAwesomeIcon icon={faMinus} />
           </button>
         </div>
       </div>
