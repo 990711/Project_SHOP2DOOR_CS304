@@ -3,6 +3,7 @@ package com.shop.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import com.shop.repositary.LoginRepo;
 import com.shop.repositary.ShopOwnerJobRepo;
 import com.shop.repositary.ShopOwnerRepo;
 import com.shop.service.ShopOwnerService;
+import com.twilio.http.Response;
 
 import jakarta.validation.Valid;
 
@@ -134,6 +136,7 @@ public class ShopOwnerController {
 				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
 
 		// Item item = new Item()
+		newJob.setApplicationStatus("open");
 
 		shop.getJobs().add(newJob);
 
@@ -169,6 +172,30 @@ public class ShopOwnerController {
 	
 	
 
+	// close a particular job belongs to a shop owner
+	@PutMapping("ShopOwnerclosejob/{id}")
+	public ResponseEntity<String> closeAJob(@PathVariable long id) {
+
+		
+		ShopOwnerJob job = shopOwnerJobRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFound(id + " job is not found!"));
+		job.setApplicationStatus("close");
+		shopOwnerJobRepo.save(job);
+		return ResponseEntity.ok("closed the job");
+	}
+	
+	// reopen a particular job belongs to a shop owner
+		@PutMapping("ShopOwneropenjob/{id}")
+		public ResponseEntity<String> reOpenAJob(@PathVariable long id) {
+
+			
+			ShopOwnerJob job = shopOwnerJobRepo.findById(id)
+					.orElseThrow(() -> new ResourceNotFound(id + " job is not found!"));
+			job.setApplicationStatus("open");
+			shopOwnerJobRepo.save(job);
+			return ResponseEntity.ok("reopened the job");
+		}
+
 	@GetMapping("/ShopOwnerDetails/{username}")
 	public ResponseEntity<ShopOwner> getShopByUsername(@PathVariable String username) {
 		ShopOwner shop = shopOwnerRepo.findByUsername(username)
@@ -203,7 +230,7 @@ public class ShopOwnerController {
 		return ResponseEntity.ok(msg);
 	}
 
-	//provide all the orders which are belongs to a particular shop owner
+	// provide all the orders which are belongs to a particular shop owner
 	@GetMapping("ShopOwnerOrderDetails/{shopId}")
 	public ResponseEntity<List<Map<String, Object>>> shopOwnerOrderDetails(@PathVariable int shopId) {
 		List<Map<String, Object>> items = itemQuantityRepo.findItemsByShopOwnerID(shopId);
