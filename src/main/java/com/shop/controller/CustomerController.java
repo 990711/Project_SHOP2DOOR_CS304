@@ -153,7 +153,7 @@ public class CustomerController {
 
 	// show all the active jobs
 	@GetMapping("ActiveJobs")
-	public ResponseEntity<Set<ShopOwnerJob>> getActiveJobs(@RequestParam String param) {
+	public ResponseEntity<Set<ShopOwnerJob>> getActiveJobs() {
 
 		Set<ShopOwnerJob> openjobs = jobRepo.getOpenJobs();
 		return new ResponseEntity<Set<ShopOwnerJob>>(openjobs, HttpStatus.OK);
