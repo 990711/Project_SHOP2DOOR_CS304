@@ -115,23 +115,29 @@ const DeliveryRider_completed_deliveries = () => {
             )}
           </div>
         );
-      case 'shopDetails':
-        // Render content for Shop Details modal
-        return (
-          <div>
-      <button onClick={() => setCurrentModalType(null)}>Back</button>
-      <div>Shop Details</div>
-      {shopDetails && shopDetails[0] && (
-        <>
-          {/* Render shop details here */}
-          <p>Shop Name: {shopDetails[0][0]}</p>
-          <p>Shop Location: {shopDetails[0][1]}</p>
-          <p>Shop Branch: {shopDetails[0][2]}</p>
-          <p>Shop Contact Number: {shopDetails[0][3]}</p>
-        </>
-      )}
-    </div>
-        );
+        case 'shopDetails':
+          // Render content for Shop Details modal
+          return (
+            <div>
+              <button onClick={() => setCurrentModalType(null)}>Back</button>
+              <div style={{ marginBottom: '10px' }}>Shop Details</div>
+              {shopDetails && shopDetails.length > 0 && (
+                <>
+                  {shopDetails.map((shop, index) => (
+                    <div key={index} style={{ marginBottom: '10px' }}>
+                      {/* Render shop details here */}
+                      <div>
+                      <p>Shop Name: {shop[0]}</p>
+                      <p>Shop Location: {shop[1]}</p>
+                      <p>Shop Branch: {shop[2]}</p>
+                      <p>Shop Contact Number: {shop[3]}</p>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          );
       default:
         // Render content for default modal (e.g., Accept Order modal)
         return (

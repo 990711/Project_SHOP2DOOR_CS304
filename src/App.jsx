@@ -9,6 +9,7 @@ import Image from './Pages/Authentication/Register_Forms/Image';
 
 import AddJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/AddJobPosting';
 import UpdateJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/UpdateJobPosting';
+import Completed_Orders from './Pages/ShopOwner/ShopOwner_Orders/Completed_Orders';
 import OrderManagement from './Pages/ShopOwner/ShopOwner_Orders/OrderManagement';
 import PayemntIntegration from './Pages/ShopOwner/ShopOwner_Orders/PayemntIntegration';
 import DeliverySheduling from './Pages/ShopOwner/ShopOwner_Orders/DeliverySheduling';
@@ -96,8 +97,9 @@ function App() {
             <Route path = "/joblisting" element = {<JobListing />}></Route>
             <Route path = "/createproduct" element = {<CreateProduct />}></Route>
             <Route path = "/updateproduct/:id" element = {<UpdateProduct />}></Route>
-
+            
             <Route path="/ordermanagement" element={<OrderManagement/>}/>
+            <Route path="/completedorders" element={<Completed_Orders/>}/>
             <Route path="/paymentintegration" element={<PayemntIntegration/>}/>
             <Route path="/deliveryscheduling" element={<DeliverySheduling/>}/>
             <Route path="/ridermanagement" element={<RiderManagement/>}/>

@@ -16,7 +16,7 @@ import { useLocation } from 'react-router-dom';
 // Set the root element of your app for the modal
 Modal.setAppElement('#root');
 
-const OrderManagement = () => {
+const Completed_Orders = () => {
   const location = useLocation();
   const user = location.state?.user;
   const navigate = useNavigate();
@@ -190,4 +190,4 @@ const OrderManagement = () => {
   );
 };
 
-export default OrderManagement;
+export default Completed_Orders;

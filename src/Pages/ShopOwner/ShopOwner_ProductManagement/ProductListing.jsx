@@ -153,9 +153,7 @@ const ProductListing = () => {
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Quantity
               </TableCell>
-              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
-                Discount Price
-              </TableCell>
+              
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Discount Percentage
               </TableCell>
@@ -178,7 +176,6 @@ const ProductListing = () => {
                 <TableCell>{product.category}</TableCell>
                 <TableCell>{product.price}</TableCell>
                 <TableCell>{product.quantity}</TableCell>
-                <TableCell>{product.discountPrice}</TableCell>
                 <TableCell>{product.discount_percentage}</TableCell>
               </TableRow>
             ))}
@@ -209,7 +206,6 @@ const ProductListing = () => {
           <p>Category: {selectedProduct?.category}</p>
           <p>Price: {selectedProduct?.price}</p>
           <p>Quantity: {selectedProduct?.quantity}</p>
-          <p>Discount Price: {selectedProduct?.discountPrice}</p>
           <p>Discount Percentage: {selectedProduct?.discount_percentage}</p>
 
           <div className="button-container">

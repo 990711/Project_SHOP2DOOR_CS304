@@ -3,10 +3,17 @@ import axios from 'axios';
 const ORDER_API_BASE_URL = "http://localhost:8080/api/v1/order";
 
 class OrderService{
-    getOrders(){
-        return axios.get(`http://localhost:8080/api/v1/ShopOwnerOrderDetails/${ShopUserName}`);
+    getOrders(ShopUserName){
+        return axios.get(`http://localhost:8080/api/v1/getPendingOrders/${ShopUserName}`);
 
     }
+
+    getPendingOrderItems(ShopUserName, orderId){
+        return axios.get(`http://localhost:8080/api/v1/getPendingOrderItems/${ShopUserName}/${orderId}`);
+
+    }
+
+
     createOrders(order){
         return axios.post(ORDER_API_BASE_URL, order);
     }

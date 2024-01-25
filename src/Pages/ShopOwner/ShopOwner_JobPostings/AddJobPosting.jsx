@@ -12,7 +12,6 @@ const AddJobPosting = () => {
     jobTitle: "",
     description: "",
     applicationDeadline: "",
-    applicationStatus: "",
   });
 
   const saveJobPosting = (e) => {
@@ -43,10 +42,7 @@ const AddJobPosting = () => {
     setJobPosting({ ...jobPosting, applicationDeadline: event.target.value });
   };
 
-  const changeApplicationStatusHandler = (event) => {
-    setJobPosting({ ...jobPosting, applicationStatus: event.target.value });
-  };
-
+  
   return (
     <div>
       <br />
@@ -78,18 +74,7 @@ const AddJobPosting = () => {
             onChange={changeApplicationDeadlineHandler}
           />
 
-          <label>Application Status</label>
-          <select
-            name="applicationStatus"
-            value={jobPosting.applicationStatus}
-            onChange={changeApplicationStatusHandler}
-            style={{ height: '40px' }}
-          >
-            <option value="">Select Application Status</option>
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
-          </select>
-
+          
           <div>
             <div className="button-container">
               <button style={{ marginRight: "10px" }} onClick={saveJobPosting}>

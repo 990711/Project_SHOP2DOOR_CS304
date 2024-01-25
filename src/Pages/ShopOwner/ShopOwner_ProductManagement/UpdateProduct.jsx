@@ -21,8 +21,7 @@ const UpdateProduct = () => {
       category: '',
       price: '',
       quantity: '',
-      discountPrice: '',
-      discountPercentage: '',
+      discount_percentage: '',
       
     });
 
@@ -38,8 +37,7 @@ const UpdateProduct = () => {
             category: productData.category || '',
             price: productData.price || '',
             quantity: productData.quantity || '',
-            discountPrice: productData.discountPrice || '',
-            discountPercentage: productData.discountPercentage || '',
+            discount_percentage: productData.discount_percentage || '',
           }));
         });
       }, [id]);
@@ -68,8 +66,7 @@ const UpdateProduct = () => {
             category: product.category,
             price: product.price,
             quantity: product.quantity,
-            discountPrice: product.discountPrice,
-            discountPercentage: product.discountPercentage,
+            discount_percentage: product.discount_percentage,
             
         };
     
@@ -106,16 +103,32 @@ const UpdateProduct = () => {
       setProduct({ ...product, description: event.target.value });
     };
   
-    const changeDiscountPriceHandler = (event) => {
-      setProduct({ ...product, discountPrice: event.target.value });
-    };
+    /*
   
     const changeDiscountPercentageHandler = (event) => {
       setProduct({ ...product, discountPercentage: event.target.value });
     };
+*/
 
     const changeImageHandler = (event) => {
       setProduct({ ...product, image: event.target.value });
+    };
+
+    const changeDiscountPercentageHandler = (event) => {
+      const inputDiscountPercentage = event.target.value;
+    
+      // Check if the input is a valid number between 0 and 1
+      const isValidDiscountPercentage =
+        !isNaN(inputDiscountPercentage) &&
+        inputDiscountPercentage >= 0 &&
+        inputDiscountPercentage <= 1;
+    
+      if (isValidDiscountPercentage) {
+        setProduct({ ...product, discount_percentage: inputDiscountPercentage });
+      } else {
+        // You may want to handle invalid input, such as displaying an error message
+        console.error('Invalid Discount Percentage');
+      }
     };
 
     const changeCategoryHandler = (event) => {
@@ -207,20 +220,19 @@ const UpdateProduct = () => {
                         value={product.quantity}
                         onChange={changeQuantityHandler}
                       />
-                      <label>Discount Price</label>
-                      <input
-                        placeholder='Discount Price'
-                        name='discountPrice'
-                        value={product.discountPrice}
-                        onChange={changeDiscountPriceHandler}
-                      />
-                      <label>Discount Percentage</label>
+                      
+                      <label>Discount Percentage (Example: 0.2 for 20%)</label>
                       <input
                         placeholder='Discount Percentage'
                         name='discountPercentage'
-                        value={product.discountPercentage}
+                        value={product.discount_percentage}
                         onChange={changeDiscountPercentageHandler}
                       />
+                      {product.discount_percentage === '' && (
+                        <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>
+                          Please enter a valid discount percentage between 0 and 1.
+                        </p>
+                      )}
                     
                     
                     <div>

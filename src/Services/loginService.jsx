@@ -52,6 +52,10 @@ class loginService{
 
     }
 
+    logout(username){
+        return axios.put(`http://localhost:8080/api/v1/LoginDetails/${username}`);
+
+    }
+
 }
 export default new loginService()
-
