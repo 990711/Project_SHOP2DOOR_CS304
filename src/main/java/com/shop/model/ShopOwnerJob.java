@@ -1,6 +1,7 @@
 package com.shop.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class ShopOwnerJob {
     private String applicationStatus;
     
     @Column(name = "applicationPostingDate")
-    private String applicationPostingDate;
+    private LocalDate applicationPostingDate;
     
     @JsonIgnore 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -70,13 +71,13 @@ public class ShopOwnerJob {
 
     
 
-    public String getApplicationPostingDate() {
+    public LocalDate getApplicationPostingDate() {
 		return applicationPostingDate;
 	}
 
 
 
-	public void setApplicationPostingDate(String applicationPostingDate) {
+	public void setApplicationPostingDate(LocalDate applicationPostingDate) {
 		this.applicationPostingDate = applicationPostingDate;
 	}
 
@@ -95,7 +96,7 @@ public class ShopOwnerJob {
 
 
 	public ShopOwnerJob(String jobTitle, String description, Date applicationDeadline, String applicationStatus,
-			String applicationPostingDate, ShopOwner shop, Set<Customer> candidate) {
+			LocalDate applicationPostingDate, ShopOwner shop, Set<Customer> candidate) {
 		super();
 		this.jobTitle = jobTitle;
 		this.description = description;
