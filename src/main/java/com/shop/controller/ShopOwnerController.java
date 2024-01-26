@@ -162,6 +162,7 @@ public class ShopOwnerController {
 		//Item item = new Item()
 		
 		shop.getJobs().add(newJob);
+		newJob.setApplicationStatus("open");
 		newJob.setApplicationPostingDate(LocalDate.now());
 		newJob.setShop(shop);
 		
