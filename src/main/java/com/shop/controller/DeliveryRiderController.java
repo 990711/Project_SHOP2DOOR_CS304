@@ -44,6 +44,9 @@ public class DeliveryRiderController {
 	@Autowired
 	private OrderRepo orderRepo;
 	
+	@Autowired
+	private OrderController orderController;
+	
 	
 //		@PostMapping("/DeliveryRiderDetails")
 //		public ResponseEntity<DeliveryRider> addDeliveryRider(@Valid @RequestBody DeliveryRider deliveryRider) {
@@ -111,7 +114,7 @@ public class DeliveryRiderController {
 		
 		@GetMapping("deliveryriderorders/{username}")
 		public List<Order> getOrders(@PathVariable String username) {
-			DeliveryRider rider =  deliveryRiderRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + "not found!"));
+			DeliveryRider rider =  deliveryRiderRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + " not found!"));
 			return rider.getOrders();
 		}
 		
@@ -132,4 +135,30 @@ public class DeliveryRiderController {
 			List<Object> shop = orderRepo.viewShopDetails(orderId);
 			return ResponseEntity.ok(shop);
 		}
+		
+		@PutMapping("completeOrder/{orderId}")
+		public ResponseEntity<String> completeOrder(@PathVariable Long orderId){
+			orderController.updateActionByString(orderId, "Order Completed");
+			orderController.updateDeliveryTime(orderId);
+			return ResponseEntity.ok("Successfully completed the order !");
+		}
+		
+		@GetMapping("viewAcceptedOrders/{username}")
+		public ResponseEntity<List<Long>> viewAcceptedOrders(@PathVariable String username){
+			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
+	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));
+			
+			List<Long> orderList = orderRepo.viewAcceptedOrders(rider.getUser_id());
+			return ResponseEntity.ok(orderList);
+		}
+		
+		@GetMapping("viewCompletedOrders/{username}")
+		public ResponseEntity<List<Long>> viewCompletedOrders(@PathVariable String username){
+			DeliveryRider rider = deliveryRiderRepo.findByUsername(username)
+	                .orElseThrow(() -> new ResourceNotFound("DeliveryRider not found with username: " + username));
+			
+			List<Long> orderList = orderRepo.viewCompletedOrders(rider.getUser_id());
+			return ResponseEntity.ok(orderList);
+		}
+		
 }

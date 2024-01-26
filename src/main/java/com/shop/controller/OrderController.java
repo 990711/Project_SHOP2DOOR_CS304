@@ -126,6 +126,15 @@ public class OrderController {
 		return new ResponseEntity<Order>(existingOrder, HttpStatus.CREATED);
 	}
 	
+	@PutMapping("orderDeliveryTime/{id}")
+	public void updateDeliveryTime(@PathVariable long id) {
+		LocalTime currentTime = LocalTime.now();
+		
+		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
+		existingOrder.setDelivery_time(currentTime);
+		existingOrder = repo.save(existingOrder);
+	}
+	
 	@PutMapping("orderAction/{id}")
 	public ResponseEntity<Order> updateActionByString(@PathVariable long id, @RequestBody String action) {
 
@@ -142,6 +151,9 @@ public class OrderController {
 		LocalTime currentTime = LocalTime.now();
 		
 		Order existingOrder = repo.findById(id).orElseThrow(() -> new ResourceNotFound("order not found " + id));
+		if(existingOrder.getItemQuantity().isEmpty()) {
+			return new ResponseEntity<Order>(existingOrder,HttpStatus.UNAUTHORIZED);
+		}
 		existingOrder.setAction("Confirmed and waiting for a rider");
 		existingOrder.setTotal(existingOrder.getTotal()+200); // fixed delivery charge = 200
 		existingOrder.setDate(currentDate);

@@ -20,5 +20,11 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 	
 	@Query(value = "SELECT cs_304_group_project.shop_owner.shop_name,cs_304_group_project.shop_owner.location, cs_304_group_project.shop_owner.branch, cs_304_group_project.shop_owner.contact  FROM cs_304_group_project.shop_owner WHERE user_id IN ( SELECT distinct shop_id FROM cs_304_group_project.item_quantity WHERE order_id=:orderId)", nativeQuery = true)
 	List<Object> viewShopDetails(@Param("orderId") long orderId);
+
+	@Query(value="SELECT order_id FROM cs_304_group_project.orders where action='Rider accepted' and delivery_id=:delivery_id",nativeQuery = true)
+	List<Long> viewAcceptedOrders(@Param("delivery_id") int user_id);
+	
+	@Query(value="SELECT order_id FROM cs_304_group_project.orders where action='Order Completed' and delivery_id=:delivery_id",nativeQuery = true)
+	List<Long> viewCompletedOrders(@Param("delivery_id") int user_id);
 	
 }

@@ -94,7 +94,7 @@ public class ShopOwnerController {
 //	        return shopOwnerRepo.findAll();
 //	    }
 
-	@PutMapping("/ShopOwnerItem/{id}")
+	/*@PutMapping("/ShopOwnerItem/{id}")
 	public ResponseEntity<String> updateItemList(@PathVariable int id, @RequestBody Item newItem) {
 		ShopOwner shop = shopOwnerRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
@@ -111,13 +111,32 @@ public class ShopOwnerController {
 		shopOwnerRepo.save(shop);
 
 		return ResponseEntity.ok("Successfully added item..");
+	}*/
+	
+	@PutMapping("/ShopOwnerItem/{username}")
+	public ResponseEntity<String> updateItemList(@PathVariable String username, @RequestBody Item newItem){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		//Item item = new Item()
+		
+		shop.getItems().add(newItem);
+		
+		newItem.setShopOwner(shop);
+		
+		//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+		
+		
+		itemRepo.save(newItem);
+		shopOwnerRepo.save(shop);
+		
+		return ResponseEntity.ok("Successfully added item..");
 	}
 
-	// create job using shop owner user name
-	@PutMapping("/ShopOwnerJob/{username}")
-	public ResponseEntity<String> updateJobs(@PathVariable String username, @RequestBody ShopOwnerJob newJob) {
-		ShopOwner shop = shopOwnerRepo.findByUsername(username)
-				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + username));
+	/*@PutMapping("/ShopOwnerJob/{id}")
+	public ResponseEntity<String> updateJobs(@PathVariable int id, @RequestBody ShopOwnerJob newJob) {
+		ShopOwner shop = shopOwnerRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
 
 		// Item item = new Item()
 		newJob.setApplicationStatus("open");
@@ -133,7 +152,29 @@ public class ShopOwnerController {
 		shopOwnerRepo.save(shop);
 
 		return ResponseEntity.ok("Successfully Posted the job.");
+	}*/
+	
+	@PutMapping("/ShopOwnerJob/{username}")
+	public ResponseEntity<String> updateJobs(@PathVariable String username, @RequestBody ShopOwnerJob newJob){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		//Item item = new Item()
+		
+		shop.getJobs().add(newJob);
+		newJob.setApplicationPostingDate(LocalDate.now());
+		newJob.setShop(shop);
+		
+		//ShopOwner updatedShop = shopOwnerRepo.save(shop);
+		
+		
+		shopOwnerJobRepo.save(newJob);
+		shopOwnerRepo.save(shop);
+		
+		return ResponseEntity.ok("Successfully added item..");
 	}
+	
+	
 
 	// close a particular job belongs to a shop owner
 	@PutMapping("ShopOwnerclosejob/{id}")
@@ -199,6 +240,7 @@ public class ShopOwnerController {
 		return new ResponseEntity<List<Map<String, Object>>>(items, HttpStatus.OK);
 	}
 	
+	// shop owner jobs candidates details
 	@GetMapping("ShopOwnerJobsDetails/{username}")
 	public ResponseEntity<HashMap<Long,Set<Customer>>> shopOwnerjobDetails(@PathVariable String username){
 		ShopOwner shop = shopOwnerRepo.findByUsername(username).orElseThrow(() -> new ResourceNotFound(username + " not found!"));
@@ -212,4 +254,24 @@ public class ShopOwnerController {
 		}
 		return new ResponseEntity<HashMap<Long,Set<Customer>>>(listofcandidates,HttpStatus.OK);
 	}
+
+	@GetMapping("getPendingOrders/{username}")
+	public ResponseEntity<List<Long>> getPendingOrders(@PathVariable String username){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		List<Long> orderList = shopOwnerRepo.getPendingOrders(shop.getUser_id());
+		return ResponseEntity.ok(orderList);
+	}
+	
+	@GetMapping("getPendingOrderItems/{username}/{orderId}")
+	public ResponseEntity<List<Object>> getPendingOrderItems(@PathVariable String username,@PathVariable Long orderId){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		List<Object> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(),orderId);
+		return ResponseEntity.ok(itemList);
+	}
+	
 }
+
