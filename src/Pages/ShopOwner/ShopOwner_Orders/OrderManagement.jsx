@@ -71,7 +71,7 @@ const OrderManagement = () => {
     //setShopDetails(null); // Clear shopDetails when modal is closed
     setModalType(null);
   };
-
+/*
   const openOrderDetailsModal = async () => {
     try {
       const response = await OrderService.getPendingOrderItems(user,selectedOrder);
@@ -85,6 +85,20 @@ const OrderManagement = () => {
     setCurrentModalType('orderDetails');
     setModalType('orderDetails');
   };
+  */
+
+  const openOrderDetailsModal = async () => {
+    try {
+      const response = await OrderService.getPendingOrderItems(user, selectedOrder);
+      console.log('Order Details:', response.data);
+      setOrderDetails(response.data);
+      setCurrentModalType('orderDetails');
+      setModalType('orderDetails');
+    } catch (error) {
+      console.error('Error fetching Order details:', error);
+    }
+  };
+/*  
 
   const renderModalContent = () => {
     switch (currentModalType) {
@@ -96,7 +110,7 @@ const OrderManagement = () => {
               <>
                 {orderDetails.map((item, index) => (
                   <div key={index} style={{ marginBottom: '10px' }}>
-                    {/* Render item details here */}
+                    {/* Render item details here }
                     <div>
                       <p>Item Id: {item[0]}</p>
                       <p>Quantity: {item[1]}</p>
@@ -118,9 +132,53 @@ const OrderManagement = () => {
           </div>
         );
     }
+    
 
    
   };
+  */
+
+  const renderModalContent = () => {
+    switch (currentModalType) {
+      case 'orderDetails':
+        return (
+          <div>
+            <div style={{ marginBottom: '10px' }}>Order Details</div>
+            {orderDetails && orderDetails.itemList && orderDetails.itemList.length > 0 && (
+              <>
+                <p>Total Bill: {orderDetails.totalBill}</p>
+                <ul>
+                  {orderDetails.itemList.map((item, index) => (
+                    <li key={index} style={{ marginBottom: '10px' }}>
+                      <div>
+                        <p>Item Id: {item.item_id}</p>
+                        <p>Item Name: {item.item_name}</p>
+                        <p>Item Brand: {item.item_brand}</p>
+                        <p>Item Category: {item.item_category}</p>
+                        <p>Item Price: {item.item_price}</p>
+                        <p>Item Description: {item.item_description}</p>
+                        <p>Quantity: {item.quantity}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        );
+      default:
+        // Render content for default modal (e.g., Accept Order modal)
+        return (
+          <div>
+            <p>Order Id: {selectedOrder}</p>
+            <div>
+              <button onClick={openOrderDetailsModal}>Order Details</button>
+            </div>
+          </div>
+        );
+    }
+  };
+  
 
   return (
     <div>

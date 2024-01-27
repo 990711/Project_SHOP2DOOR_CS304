@@ -52,9 +52,26 @@ const UpdateJobPosting = () => {
   
     return adjustedDate.toISOString();
   };
+
+  
+  const closeJobPostings = (job) => {
+    // Call the endpoint to close job postings
+    return ShopOwner_JobPostingsService.closeJobPostings(job);
+  };
+
+  const reopenJobPostings = (job) => {
+    // Call the endpoint to reopen job postings
+    return ShopOwner_JobPostingsService.reopenJobPostings(job);
+  };
+
+  const updateJobPostingsDetails = (job) => {
+    // Call the endpoint to update job postings details
+    return ShopOwner_JobPostingsService.updateJobPostings(job);
+  };
+  
   
 
-  const updateJobPosting = (e) => {
+  const updateJobPosting = async (e) => {
     e.preventDefault();
 
     const formattedDate = new Date(jobPosting.applicationDeadline).toISOString().split('T')[0];
@@ -82,6 +99,24 @@ const UpdateJobPosting = () => {
       .catch((error) => {
         console.error("Error from server:", error);
       });
+      /*
+      try {
+        if (jobPosting.applicationStatus === "close") {
+          await closeJobPostings(updatedJobPosting);
+        } else if (jobPosting.applicationStatus === "reopen") {
+          await reopenJobPostings(updatedJobPosting);
+        }
+  
+        // Update other details regardless of the status
+        await updateJobPostingsDetails(updatedJobPosting);
+  
+        console.log("Job postings updated successfully.");
+        navigate("/joblisting", { state: { user } });
+      } catch (error) {
+        console.error("Error updating job postings:", error);
+      }
+      */
+      
   };
 
   const changeJobTitleHandler = (event) => {

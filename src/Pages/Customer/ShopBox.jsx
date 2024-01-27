@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ShopBox = ({ shop }) => {
-  const imageUrl = `../../../${shop.shop_id % 7}.jpg`;
+  const imageUrl = `../../../${shop.shop_id % 4}.jpg`;
 
   // Encode shop ID before add to the URL
   const ShopCode = shop.shop_id * 1000 + 1234;
