@@ -269,13 +269,13 @@ public class ShopOwnerController {
 	}
 
 
-	@GetMapping("getPendingOrderItems/{username}/{orderId}")
-	public ResponseEntity<List<Object>> getPendingOrderItems(@PathVariable String username,
-			@PathVariable Long orderId) {
-		ShopOwner shop = shopOwnerRepo.findByUsername(username)
-				.orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
-
-		List<Object> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(), orderId);
+//	@GetMapping("getPendingOrderItems/{username}/{orderId}")
+//	public ResponseEntity<List<Object>> getPendingOrderItems(@PathVariable String username,
+//			@PathVariable Long orderId) {
+//		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+//				.orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+//
+//		List<Object> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(), orderId);
 
 	
 	/*@GetMapping("getPendingOrderItems/{username}/{orderId}")
@@ -375,8 +375,6 @@ public class ShopOwnerController {
 		List<ShopOwnerJob> jobs = shop.getJobs();
 		return new ResponseEntity<List<ShopOwnerJob>>(jobs, HttpStatus.OK);
 	}
-
-}
 
 	
 	@GetMapping("getCompletedOrders/{username}")
