@@ -14,7 +14,7 @@ const CreateProduct = () => {
     const navigate = useNavigate();
     const [product, setProduct] = useState({
       name: '',
-      image: '',
+      //image: '',
       brand: '',
       description: '',
       category: '',
@@ -51,10 +51,11 @@ const CreateProduct = () => {
     const changeNameHandler = (event) => {
       setProduct({ ...product, name: event.target.value });
     };
-
+/*
     const changeImageHandler = (event) => {
       setProduct({ ...product, image: event.target.value });
     };
+    */
 
     const changeBrandHandler = (event) => {
       setProduct({ ...product, brand: event.target.value });
@@ -128,7 +129,7 @@ const CreateProduct = () => {
                       onChange={changeNameHandler}
                     />
 
-
+{/*}
                     <label>Image</label>
                     <input
                       placeholder='Image'
@@ -139,6 +140,7 @@ const CreateProduct = () => {
                       //accept="image/*"
                       //onChange={handleImageUpload}
                     />
+    */}
 
                     <label>Brand</label>
                     <input

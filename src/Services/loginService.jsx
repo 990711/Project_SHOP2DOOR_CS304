@@ -47,8 +47,8 @@ class loginService{
 
     }
 
-    deleteUser(userId){
-        return axios.delete(USER_API_BASE_URL +'/' + userId);
+    deleteUser(username){
+        return axios.delete(`http://localhost:8080/api/v1/LoginDetails/${username}`);
 
     }
 
