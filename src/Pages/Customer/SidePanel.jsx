@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import Font Awesome
 import {
   faHome,
@@ -15,13 +15,6 @@ import {
 
 const SidePanel = () => {
   const location = useLocation();
-
-  const history = useHistory();
-
-  const handleLogout = () => {
-    // Navigate to the root route after logout
-    history.replace('/');
-  };
 
   return (
     <div className="sidePanel">
@@ -74,7 +67,7 @@ const SidePanel = () => {
         <FontAwesomeIcon icon={faUser} className="fa-icon" /> Profile
       </Link>
       <div className="logout-btn-panel">
-        <Link to="/" onClick={handleLogout} className={location.pathname === "/" ? "active" : ""}>
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
           <FontAwesomeIcon icon={faSignOutAlt} className="fa-icon" />
           Logout
         </Link>
