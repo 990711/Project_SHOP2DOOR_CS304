@@ -10,10 +10,6 @@ class ItemsServices {
     GetAllItems() {
         return axios.get(SHOP_OWNER_API_BASE_URL + '/Item');
     }
-
-    GetItemById(ItemID) {
-        return axios.get(SHOP_OWNER_API_BASE_URL + '/Item/' + ItemID);
-    }
 }
 
 export default new ItemsServices();

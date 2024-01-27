@@ -26,7 +26,7 @@ class CustomerRegisterService{
     }
 
     updateCustomer(customer){
-        return axios.put(CUSTOMER_API_BASE_URL +'/' + customer.username, customer);
+        return axios.put(CUSTOMER_API_BASE_URL +'/' + customer.id, customer);
 
     }
 
