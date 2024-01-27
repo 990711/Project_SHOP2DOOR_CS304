@@ -147,8 +147,8 @@ const UpdateJobPosting = () => {
             style={{ height: '40px' }}
           >
             <option value="">Select Application Status</option>
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
+            <option value="close">Close</option>
+            <option value="reopen">Reopen</option>
           </select>
 
           <div>

@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { AccountCircle as AccountCircleIcon, Edit as EditIcon } from '@mui/icons-material';
 import "../../styles/ShopOwner.css";
+import loginService from '../../Services/loginService';
 
 import {
   //Menu as MenuIcon,
@@ -95,8 +96,10 @@ const MainLayout = () => {
     
    
   
+    loginService.logout(user);
+
     // Navigate to the login page
-    navigate('/login', { replace: true });
+    navigate('/login', { replace: true, state: { user: null } });
   };
   
 
@@ -145,7 +148,8 @@ const MainLayout = () => {
               text: 'Orders',
               icon: <ListAltIcon />,
               children: [
-                { text: 'Order Management', route: '/ordermanagement' },
+                { text: 'Pending Orders', route: '/ordermanagement' },
+                { text: 'Completed Orders', route: '/completedorders' },
                 { text: 'Payment Integration', route: '/paymentintegration' },
                 { text: 'Delivery Scheduling', route: '/deliveryscheduling' },
                 { text: 'Rider Management', route: '/ridermanagement' },

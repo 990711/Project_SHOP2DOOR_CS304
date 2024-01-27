@@ -9,6 +9,7 @@ import Image from './Pages/Authentication/Register_Forms/Image';
 
 import AddJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/AddJobPosting';
 import UpdateJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/UpdateJobPosting';
+import Completed_Orders from './Pages/ShopOwner/ShopOwner_Orders/Completed_Orders';
 import OrderManagement from './Pages/ShopOwner/ShopOwner_Orders/OrderManagement';
 import PayemntIntegration from './Pages/ShopOwner/ShopOwner_Orders/PayemntIntegration';
 import DeliverySheduling from './Pages/ShopOwner/ShopOwner_Orders/DeliverySheduling';
@@ -47,6 +48,17 @@ import CustomerProfile from "./Pages/Customer/CustomerProfile.jsx";
 
 import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
 import ProtectedRoute from './Pages/Authentication/ProtectedRoute';
+
+//import AddJobPosting from './Pages/ShopOwner/ShopOwner_JobPostings/AddJobPosting';
+
+import DeliveryRider_MainLayout from './Pages/DeliveryRider/DeliveryRider_MainLayout';
+import DeliveryRider_Dashboard from './Pages/DeliveryRider/DeliveryRider_Dashboard';
+import DeliveryRiderProfile from './Pages/DeliveryRider/DeliveryRiderProfile';
+import UpdateDeliveryRiderProfile from './Pages/DeliveryRider/UpdateDeliveryRiderProfile';
+import DeliveryRider_accepted_deliveries from './Pages/DeliveryRider/DeliveryRider_accepted_deliveries';
+import DeliveryRider_completed_deliveries from './Pages/DeliveryRider/DeliveryRider_completed_deliveries';
+import DeliveryRider_pending_deliveries from './Pages/DeliveryRider/DeliveryRider_pending_deliveries';
+
 
 
 
@@ -89,8 +101,9 @@ function App() {
             <Route path = "/joblisting" element = {<JobListing />}></Route>
             <Route path = "/createproduct" element = {<CreateProduct />}></Route>
             <Route path = "/updateproduct/:id" element = {<UpdateProduct />}></Route>
-
+            
             <Route path="/ordermanagement" element={<OrderManagement/>}/>
+            <Route path="/completedorders" element={<Completed_Orders/>}/>
             <Route path="/paymentintegration" element={<PayemntIntegration/>}/>
             <Route path="/deliveryscheduling" element={<DeliverySheduling/>}/>
             <Route path="/ridermanagement" element={<RiderManagement/>}/>
@@ -111,6 +124,20 @@ function App() {
             <Route path="/shopownerprofile" element = {<ShopOwnerProfile/>}></Route>
             <Route path="/updateshopownerprofile/:username" element = {<UpdateShopOwnerProfile/>}></Route>
 
+        </Route>
+
+
+        <Route path = "/deliveryrider_mainlayout" element = {<ProtectedRoute ><DeliveryRider_MainLayout /></ProtectedRoute>}>
+            <Route index element={<Dashboard/>}/>
+            <Route path="/deliveryrider_mainlayout/deliveryrider_dashboard" element={<DeliveryRider_Dashboard />} />
+            <Route path="/deliveryrider_mainlayout/deliveryriderprofile" element={<DeliveryRiderProfile />} />
+            <Route path="/deliveryrider_mainlayout/updatedeliveryriderprofile" element={<UpdateDeliveryRiderProfile />} />
+            <Route path="/deliveryrider_mainlayout/DeliveryRider_accepted_deliveries" element={<DeliveryRider_accepted_deliveries />} />
+            <Route path="/deliveryrider_mainlayout/DeliveryRider_completed_deliveries" element={<DeliveryRider_completed_deliveries />} />
+            <Route path="/deliveryrider_mainlayout/DeliveryRider_pending_deliveries" element={<DeliveryRider_pending_deliveries />} />
+
+            
+            
         </Route>
 
 
