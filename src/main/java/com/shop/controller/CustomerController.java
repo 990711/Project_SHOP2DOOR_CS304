@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import com.shop.service.CustomerService;
 import com.shop.service.SmsService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -45,7 +47,7 @@ public class CustomerController {
 	private SmsService whatsapp;
 
 	@Autowired
-	private ShopOwnerJobRepo jopRepo;
+	private ShopOwnerJobRepo jobRepo;
 
 	// add Customer
 	@PostMapping("/CustomerDetails")
@@ -112,7 +114,7 @@ public class CustomerController {
 	@PostMapping("CustomerAddJob/{username}/{jobid}")
 	public ResponseEntity<String> customerJobApplication(@PathVariable long jobid, @PathVariable String username) {
 
-		ShopOwnerJob job = jopRepo.findById(jobid)
+		ShopOwnerJob job = jobRepo.findById(jobid)
 				.orElseThrow(() -> new ResourceNotFound("job with id " + jobid + " not found!!"));
 		Customer customer = customerRepo.findByUsername(username)
 				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
@@ -122,4 +124,39 @@ public class CustomerController {
 		customerRepo.save(customer);
 		return ResponseEntity.ok("Applied to the job");
 	}
+
+	// customer remove application for the job
+	@PostMapping("CustomerRemoveJob/{username}/{jobid}")
+	public ResponseEntity<String> customerJobApplicationRemove(@PathVariable long jobid,
+			@PathVariable String username) {
+
+		ShopOwnerJob job = jobRepo.findById(jobid)
+				.orElseThrow(() -> new ResourceNotFound("job with id " + jobid + " not found!!"));
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
+		Set<ShopOwnerJob> jobs = customer.getAppliedJobs();
+		jobs.remove(job);
+		customer.setAppliedJobs(jobs);
+		customerRepo.save(customer);
+		return ResponseEntity.ok("Removed the Application from the job.");
+	}
+
+	// show all the jobs that a particular customer applied
+	@GetMapping("AppliedJobs/{username}")
+	public ResponseEntity<Set<ShopOwnerJob>> appliedJobs(@PathVariable String username) {
+
+		Customer customer = customerRepo.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFound(username + " not found!"));
+		Set<ShopOwnerJob> appliedjobs = customer.getAppliedJobs();
+		return new ResponseEntity<Set<ShopOwnerJob>>(appliedjobs, HttpStatus.OK);
+	}
+
+	// show all the active jobs
+	@GetMapping("ActiveJobs")
+	public ResponseEntity<Set<ShopOwnerJob>> getActiveJobs() {
+
+		Set<ShopOwnerJob> openjobs = jobRepo.getOpenJobs();
+		return new ResponseEntity<Set<ShopOwnerJob>>(openjobs, HttpStatus.OK);
+	}
+
 }
