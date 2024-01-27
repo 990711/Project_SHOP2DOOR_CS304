@@ -42,7 +42,9 @@ import CustomerDashboard from './Pages/Customer/CustomerDashboard';
 import CustomerOrders from './Pages/Customer/CustomerOrders';
 
 import CustomerCategories from './Pages/Customer/CustomerCategory';
-
+import { UserProvider } from './Pages/Customer/UserContext';
+import CartPage from "./Pages/Customer/CartPage.jsx";
+import CustomerProfile from "./Pages/Customer/CustomerProfile.jsx";
 
 import RegisterLayout from './Pages/Authentication/Register_Forms/RegisterLayout';
 import ProtectedRoute from './Pages/Authentication/ProtectedRoute';
@@ -74,15 +76,17 @@ function App() {
       <Header />
 
 
+        <UserProvider>
         <Routes>
-
-        <Route path="/customermainlayout" element={<CustomerMainLayout />}>
-          <Route index element={<CustomerDashboard/>}/>
-          <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
-          <Route path="/customermainlayout/shop/:shop_name/:branch/:ShopCode" element={<CustomerViewShop />} />
-          <Route path="/customermainlayout/categories" element={<CustomerCategories />} />
-
-        </Route>
+          <Route path="/customermainlayout" element={<CustomerMainLayout />}>
+            <Route index element={<CustomerDashboard/>}/>
+            <Route path="/customermainlayout/dashboard" element={<CustomerDashboard />} />
+            <Route path="/customermainlayout/shop/:shop_name/:branch/:ShopCode" element={<CustomerViewShop />} />
+            <Route path="/customermainlayout/categories" element={<CustomerCategories />} />
+            <Route path="/customermainlayout/orders" element={<CustomerOrders />} />
+            <Route path="/customermainlayout/cart" element={<CartPage />} />
+            <Route path="/customermainlayout/profile" element={<CustomerProfile />} />
+          </Route>
 
 
         
@@ -153,6 +157,7 @@ function App() {
 
 
         </Routes>
+        </UserProvider>
       </Router>
     </div>
   );

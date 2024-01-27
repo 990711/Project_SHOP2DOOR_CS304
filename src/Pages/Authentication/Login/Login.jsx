@@ -66,25 +66,25 @@ import {
             //const accessToken = response?.data?.accessToken;
             console.log({ user, pwd, role});
 
-            console.log(response?.data.username);
+            console.log(response?.data.user);
             console.log(response?.data);
-            console.log({user}); 
+            console.log(response?.data.user.username); 
 
             /*
             setUser('');
             setPwd('');
             setSuccess(true);
            */
-            setUser(response?.data.username); // Assuming response.data contains user information
+            setUser(response?.data.user.username); // Assuming response.data contains user information
 
 
             switch (role) {
                 case "Customer":
                     // Dispatch the login action
                     try {
-                        const orderResponse = await OrderService.createNewOrder(response?.data.username);
+                        const orderResponse = await OrderService.createNewOrder(response?.data.user.username);
                         console.log(orderResponse?.data);
-                        dispatch({ type: 'LOGIN', payload: { userID: response?.data.user_id, username: response?.data.username, CustomerOrderID: orderResponse?.data.order_id } });
+                        dispatch({ type: 'LOGIN', payload: { userID: response?.data.user.user_id, username: response?.data.user.username, CustomerOrderID: orderResponse?.data.order_id } });
                     } catch (error) {
                         console.error('Error:', error);
                     }    
