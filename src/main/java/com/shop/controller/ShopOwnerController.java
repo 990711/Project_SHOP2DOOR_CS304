@@ -1,6 +1,10 @@
 package com.shop.controller;
 
+
 import java.time.LocalDate;
+
+import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +61,9 @@ public class ShopOwnerController {
 
 	@Autowired
 	private ItemQuantityRepo itemQuantityRepo;
+	
+	@Autowired
+	ItemController item;
 
 	// Add ShopOwner
 //		@PostMapping("/ShopOwner")
@@ -261,6 +268,7 @@ public class ShopOwnerController {
 		return ResponseEntity.ok(orderList);
 	}
 
+
 	@GetMapping("getPendingOrderItems/{username}/{orderId}")
 	public ResponseEntity<List<Object>> getPendingOrderItems(@PathVariable String username,
 			@PathVariable Long orderId) {
@@ -268,8 +276,95 @@ public class ShopOwnerController {
 				.orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
 
 		List<Object> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(), orderId);
+
+	
+	/*@GetMapping("getPendingOrderItems/{username}/{orderId}")
+	public ResponseEntity<List<Map<String, Object>>> getPendingOrderItems(@PathVariable String username,@PathVariable Long orderId){
+		float totalBill = 0;
+		
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		List<Map<String, Object>> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(),orderId);
+
 		return ResponseEntity.ok(itemList);
+	}*/
+	
+	/*@GetMapping("getPendingOrderItems/{username}/{orderId}")
+	public ResponseEntity<Map<String, Object>> getPendingOrderItems(@PathVariable String username, @PathVariable Long orderId) {
+	    float totalBill = 0;
+
+	    ShopOwner shop = shopOwnerRepo.findByUsername(username)
+	            .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+
+	    List<Map<String, Object>> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(), orderId);
+
+	    // Calculate totalBill
+	    for (Map<String, Object> itemMap : itemList) {
+	    	// Accessing values using keys
+	    				Object itemId = itemMap.get("item_id");
+	    				Object quantity = itemMap.get("quantity");
+
+	    				float item_price = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
+
+	    				float item_price_total = item_price * Integer.parseInt(quantity.toString());
+
+	    				totalBill += item_price_total;
+	    }
+
+	    // Create the custom response object
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("itemList", itemList);
+	    response.put("totalBill", totalBill);
+
+	    return ResponseEntity.ok(response);
+	}*/
+	
+	@GetMapping("getPendingOrderItems/{username}/{orderId}")
+	public ResponseEntity<Map<String, Object>> getPendingOrderItems(@PathVariable String username, @PathVariable Long orderId) {
+	    float totalBill = 0;
+
+	    ShopOwner shop = shopOwnerRepo.findByUsername(username)
+	            .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+
+	    List<Map<String, Object>> itemList = shopOwnerRepo.getPendingOrdersItems(shop.getUser_id(), orderId);
+
+	    // Calculate totalBill and include item price in the response
+	    List<Map<String, Object>> modifiedItemList = new ArrayList<>();
+	    for (Map<String, Object> itemMap : itemList) {
+	        Object itemId = itemMap.get("item_id");
+	        Object quantity = itemMap.get("quantity");
+
+	        // Assuming item_price is retrieved from the item service based on the itemId
+	        float itemPrice = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
+
+	        float itemPriceTotal = itemPrice * Integer.parseInt(quantity.toString());
+
+	        totalBill += itemPriceTotal;
+
+	        // Create a new map with the original values and add the item price
+	        Map<String, Object> modifiedItemMap = new HashMap<>(itemMap);
+	        
+	        Item item = itemRepo.findById(Long.parseLong(itemId.toString()))
+	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + Long.parseLong(itemId.toString())));
+	        
+	        modifiedItemMap.put("item_name", item.getName());
+	        modifiedItemMap.put("item_brand", item.getBrand());
+	        modifiedItemMap.put("item_category", item.getCategory());
+	        modifiedItemMap.put("item_price", itemPrice);
+	        modifiedItemMap.put("item_description", item.getDescription());
+
+	        modifiedItemList.add(modifiedItemMap);
+	    }
+
+	    // Create the custom response object
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("itemList", modifiedItemList);
+	    response.put("totalBill", totalBill);
+
+	    return ResponseEntity.ok(response);
 	}
+
 
 	// another end point to get candidates belongs to a job that belongs to shop
 	// owner
@@ -282,3 +377,93 @@ public class ShopOwnerController {
 	}
 
 }
+
+	
+	@GetMapping("getCompletedOrders/{username}")
+	public ResponseEntity<List<Long>> getCompletedOrders(@PathVariable String username){
+		ShopOwner shop = shopOwnerRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+		
+		List<Long> orderList = shopOwnerRepo.getCompletedOrders(shop.getUser_id());
+		return ResponseEntity.ok(orderList);
+	}
+	
+	/*@GetMapping("getCompletedOrderItems/{username}/{orderId}")
+	public ResponseEntity<Map<String, Object>> getCompletedOrderItems(@PathVariable String username, @PathVariable Long orderId) {
+	    float totalBill = 0;
+
+	    ShopOwner shop = shopOwnerRepo.findByUsername(username)
+	            .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+
+	    List<Map<String, Object>> itemList = shopOwnerRepo.getCompletedOrdersItems(shop.getUser_id(), orderId);
+
+	    // Calculate totalBill
+	    for (Map<String, Object> itemMap : itemList) {
+	    	// Accessing values using keys
+	    				Object itemId = itemMap.get("item_id");
+	    				Object quantity = itemMap.get("quantity");
+
+	    				float item_price = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
+
+	    				float item_price_total = item_price * Integer.parseInt(quantity.toString());
+
+	    				totalBill += item_price_total;
+	    }
+
+	    // Create the custom response object
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("itemList", itemList);
+	    response.put("totalBill", totalBill);
+
+	    return ResponseEntity.ok(response);
+	}*/
+	
+	@GetMapping("getCompletedOrderItems/{username}/{orderId}")
+	public ResponseEntity<Map<String, Object>> getCompletedOrderItems(@PathVariable String username, @PathVariable Long orderId) {
+	    float totalBill = 0;
+
+	    ShopOwner shop = shopOwnerRepo.findByUsername(username)
+	            .orElseThrow(() -> new ResourceNotFound("Shop Owner not found with username: " + username));
+
+	    List<Map<String, Object>> itemList = shopOwnerRepo.getCompletedOrdersItems(shop.getUser_id(), orderId);
+
+	    // Calculate totalBill and include item price in the response
+	    List<Map<String, Object>> modifiedItemList = new ArrayList<>();
+	    for (Map<String, Object> itemMap : itemList) {
+	        Object itemId = itemMap.get("item_id");
+	        Object quantity = itemMap.get("quantity");
+
+	        // Assuming item_price is retrieved from the item service based on the itemId
+	        float itemPrice = item.findItemPriceByItemID(Long.parseLong(itemId.toString()));
+
+	        float itemPriceTotal = itemPrice * Integer.parseInt(quantity.toString());
+
+	        totalBill += itemPriceTotal;
+
+	        // Create a new map with the original values and add the item price
+	        Map<String, Object> modifiedItemMap = new HashMap<>(itemMap);
+	        
+	        Item item = itemRepo.findById(Long.parseLong(itemId.toString()))
+	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + Long.parseLong(itemId.toString())));
+	        
+	        modifiedItemMap.put("item_name", item.getName());
+	        modifiedItemMap.put("item_brand", item.getBrand());
+	        modifiedItemMap.put("item_category", item.getCategory());
+	        modifiedItemMap.put("item_price", itemPrice);
+	        modifiedItemMap.put("item_description", item.getDescription());
+
+	        modifiedItemList.add(modifiedItemMap);
+	    }
+
+	    // Create the custom response object
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("itemList", modifiedItemList);
+	    response.put("totalBill", totalBill);
+
+	    return ResponseEntity.ok(response);
+	}
+
+
+	
+}
+

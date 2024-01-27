@@ -30,7 +30,15 @@ public interface ShopOwnerRepo extends JpaRepository<ShopOwner, Integer>{
 	List<Long> getPendingOrders(@Param("shop_id") int user_id);
 
 	@Query(value = "SELECT item_id,quantity FROM cs_304_group_project.item_quantity where order_id=:order_id and shop_id=:shop_id", nativeQuery = true)
-	List<Object> getPendingOrdersItems(@Param("shop_id") int user_id,@Param("order_id") Long order_id);
+	List<Map<String, Object>> getPendingOrdersItems(@Param("shop_id") int user_id,@Param("order_id") Long order_id);
 	
+	@Query(value = "SELECT DISTINCT orders.order_id\r\n"
+			+ "FROM orders\r\n"
+			+ "INNER JOIN item_quantity ON orders.order_id = item_quantity.order_id\r\n"
+			+ "WHERE orders.action = 'Order Completed' AND item_quantity.shop_id = :shop_id", nativeQuery = true)
+	List<Long> getCompletedOrders(@Param("shop_id") int user_id);
+	
+	@Query(value = "SELECT item_id,quantity FROM cs_304_group_project.item_quantity where order_id=:order_id and shop_id=:shop_id", nativeQuery = true)
+	List<Map<String, Object>> getCompletedOrdersItems(@Param("shop_id") int user_id,@Param("order_id") Long order_id);
 	
 }
