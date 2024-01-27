@@ -33,7 +33,7 @@ const Completed_Orders = () => {
   );
 
   useEffect(() => {
-    OrderService.getOrders(user).then((res) => {
+    OrderService.getCompletedOrders(user).then((res) => {
       console.log('API Response:', res.data);
       setOrders(res.data);
     });
@@ -41,7 +41,7 @@ const Completed_Orders = () => {
 
   const fetchOrderDetails = async (orderId) => {
     try {
-      const response = await OrderService.getPendingOrderItems(user,orderId);
+      const response = await OrderService.getCompletedOrderItems(user,orderId);
       // Set the customer details in state
       setOrderDetails(response.data);
     } catch (error) {
@@ -74,17 +74,16 @@ const Completed_Orders = () => {
 
   const openOrderDetailsModal = async () => {
     try {
-      const response = await OrderService.getPendingOrderItems(user,selectedOrder);
-      // Assuming getOrderDetails is a function that fetches details based on the order ID
+      const response = await OrderService.getPendingOrderItems(user, selectedOrder);
       console.log('Order Details:', response.data);
-      //setOrderDetails(response.data.orderDetails); // Assuming shopDetails is part of the response
-      //setCurrentModalType('orderDetails');
+      setOrderDetails(response.data);
+      setCurrentModalType('orderDetails');
+      setModalType('orderDetails');
     } catch (error) {
       console.error('Error fetching Order details:', error);
     }
-    setCurrentModalType('orderDetails');
-    setModalType('orderDetails');
   };
+  
 
   const renderModalContent = () => {
     switch (currentModalType) {
@@ -92,17 +91,24 @@ const Completed_Orders = () => {
         return (
           <div>
             <div style={{ marginBottom: '10px' }}>Order Details</div>
-            {orderDetails && orderDetails.length > 0 && (
+            {orderDetails && orderDetails.itemList && orderDetails.itemList.length > 0 && (
               <>
-                {orderDetails.map((item, index) => (
-                  <div key={index} style={{ marginBottom: '10px' }}>
-                    {/* Render item details here */}
-                    <div>
-                      <p>Item Id: {item[0]}</p>
-                      <p>Quantity: {item[1]}</p>
-                    </div>
-                  </div>
-                ))}
+                <p>Total Bill: {orderDetails.totalBill}</p>
+                <ul>
+                  {orderDetails.itemList.map((item, index) => (
+                    <li key={index} style={{ marginBottom: '10px' }}>
+                      <div>
+                        <p>Item Id: {item.item_id}</p>
+                        <p>Item Name: {item.item_name}</p>
+                        <p>Item Brand: {item.item_brand}</p>
+                        <p>Item Category: {item.item_category}</p>
+                        <p>Item Price: {item.item_price}</p>
+                        <p>Item Description: {item.item_description}</p>
+                        <p>Quantity: {item.quantity}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </>
             )}
           </div>
@@ -118,9 +124,8 @@ const Completed_Orders = () => {
           </div>
         );
     }
-
-   
   };
+  
 
   return (
     <div>

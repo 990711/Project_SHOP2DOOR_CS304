@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const JOB_POSTINGS_API_BASE_URL = "http://localhost:8080/api/v1/shopowner_jobpostings";
+const ShopOwnerclosejob = "http://localhost:8080/api/v1/ShopOwnerclosejob";
+const ShopOwneropenjob = "http://localhost:8080/api/v1/ShopOwneropenjob";
 
 class ShopOwner_JobPostingsService{
     getJobPostings(){
@@ -12,7 +14,11 @@ class ShopOwner_JobPostingsService{
     }
 
     getJobPostingsByShopUserName(ShopUserName) {
-        return axios.get(`http://localhost:8080/api/v1/ItemByShopUsername/${ShopUserName}`);
+        return axios.get(`http://localhost:8080/api/v1/getJobsDetailsofShopOwner/${ShopUserName}`);
+    }
+
+    getJobCandidates(ShopUserName) {
+        return axios.get(`http://localhost:8080/api/v1/ShopOwnerJobCandidates/${ShopUserName}`);
     }
 
     getJobPostingsById(jobPostingsId){
@@ -24,6 +30,19 @@ class ShopOwner_JobPostingsService{
         return axios.put(JOB_POSTINGS_API_BASE_URL +'/' + jobPostings.id, jobPostings);
 
     }
+
+    closeJobPostings(jobPostings) {
+        return axios.get(ShopOwnerclosejob +'/' + jobPostings.id, jobPostings);
+    }
+
+    reopenJobPostings(jobPostings) {
+        return axios.get(ShopOwneropenjob +'/' + jobPostings.id, jobPostings);
+    }
+
+    
+    
+    
+    
 
     deleteJobPostings(jobPostingsId){
         return axios.delete(JOB_POSTINGS_API_BASE_URL +'/' + jobPostingsId);

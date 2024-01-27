@@ -13,6 +13,16 @@ class OrderService{
 
     }
 
+    getCompletedOrders(ShopUserName){
+        return axios.get(`http://localhost:8080/api/v1/getCompletedOrders/${ShopUserName}`);
+
+    }
+
+    getCompletedOrderItems(ShopUserName, orderId){
+        return axios.get(`http://localhost:8080/api/v1/getCompletedOrderItems/${ShopUserName}/${orderId}`);
+
+    }
+
 
     createOrders(order){
         return axios.post(ORDER_API_BASE_URL, order);

@@ -27,19 +27,48 @@ const JobListing = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [candidates, setCandidates] = useState([])
+  const [initialCandidates, setInitialCandidates] = useState([]);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
 
   useEffect(() => {
-    // Fetch job listings when the component mounts
-    ShopOwner_JobPostingsService.getJobPostings().then((res) => {
-      setJobs(res.data);
-    });
-  }, []);
+    const fetchJobListings = async () => {
+      try {
+        const response = await ShopOwner_JobPostingsService.getJobPostingsByShopUserName(user);
+        setJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching job listings:', error);
+      }
+    };
+  
+    fetchJobListings();
+  }, [user, selectedJob]);
 
   const deleteJob = (id) => {
     // Delete a job and update the state
     ShopOwner_JobPostingsService.deleteJobPostings(id).then((res) => {
       setJobs(jobs.filter((job) => job.id !== id));
     });
+  };
+
+  
+
+  const fetchCandidates = (jobId) => {
+    // Fetch candidates for the selected job by jobId
+    ShopOwner_JobPostingsService.getJobCandidates(jobId)
+      .then((response) => {
+        const jobCandidates = response.data;
+        setCandidates(jobCandidates || []);
+
+        // Save the initial candidates in the state
+        setInitialCandidates((prevCandidates) => ({
+          ...prevCandidates,
+          [jobId]: jobCandidates,
+        }));
+      })
+      .catch((error) => {
+        console.error('Error fetching candidates:', error);
+      });
   };
 
   const createJob = () => {
@@ -55,7 +84,16 @@ const JobListing = () => {
     // Set the selected job and open the modal
     setSelectedJob(job);
     setIsModalOpen(true);
+    fetchCandidates(job.id);
+    
   };
+
+  const viewCandidateDetails = (candidate) => {
+    // Set the selected candidate for display
+    setSelectedCandidate(candidate);
+  };
+
+  
 
   const closeModal = () => {
     // Close the modal and reset the selected job
@@ -115,6 +153,9 @@ const JobListing = () => {
           <TableHead>
             <TableRow>
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Job Id
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Job Title
               </TableCell>
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
@@ -122,6 +163,9 @@ const JobListing = () => {
               </TableCell>
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Application Deadline
+              </TableCell>
+              <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
+                Application Posting Date
               </TableCell>
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Application Status
@@ -135,9 +179,11 @@ const JobListing = () => {
                 className="TableRow"
                 onClick={() => handleRowClick(job)}
               >
+                <TableCell>{job.id}</TableCell>
                 <TableCell>{job.jobTitle}</TableCell>
                 <TableCell>{job.description}</TableCell>
                 <TableCell>{formatDate(job.applicationDeadline)}</TableCell>
+                <TableCell>{formatDate(job.applicationPostingDate)}</TableCell>
                 <TableCell>{job.applicationStatus}</TableCell>
               </TableRow>
             ))}
@@ -154,7 +200,7 @@ const JobListing = () => {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
           },
           content: {
-            width: '400px',
+            width: '600px',
             margin: 'auto',
             padding: '20px',
             borderRadius: '8px',
@@ -168,15 +214,50 @@ const JobListing = () => {
           <p>Description: {selectedJob?.description}</p>
           
           <p>Application Deadline: {formatDate(selectedJob?.applicationDeadline)}</p>
+          <p>Application Posting Date: {formatDate(selectedJob?.applicationPostingDate)}</p>
+
           
           <p>Application Status: {selectedJob?.applicationStatus}</p>
+          <div style={{ marginBottom: '40px' }}></div>
+          
+
+
+ {/* Display candidates */}
+ {candidates.length > 0 && (
+            <div>
+              <p>Candidates:</p>
+              <div style={{ marginBottom: '20px' }}></div>
+              <ul>
+                {candidates.map((candidate) => (
+                  <li
+                    key={candidate.id}
+                    onClick={() => viewCandidateDetails(candidate)}
+                  >
+                    <div style={{ marginBottom: '20px' }}></div>
+                    <p>Name: {candidate.name}</p>
+                    <p>Email: {candidate.email}</p>
+                    <p>Address: {candidate.address}</p>
+                    <p>Phone: {candidate.phone}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div style={{ marginBottom: '20px' }}></div>
 
           <div className="button-container">
             <button style={{ marginRight: '10px' }} onClick={handleUpdate}>
               Update
             </button>
+            
             <button onClick={deleteModal}>Delete</button>
+
+            
           </div>
+
+          
+
+         
         </div>
       </Modal>
     </div>

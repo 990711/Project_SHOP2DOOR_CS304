@@ -23,7 +23,7 @@ const InventoryTracking = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    ShopOwner_ProductService.getProducts().then((res) => {
+    ShopOwner_ProductService.getProductByShopUserName(user).then((res) => {
       setProducts(res.data);
     });
   }, []);
