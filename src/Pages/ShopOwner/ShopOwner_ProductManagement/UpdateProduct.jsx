@@ -15,7 +15,7 @@ const UpdateProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState({
       name: '',
-      image: '',
+      //image: '',
       brand: '',
       description: '',
       category: '',
@@ -31,7 +31,7 @@ const UpdateProduct = () => {
           setProduct((prevProduct) => ({
             ...prevProduct,
             name: productData.name || '',
-            image: productData.image || '',
+           // image: productData.image || '',
             brand: productData.brand || '',
             description: productData.description || '',
             category: productData.category || '',
@@ -60,7 +60,7 @@ const UpdateProduct = () => {
         let updatedProduct = {
             id:id,
             name: product.name,
-            image: product.image,
+           // image: product.image,
             brand: product.brand,
             description: product.description,
             category: product.category,
@@ -109,10 +109,11 @@ const UpdateProduct = () => {
       setProduct({ ...product, discountPercentage: event.target.value });
     };
 */
-
+/*
     const changeImageHandler = (event) => {
       setProduct({ ...product, image: event.target.value });
     };
+    */
 
     const changeDiscountPercentageHandler = (event) => {
       const inputDiscountPercentage = event.target.value;
@@ -152,7 +153,7 @@ const UpdateProduct = () => {
                         value={product.name}
                         onChange={changeNameHandler}
                       />
-
+{/*
                     <label>Image</label>
                     <input
                       placeholder='Image'
@@ -160,6 +161,7 @@ const UpdateProduct = () => {
                       value={product.image}
                       onChange={changeImageHandler}
                     />
+    */}
 
                     <label>Brand</label>
                     <input

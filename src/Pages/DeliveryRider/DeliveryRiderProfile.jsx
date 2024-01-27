@@ -59,6 +59,28 @@ const DeliveryRiderProfile = () => {
     navigate(`/deliveryrider_mainlayout/updatedeliveryriderprofile/${deliveryRider.username}`, { state: { user } });
   };
 
+  const deleteProfile = () => {
+    // Display a confirmation dialog
+    const isConfirmed = window.confirm('Are you sure you want to delete your profile?');
+  
+    if (isConfirmed) {
+      // User confirmed, proceed with deletion
+      loginService.deleteUser(user)
+        .then(() => {
+          // If deletion is successful, navigate to the login page
+          navigate('/login');
+        })
+        .catch(error => {
+          console.error('Error deleting profile:', error);
+  
+          // Handle the error, you might want to show an error message to the user
+        });
+    } else {
+      // User canceled, do nothing
+      console.log('Deletion canceled by the user');
+    }
+  };
+
   return (
     <div style={{ padding: '20px' }}>
       <Paper elevation={3} style={{ padding: '20px' }}>
@@ -105,7 +127,10 @@ const DeliveryRiderProfile = () => {
 
         <div className="button-container">
           <button onClick={updateProfile}>Update Profile</button>
-        </div>
+        
+          <button onClick={deleteProfile}>Delete Profile</button>
+
+</div>
       </Paper>
     </div>
   );
