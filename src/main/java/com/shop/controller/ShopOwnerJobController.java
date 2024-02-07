@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.exception.ResourceNotFound;
+import com.shop.model.Customer;
 import com.shop.model.ShopOwnerJob;
 import com.shop.repositary.ShopOwnerJobRepo;
 
@@ -90,9 +93,19 @@ public class ShopOwnerJobController {
 		return ResponseEntity.ok(response);
 	}
 
+	// get job details using job id
 	@GetMapping("/ShopOwnerJob/{id}")
 	public List<ShopOwnerJob> getJobsByShopId(@PathVariable Long id) {
 		return shopOwner_jobPostingsRepository.getJobsByShopId(id);
+	}
+
+	// get job candidates using job id
+	@GetMapping("/ShopOwnerJobCandidates/{id}")
+	public ResponseEntity<Set<Customer>> getJobCandidatesByJobId(@PathVariable Long id) {
+		ShopOwnerJob job = shopOwner_jobPostingsRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFound(id + " not found!"));
+		Set<Customer> candidates = job.getCandidate();
+		return new ResponseEntity<Set<Customer>>(candidates, HttpStatus.OK);
 	}
 
 }
