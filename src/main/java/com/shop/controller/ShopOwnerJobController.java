@@ -55,7 +55,7 @@ public class ShopOwnerJobController {
 		ShopOwnerJob shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
 
-		if (jobPostingsDetails.getApplicationStatus().equals("open")) {
+		if (jobPostingsDetails.getApplicationStatus().equals("open") || jobPostingsDetails.getApplicationStatus().equals("reopen")){			
 			shopowner_jobpostings.setJobTitle(jobPostingsDetails.getJobTitle());
 			shopowner_jobpostings.setDescription(jobPostingsDetails.getDescription());
 			shopowner_jobpostings.setApplicationDeadline(jobPostingsDetails.getApplicationDeadline());

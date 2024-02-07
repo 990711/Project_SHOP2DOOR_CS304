@@ -55,8 +55,8 @@ public class OrderController {
 	}
 	
 	@GetMapping("order/checkstatus/{orderID}")
-	public ResponseEntity<Order> getOrderCheckStatus(@PathVariable long order) {
-		Order theOrder = repo.findById(order).orElseThrow(() -> new ResourceNotFound("order not found " + order));
+	public ResponseEntity<Order> getOrderCheckStatus(@PathVariable long orderID) {
+		Order theOrder = repo.findById(orderID).orElseThrow(() -> new ResourceNotFound("order not found " + orderID));
 		if(theOrder.getAction().equals("Confirmed and waiting for a rider")) {
 			theOrder.setAction("Order canceled");
 			theOrder = repo.save(theOrder);
