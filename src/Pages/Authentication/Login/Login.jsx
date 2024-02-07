@@ -1,6 +1,9 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import loginService from "../../../Services/loginService";
 //import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../Customer/UserContext';
+import OrderService from "../../../Services/OrderService";
+
 import {
     Drawer,
     Toolbar,
@@ -29,7 +32,7 @@ import {
 
     const [open, setOpen] = useState(true); // Set the initial state to true to open the drawer.
 
-
+    const { dispatch } = useUser();
 
 
     useEffect(() => {
@@ -63,20 +66,28 @@ import {
             //const accessToken = response?.data?.accessToken;
             console.log({ user, pwd, role});
 
-            console.log(response?.data.username);
+            console.log(response?.data.user);
             console.log(response?.data);
-            console.log({user}); 
+            console.log(response?.data.user.username); 
 
             /*
             setUser('');
             setPwd('');
             setSuccess(true);
            */
-            setUser(response?.data.username); // Assuming response.data contains user information
+            setUser(response?.data.user.username); // Assuming response.data contains user information
 
 
             switch (role) {
                 case "Customer":
+                    // Dispatch the login action
+                    try {
+                        const orderResponse = await OrderService.createNewOrder(response?.data.user.username);
+                        console.log(orderResponse?.data);
+                        dispatch({ type: 'LOGIN', payload: { userID: response?.data.user.user_id, username: response?.data.user.username, CustomerOrderID: orderResponse?.data.order_id } });
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }    
                     navigate("/customermainlayout");
                     break;
                 case "Shop Owner":
