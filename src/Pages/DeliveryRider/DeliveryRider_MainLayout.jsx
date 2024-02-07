@@ -30,7 +30,7 @@ const DeliveryRider_MainLayout = () => {
   const location = useLocation();
   const user = location.state?.user;
   const navigate = useNavigate();
-  const [leftOpen, setLeftOpen] = useState(true);
+  const [Open, setOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(true);
   const [leftOpenItems, setLeftOpenItems] = useState([]);
   const [rightOpenItems, setRightOpenItems] = useState([]);
@@ -38,11 +38,11 @@ const DeliveryRider_MainLayout = () => {
   // Add any specific state for the delivery rider layout here
 
   const handleLeftDrawerOpen = () => {
-    setLeftOpen(true);
+    setOpen(true);
   };
 
   const handleLeftDrawerClose = () => {
-    setLeftOpen(false);
+    setOpen(false);
   };
 
   const handleRightDrawerOpen = () => {
@@ -92,9 +92,9 @@ const DeliveryRider_MainLayout = () => {
       <Drawer
         variant="persistent"
         anchor="left"
-        open={leftOpen}
+        open={Open}
         sx={{
-          width: 240,
+          width: 20,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: 220,
@@ -112,7 +112,7 @@ const DeliveryRider_MainLayout = () => {
         {/* List of items in the left sidebar */}
         <List>
           {[
-            { text: 'Dashboard', icon: <DashboardIcon />},
+            { text: 'Dashboard', icon: <DashboardIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_Dashboard' },
             { text: 'Pending Deliveries', icon: <PendingDeliveriesIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_pending_deliveries' },
             { text: 'Completed Deliveries', icon: <CompletedDeliveriesIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_completed_deliveries' },
             { text: 'Accepted Deliveries', icon: <AcceptedDeliveriesIcon />, route: '/deliveryrider_mainlayout/DeliveryRider_accepted_deliveries' },
@@ -172,7 +172,7 @@ const DeliveryRider_MainLayout = () => {
       </Drawer>
 
       {/* Content */}
-      <div style={{ flexGrow: 1, padding: '10px 1px 1px', marginLeft: leftOpen ? -30 : 0 }}>
+      <div style={{ flexGrow: 1, padding: '10px 1px 1px', marginLeft: Open ? -30 : 0, marginRight: open ? 80 : 0 }}>  
         <div style={{ overflowY: 'auto', height: '100vh' }}>
           <Outlet />
         </div>

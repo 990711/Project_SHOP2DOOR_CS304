@@ -97,7 +97,7 @@ import {
                     navigate("");
                     break;
                 case "Delivery Rider":
-                    navigate("/deliveryrider_mainlayout", { state: { user } });
+                    navigate("/deliveryrider_mainlayout/deliveryrider_dashboard", { state: { user } });
                     break;
                 case "Restaurant Owner":
                     navigate("");

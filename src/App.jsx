@@ -59,6 +59,7 @@ import DeliveryRider_pending_deliveries from "./Pages/DeliveryRider/DeliveryRide
 import CustomerJobs from "./Pages/Customer/CustomerJobs.jsx";
 import CustomerJobTabView from "./Pages/Customer/CustomerJobTabView.jsx";
 
+
 //import loginService from "../../Services/loginService";
 
 function App() {
