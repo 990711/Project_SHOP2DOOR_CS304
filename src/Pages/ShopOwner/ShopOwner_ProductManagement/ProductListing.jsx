@@ -135,9 +135,11 @@ const ProductListing = () => {
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Name
               </TableCell>
+              {/*
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Image
               </TableCell>
+  */}
               <TableCell className="TableCell" style={{ fontWeight: 'bold' }}>
                 Brand
               </TableCell>
@@ -170,7 +172,7 @@ const ProductListing = () => {
                 }}
               >
                 <TableCell>{product.name}</TableCell>
-                <TableCell>{product.image}</TableCell>
+                {/*<TableCell>{product.image}</TableCell>*/}
                 <TableCell>{product.brand}</TableCell>
                 <TableCell>{product.description}</TableCell>
                 <TableCell>{product.category}</TableCell>
