@@ -212,7 +212,7 @@ const ProductListing = () => {
             <button style={{ marginRight: '10px' }} onClick={handleUpdate}>
               Update
             </button>
-            {/* <button onClick={deleteModal}>Delete</button> */}
+            <button onClick={deleteModal}>Delete</button>
           </div>
         </div>
       </Modal>

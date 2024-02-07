@@ -59,6 +59,9 @@ import DeliveryRider_accepted_deliveries from './Pages/DeliveryRider/DeliveryRid
 import DeliveryRider_completed_deliveries from './Pages/DeliveryRider/DeliveryRider_completed_deliveries';
 import DeliveryRider_pending_deliveries from './Pages/DeliveryRider/DeliveryRider_pending_deliveries';
 
+import CustomerJobs from "./Pages/Customer/CustomerJobs.jsx";
+import CustomerJobTabView from "./Pages/Customer/CustomerJobTabView.jsx";
+
 
 
 

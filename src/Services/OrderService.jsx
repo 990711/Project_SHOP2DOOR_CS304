@@ -8,6 +8,12 @@ class OrderService {
       `http://localhost:8080/api/v1/getPendingOrders/${ShopUserName}`
     );
   }
+
+  getCompletedOrders(ShopUserName) {
+    return axios.get(
+      `http://localhost:8080/api/v1/getCompletedOrders/${ShopUserName}`
+    );
+  }
   getAllOrders() {
     return axios.get(ORDER_API_BASE_URL);
   }
@@ -19,6 +25,19 @@ class OrderService {
   getCompletedOrderItems(ShopUserName, orderId) {
     return axios.get(
       `http://localhost:8080/api/v1/getCompletedOrderItems/${ShopUserName}/${orderId}`
+    );
+  }
+
+  getCheckStatus(orderId) {
+    return axios.get(
+      `http://localhost:8080/api/v1/order/checkstatus/${orderId}`
+    );
+  }
+
+
+  getPendingOrderItems(ShopUserName, orderId) {
+    return axios.get(
+      `http://localhost:8080/api/v1/getPendingOrderItems/${ShopUserName}/${orderId}`
     );
   }
 

@@ -14,6 +14,8 @@ class ShopOwner_ProductService{
         return axios.put(`http://localhost:8080/api/v1/ShopOwnerItem/${ShopUserName}`,product);
     }
 
+    
+
 
     getShopOwners(){
         return axios.put(`http://localhost:8080/api/v1/ShopOwnerDetails`);
@@ -35,7 +37,7 @@ class ShopOwner_ProductService{
     }
 
     deleteProduct(productId){
-        return axios.delete(PRODUCT_API_BASE_URL +'/' + productId);
+        return axios.delete(`http://localhost:8080/api/v1/deleteItem/${productId}`);
 
     }
 

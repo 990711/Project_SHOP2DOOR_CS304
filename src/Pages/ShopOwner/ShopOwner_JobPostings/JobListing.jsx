@@ -250,7 +250,7 @@ const JobListing = () => {
               Update
             </button>
             
-            <button onClick={deleteModal}>Delete</button>
+            {/*<button onClick={deleteModal}>Delete</button>*/}
 
             
           </div>

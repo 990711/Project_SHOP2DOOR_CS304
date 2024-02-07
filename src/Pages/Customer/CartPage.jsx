@@ -121,7 +121,7 @@ const CartPage = () => {
       const response = await Promise.race([
         responsePromise,
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Timeout")), 10000)
+          setTimeout(() => reject(new Error("Timeout")), 100000)
         ),
       ]);
       console.log(response?.data);
@@ -129,7 +129,7 @@ const CartPage = () => {
 
       setTimeout(() => {
         updateOrderStatus();
-      }, 10000);
+      }, 100000);
 
     } catch (error) {
       console.error("Error confirming order:", error);
