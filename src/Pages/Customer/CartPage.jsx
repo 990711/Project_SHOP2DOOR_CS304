@@ -63,6 +63,16 @@ const CartPage = () => {
     }
   };
 
+  const checkOrderStatus = async (orderID) => {
+    try {
+      const response = await OrderService.checkOrderStatus(orderID);
+      setOrderStatus(response?.data.action);
+      console.log(response?.data);
+    } catch (error) {
+      console.log("Error checking order status:", error);   
+    }
+  }
+
   const updateCartItemQuantityIncrease = async (itemId) => {
     // Implement logic to increase the quantity of a specific item in the cart
     console.log(`Increased quantity of item ${itemId}`);
@@ -128,8 +138,9 @@ const CartPage = () => {
       setOrderStatus(response?.data.action);
 
       setTimeout(() => {
-        updateOrderStatus();
-      }, 100000);
+        checkOrderStatus(state.CustomerOrderID);
+      }, 10000);
+
 
     } catch (error) {
       console.error("Error confirming order:", error);
@@ -197,7 +208,7 @@ const CartPage = () => {
             </div>
           </div>
         )}
-        {orderStatus === "Order failed" && (
+        {orderStatus === "Order canceled" && (
           <div className="order-status">
             <h2>Status</h2>
             <div className="waiting-panel-show">

@@ -1,5 +1,5 @@
 // UserContext.js
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from "react";
 
 const initialState = {
   userID: null,
@@ -11,16 +11,16 @@ const UserContext = createContext();
 
 const userReducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case "LOGIN":
       return {
         ...state,
         userID: action.payload.userID,
         username: action.payload.username,
         CustomerOrderID: action.payload.CustomerOrderID,
       };
-    case 'LOGOUT':
+    case "LOGOUT":
       return initialState;
-    case 'ADD_ORDER_ID':
+    case "ADD_ORDER_ID":
       return {
         ...state,
         CustomerOrderID: action.payload.CustomerOrderID,
@@ -43,7 +43,7 @@ const UserProvider = ({ children }) => {
 const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error("useUser must be used within a UserProvider");
   }
   return context;
 };

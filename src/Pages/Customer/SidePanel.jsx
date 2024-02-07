@@ -11,6 +11,7 @@ import {
   faUser,
   faShoppingCart,
   faSignOutAlt,
+  faSuitcase,
 } from "@fortawesome/free-solid-svg-icons";
 
 const SidePanel = () => {
@@ -51,7 +52,14 @@ const SidePanel = () => {
       <Link to="#" className={location.pathname === "/" ? "active" : ""}>
         <FontAwesomeIcon icon={faClipboardList} className="fa-icon" /> Orders
       </Link>
-
+      <Link
+        to="/customermainlayout/jobs"
+        className={
+          location.pathname === "/customermainlayout/jobs" ? "active" : ""
+        }
+      >
+        <FontAwesomeIcon icon={faSuitcase} className="fa-icon" /> Jobs
+      </Link>
       <Link to="#" className={location.pathname === "/" ? "active" : ""}>
         <FontAwesomeIcon icon={faEnvelope} className="fa-icon" /> Message
       </Link>

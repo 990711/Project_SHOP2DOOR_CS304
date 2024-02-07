@@ -9,6 +9,7 @@ class OrderService {
     );
   }
 
+
   getCompletedOrders(ShopUserName) {
     return axios.get(
       `http://localhost:8080/api/v1/getCompletedOrders/${ShopUserName}`
@@ -68,6 +69,10 @@ class OrderService {
 
   confirmOrder(orderId) {
     return axios.put(ORDER_API_BASE_URL + "Confirm/" + orderId);
+  }
+
+  checkOrderStatus(orderID) {
+    return axios.get(ORDER_API_BASE_URL + "/checkstatus/" + orderID);
   }
 }
 export default new OrderService();
