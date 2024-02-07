@@ -60,6 +60,17 @@ public class Item {
 	// @NotBlank(message = "this column must be filled!")
 	@Column(name = "category")
 	private String category;
+	
+	@Column(name = "deleted")
+	private boolean deleted=false;
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	@JsonIgnore // without this, all items can be obtained with shop owner details.
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -78,7 +89,7 @@ public class Item {
 
 	public Item(@NotBlank(message = "this column must be filled!") String name, float price,
 			@NotBlank(message = "this column must be filled!") String brand, String description,
-			float discount_percentage, int quantity, String image, String category, ShopOwner shopOwner) {
+			float discount_percentage, int quantity, String image, String category, ShopOwner shopOwner,boolean deleted) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -89,6 +100,7 @@ public class Item {
 		this.image = image;
 		this.category = category;
 		this.shopOwner = shopOwner;
+		this.deleted = deleted;
 	}
 
 	public String getImage() {

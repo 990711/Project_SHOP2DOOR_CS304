@@ -53,7 +53,17 @@ public class OrderController {
 	public List<Order> getOrders() {
 		return repo.findAll();
 	}
-
+	
+	@GetMapping("order/checkstatus/{orderID}")
+	public ResponseEntity<Order> getOrderCheckStatus(@PathVariable long orderID) {
+		Order theOrder = repo.findById(orderID).orElseThrow(() -> new ResourceNotFound("order not found " + orderID));
+		if(theOrder.getAction().equals("Confirmed and waiting for a rider")) {
+			theOrder.setAction("Order canceled");
+			theOrder = repo.save(theOrder);
+		}
+		return new ResponseEntity<Order>(theOrder, HttpStatus.CREATED);
+	}
+	
 	/*@PostMapping("order/{username}")
 	public ResponseEntity<Order> createOrder(@PathVariable String username, @RequestBody Order newOrder) {
 

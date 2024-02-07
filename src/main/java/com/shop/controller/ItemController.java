@@ -38,7 +38,14 @@ public class ItemController {
 	
 	@GetMapping("/Item")
     public List<Item> getAllItems() {
-        return itemRepo.findAll();
+        List<Item> itemList = itemRepo.findAll();
+        List<Item> newList = new ArrayList<>();;
+        for(Item item:itemList) {
+        	if(!item.isDeleted()) {
+        		newList.add(item);
+        	}
+        }
+        return newList;
     }
 	
 
@@ -75,32 +82,53 @@ public class ItemController {
 	    }
 	 
 	 @DeleteMapping("/deleteItem/{id}")
-	    public ResponseEntity<Map<String, Boolean>> deleteItem(@PathVariable Long id) {
+	    public ResponseEntity<String> deleteItem(@PathVariable Long id) {
 		 Item item = itemRepo.findById(id)
 	                .orElseThrow(() -> new ResourceNotFound("Item not found with id: " + id));
 		 
-	        itemRepo.delete(item);
-	        Map<String, Boolean> response = new HashMap<>();
-	        response.put("deleted", Boolean.TRUE);
-	        return ResponseEntity.ok(response);
+		 item.setDeleted(true);
+		 itemRepo.save(item);
+		 String msg = "Item successfully deleted!";
+		 return ResponseEntity.ok(msg);
 	    }
 	 
 	 
 	 @GetMapping("/ItemByCategory/{category}")
 	 public List<Item> getItemByCategory(@PathVariable String category){
-		 return itemRepo.findAllByCategory(category);
+		 List<Item> itemList =  itemRepo.findAllByCategory(category);
+	        List<Item> newList = new ArrayList<>();;
+	        for(Item item:itemList) {
+	        	if(!item.isDeleted()) {
+	        		newList.add(item);
+	        	}
+	        }
+	        return newList;
 	 }
 	 
 	 @GetMapping("/ItemByShopId/{id}")
 	 public List<Item> getItemByShopId(@PathVariable Long id){
-		 return itemRepo.getItemsByShopId(id);
+		 List<Item> itemList =  itemRepo.getItemsByShopId(id);
+		 List<Item> newList = new ArrayList<>();;
+	        for(Item item:itemList) {
+	        	if(!item.isDeleted()) {
+	        		newList.add(item);
+	        	}
+	        }
+	        return newList;
 	 }
 	 
 	 @GetMapping("/ItemByShopUsername/{username}")
 	 public List<Item> getItemByShop(@PathVariable String username){
 		 Long id = loginRepo.getShopIdByUsername(username);
 		 
-		 return itemRepo.getItemsByShopId(id);
+		 List<Item> itemList =  itemRepo.getItemsByShopId(id);
+		 List<Item> newList = new ArrayList<>();;
+	        for(Item item:itemList) {
+	        	if(!item.isDeleted()) {
+	        		newList.add(item);
+	        	}
+	        }
+	        return newList;
 	 }
 	 
 	 @GetMapping("ItemPrice/{id}")
