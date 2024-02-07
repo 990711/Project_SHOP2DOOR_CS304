@@ -58,7 +58,7 @@ public class ShopOwnerJobController {
 		ShopOwnerJob shopowner_jobpostings = shopOwner_jobPostingsRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFound("Job Posting not found with id: " + id));
 
-		if (jobPostingsDetails.getApplicationStatus().equals("open")) {
+		if (jobPostingsDetails.getApplicationStatus().equals("open") || jobPostingsDetails.getApplicationStatus().equals("reopen")) {
 			shopowner_jobpostings.setJobTitle(jobPostingsDetails.getJobTitle());
 			shopowner_jobpostings.setDescription(jobPostingsDetails.getDescription());
 			shopowner_jobpostings.setApplicationDeadline(jobPostingsDetails.getApplicationDeadline());
@@ -102,11 +102,10 @@ public class ShopOwnerJobController {
 	// get job candidates using job id
 	@GetMapping("/ShopOwnerJobCandidates/{id}")
 	public ResponseEntity<Set<Customer>> getJobCandidatesByJobId(@PathVariable Long id) {
-		
-		ShopOwnerJob job =  shopOwner_jobPostingsRepository.findById(id).orElseThrow(() -> new ResourceNotFound(id + " not found!"));
-		Set<Customer> candidates =  job.getCandidate();
-		
-		return new ResponseEntity<Set<Customer>>(candidates,HttpStatus.OK);
+		ShopOwnerJob job = shopOwner_jobPostingsRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFound(id + " not found!"));
+		Set<Customer> candidates = job.getCandidate();
+		return new ResponseEntity<Set<Customer>>(candidates, HttpStatus.OK);
 	}
 
 }
