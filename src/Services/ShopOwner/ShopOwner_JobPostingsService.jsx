@@ -67,17 +67,7 @@ class ShopOwner_JobPostingsService {
 
     deleteJobPostings(jobPostingsId){
         return axios.delete(JOB_POSTINGS_API_BASE_URL +'/' + jobPostingsId);
-
-  getcustomerViewOpenJobs() {
-    return axios.get(ACTIVE_JOBS);
-  }
-  getcustomerAppliedJobs(username) {
-    return axios.get(`http://localhost:8080/api/v1/AppliedJobs/${username}`);
-  }
-  postcustomerApplyJob(username, jobid) {
-    return axios.post(
-      `http://localhost:8080/api/v1/CustomerAddJob/${username}/${jobid}`
-    );
+   
   }
 
 
