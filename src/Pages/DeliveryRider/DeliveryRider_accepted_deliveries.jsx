@@ -181,7 +181,7 @@ const DeliveryRider_accepted_deliveries = () => {
               <button onClick={openShopDetailsModal}>Shop Details</button>
             </div>
             <div>
-              <button onClick={openOrderCompletedModal}>Order Completed</button>
+              <button onClick={openOrderCompletedModal}>Complete Order</button>
             </div>
           </div>
         );
